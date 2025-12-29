@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Globe } from "./globe";
 
@@ -55,7 +55,7 @@ export function HeroSection() {
       </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <ChevronDown className="w-6 h-6 text-accent" />
+        <ChevronDownIcon className="w-6 h-6 text-accent" strokeWidth={1} />
       </div>
     </section>
   );

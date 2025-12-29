@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, QuoteIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -61,7 +61,7 @@ export function Testimonials() {
 
         <div className="relative bg-background rounded-sm p-8 md:p-12 border border-border">
           <div className="min-h-48 flex flex-col justify-center">
-            <Quote className="w-8 h-8 text-accent-foreground mb-4 opacity-50" />
+            <QuoteIcon className="w-8 h-8 text-accent-foreground mb-4 opacity-50" strokeWidth={1} />
             <blockquote className="text-xl md:text-2xl font-mono mb-6 text-primary leading-relaxed">
               "{testimonials[current].quote}"
             </blockquote>
@@ -82,9 +82,10 @@ export function Testimonials() {
 
           <div className="flex items-center justify-between mt-8">
             <div className="flex gap-2">
-              {testimonials.map((_, index) => (
+              {testimonials.map((testimonial, index) => (
                 <button
-                  key={index}
+                  key={`${index}-${testimonial.author}`}
+                  type="button"
                   onClick={() => {
                     setCurrent(index);
                     setAutoPlay(false);
@@ -100,14 +101,14 @@ export function Testimonials() {
                 variant="outline"
                 className="p-2 hover:bg-border rounded-sm transition-colors"
               >
-                <ChevronLeft size={20} />
+                <ChevronLeftIcon size={20} strokeWidth={1} />
               </Button>
               <Button
                 onClick={next}
                 variant="outline"
                 className="p-2 hover:bg-border rounded-sm transition-colors"
               >
-                <ChevronRight size={20} />
+                <ChevronRightIcon size={20} strokeWidth={1} />
               </Button>
             </div>
           </div>

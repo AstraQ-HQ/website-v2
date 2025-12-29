@@ -1,6 +1,6 @@
 "use client";
 
-import { Brain, CheckCircle, Shield, Zap } from "lucide-react";
+import { BrainIcon, CheckCircleIcon, ShieldIcon, ZapIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { cn } from "@/lib/utils";
@@ -17,7 +17,7 @@ const products = [
       "ML-powered detection",
       "Zero false positives",
     ],
-    icon: Brain,
+    icon: BrainIcon,
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const products = [
     description:
       "Centralized dashboard for monitoring all security events, incidents, and responses across your entire infrastructure.",
     features: ["24/7 monitoring", "Incident tracking", "Automated response"],
-    icon: Shield,
+    icon: ShieldIcon,
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const products = [
     description:
       "Professional penetration testing services to identify and remediate vulnerabilities before attackers can exploit them.",
     features: ["Expert testing", "Detailed reports", "Remediation guidance"],
-    icon: Zap,
+    icon: ZapIcon,
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ const products = [
     description:
       "Automated compliance monitoring and reporting for GDPR, HIPAA, SOC 2, and other industry standards.",
     features: ["Automated audits", "Real-time reports", "Policy management"],
-    icon: CheckCircle,
+    icon: CheckCircleIcon,
   },
 ];
 
@@ -128,7 +128,7 @@ export function FeaturedProducts() {
                         : "bg-border text-muted-foreground",
                     )}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-5 h-5" strokeWidth={1} />
                   </div>
                   <div className="flex-1">
                     <h3
@@ -158,7 +158,7 @@ export function FeaturedProducts() {
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-sm bg-accent/10 flex items-center justify-center shrink-0">
-                <Icon className="w-6 h-6 text-accent-foreground" />
+                <Icon className="w-6 h-6 text-accent-foreground" strokeWidth={1} />
               </div>
               <div className="flex-1">
                 <h3 className="font-mono text-3xl sm:text-4xl text-foreground mb-2">

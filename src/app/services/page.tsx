@@ -1,12 +1,12 @@
 "use client";
 
 import {
-  AlertCircle,
-  BookOpen,
-  Briefcase,
-  Shield,
-  Target,
-  Users,
+  AlertCircleIcon,
+  BookOpenIcon,
+  BriefcaseIcon,
+  ShieldIcon,
+  TargetIcon,
+  UsersIcon,
 } from "lucide-react";
 import { ServiceCard } from "@/app/_components/service-card";
 import { Button } from "@/components/ui/button";
@@ -14,37 +14,37 @@ import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
 const allServices = [
   {
-    icon: Shield,
+    icon: ShieldIcon,
     name: "Security Consulting",
     description:
       "Expert advice on security strategy, architecture, and best practices tailored to your organization.",
   },
   {
-    icon: AlertCircle,
+    icon: AlertCircleIcon,
     name: "Incident Response",
     description:
       "Rapid response to security incidents with expert analysis, containment, and recovery guidance.",
   },
   {
-    icon: BookOpen,
+    icon: BookOpenIcon,
     name: "Security Training",
     description:
       "Comprehensive training programs to educate your team on security practices and threat awareness.",
   },
   {
-    icon: Users,
+    icon: UsersIcon,
     name: "Managed Security",
     description:
       "Outsourced security operations with 24/7 monitoring, threat intelligence, and management.",
   },
   {
-    icon: Briefcase,
+    icon: BriefcaseIcon,
     name: "Risk Assessment",
     description:
       "Comprehensive risk assessments identifying vulnerabilities and providing remediation roadmaps.",
   },
   {
-    icon: Target,
+    icon: TargetIcon,
     name: "Threat Hunting",
     description:
       "Proactive threat hunting to uncover hidden threats and attack infrastructure in your environment.",

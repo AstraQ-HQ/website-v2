@@ -1,6 +1,6 @@
 "use client";
 
-import { Brain, CheckCircle, Lock, Radar, Shield, Zap } from "lucide-react";
+import { BrainIcon, CheckCircleIcon, LockIcon, RadarIcon, ShieldIcon, ZapIcon } from "lucide-react";
 import { useState } from "react";
 import { ProductCard } from "@/app/_components/product-card";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ const allProducts = [
       "Zero false positives",
       "Behavioral analytics",
     ],
-    icon: Brain,
+    icon: BrainIcon,
     category: "Detection",
   },
   {
@@ -34,7 +34,7 @@ const allProducts = [
       "Automated response",
       "Alert correlation",
     ],
-    icon: Shield,
+    icon: ShieldIcon,
     category: "Response",
   },
   {
@@ -49,7 +49,7 @@ const allProducts = [
       "Remediation guidance",
       "Follow-up verification",
     ],
-    icon: Zap,
+    icon: ZapIcon,
     category: "Testing",
   },
   {
@@ -64,7 +64,7 @@ const allProducts = [
       "Policy management",
       "Evidence collection",
     ],
-    icon: CheckCircle,
+    icon: CheckCircleIcon,
     category: "Compliance",
   },
   {
@@ -79,7 +79,7 @@ const allProducts = [
       "Network segmentation",
       "Continuous verification",
     ],
-    icon: Lock,
+    icon: LockIcon,
     category: "Detection",
   },
   {
@@ -94,7 +94,7 @@ const allProducts = [
       "Attack patterns",
       "Expert analysis",
     ],
-    icon: Radar,
+    icon: RadarIcon,
     category: "Compliance",
   },
 ];

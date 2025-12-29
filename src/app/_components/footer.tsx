@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
@@ -147,7 +147,7 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Contact</h3>
             <ul className="space-y-3 text-sm opacity-80">
               <li className="flex items-center gap-2">
-                <Mail size={16} />
+                <MailIcon size={16} strokeWidth={1} />
                 <Link
                   href="mailto:hello@astraq.io"
                   className="hover:text-accent-foreground transition-colors"
@@ -156,7 +156,7 @@ export function Footer() {
                 </Link>
               </li>
               <li className="flex items-center gap-2">
-                <Phone size={16} />
+                <PhoneIcon size={16} strokeWidth={1} />
                 <a
                   href="tel:+14155551234"
                   className="hover:text-accent-foreground transition-colors"
@@ -165,7 +165,7 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <MapPin size={16} />
+                <MapPinIcon size={16} strokeWidth={1} />
                 <span>San Francisco, CA</span>
               </li>
             </ul>

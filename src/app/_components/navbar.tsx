@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { MenuIcon, XIcon } from "lucide-react";
 import type { Route } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -64,7 +64,7 @@ export function NavBar() {
             variant="outline"
             className="md:hidden p-2 text-foreground"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <XIcon size={24} strokeWidth={1} /> : <MenuIcon size={24} strokeWidth={1} />}
           </Button>
         </div>
 

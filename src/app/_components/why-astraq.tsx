@@ -1,15 +1,15 @@
 "use client";
 
-import { Award, Clock, TrendingUp } from "lucide-react";
+import { AwardIcon, ClockIcon, TrendingUpIcon } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
 export function WhyAstraQ() {
   const { ref, isVisible } = useIntersectionObserver();
 
   const stats = [
-    { icon: TrendingUp, value: "99.9%", label: "Threat Detection Rate" },
-    { icon: Clock, value: "<5min", label: "Response Time" },
-    { icon: Award, value: "500+", label: "Enterprise Clients" },
+    { icon: TrendingUpIcon, value: "99.9%", label: "Threat Detection Rate" },
+    { icon: ClockIcon, value: "<5min", label: "Response Time" },
+    { icon: AwardIcon, value: "500+", label: "Enterprise Clients" },
   ];
 
   return (
@@ -43,7 +43,7 @@ export function WhyAstraQ() {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <div className="w-14 h-14 bg-accent/10 rounded-sm flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-7 h-7 text-accent-foreground" />
+                  <Icon className="w-7 h-7 text-accent-foreground" strokeWidth={1} />
                 </div>
                 <p className="font-mono text-4xl text-primary mb-2">
                   {stat.value}
@@ -74,12 +74,14 @@ export function WhyAstraQ() {
           ].map((item, index) => (
             <div
               key={item.title}
-              className={`p-8 border border-border rounded-sm bg-card transition-all duration-700 hover:shadow-lg hover:border-accent ${
+              className={`p-8 border border-border rounded-sm bg-card hover:shadow-lg hover:border-accent ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
               }`}
-              style={{ transitionDelay: `${(index + 3) * 150}ms` }}
+              style={{
+                transition: `opacity 700ms ${(index + 3) * 150}ms, transform 700ms ${(index + 3) * 150}ms, box-shadow 300ms, border-color 300ms`,
+              }}
             >
               <h3 className="font-mono text-xl text-primary mb-2">
                 {item.title}

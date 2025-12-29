@@ -1,31 +1,31 @@
 "use client";
 
-import { AlertCircle, BookOpen, Shield, Users } from "lucide-react";
+import { AlertCircleIcon, BookOpenIcon, ShieldIcon, UsersIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { cn } from "@/lib/utils";
 
 const services = [
   {
-    icon: Shield,
+    icon: ShieldIcon,
     name: "Security Consulting",
     description:
       "Expert advice on security strategy, architecture, and best practices tailored to your organization's unique needs and risk profile.",
   },
   {
-    icon: AlertCircle,
+    icon: AlertCircleIcon,
     name: "Incident Response",
     description:
       "Rapid response to security incidents with expert analysis, containment, and recovery guidance to minimize damage and restore operations.",
   },
   {
-    icon: BookOpen,
+    icon: BookOpenIcon,
     name: "Security Training",
     description:
       "Comprehensive training programs to educate your team on security practices, threat awareness, and compliance requirements.",
   },
   {
-    icon: Users,
+    icon: UsersIcon,
     name: "Managed Security",
     description:
       "Outsourced security operations with 24/7 monitoring, threat intelligence, and proactive security management and support.",
@@ -111,7 +111,7 @@ export function FeaturedServices() {
                         : "bg-border text-muted-foreground",
                     )}
                   >
-                    <ServiceIcon className="w-5 h-5" />
+                    <ServiceIcon className="w-5 h-5" strokeWidth={1} />
                   </div>
                   <div className="flex-1">
                     <h3
@@ -131,7 +131,7 @@ export function FeaturedServices() {
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-sm bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-6 h-6 text-accent-foreground" />
+                <Icon className="w-6 h-6 text-accent-foreground" strokeWidth={1} />
               </div>
               <div className="flex-1">
                 <h3 className="font-mono text-3xl sm:text-4xl text-foreground">

@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Search } from "lucide-react";
+import { CalendarIcon, SearchIcon } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
@@ -104,9 +104,10 @@ export default function BlogPage() {
       <section className="py-8 px-4 sm:px-6 lg:px-8 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 relative">
-            <Search
+            <SearchIcon
               className="absolute left-3 top-3 text-muted-foreground"
               size={20}
+              strokeWidth={1}
             />
             <input
               type="text"
@@ -153,7 +154,7 @@ export default function BlogPage() {
                 </p>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
-                    <Calendar size={16} /> {featuredPost.date}
+                    <CalendarIcon size={16} strokeWidth={1} /> {featuredPost.date}
                   </span>
                   <span>{featuredPost.readTime}</span>
                 </div>
@@ -191,7 +192,7 @@ export default function BlogPage() {
                   </p>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">
-                      <Calendar size={14} /> {post.date}
+                      <CalendarIcon size={14} strokeWidth={1} /> {post.date}
                     </span>
                     <span>{post.readTime}</span>
                   </div>

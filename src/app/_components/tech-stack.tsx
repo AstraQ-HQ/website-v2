@@ -1,16 +1,16 @@
 "use client";
 
-import { Cloud, Database, Lock, Zap } from "lucide-react";
+import { CloudIcon, DatabaseIcon, LockIcon, ZapIcon } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
 export function TechStack() {
   const { ref, isVisible } = useIntersectionObserver();
 
   const techs = [
-    { icon: Zap, name: "Advanced ML", desc: "Neural networks" },
-    { icon: Database, name: "Big Data", desc: "Real-time processing" },
-    { icon: Cloud, name: "Cloud Native", desc: "Scalable architecture" },
-    { icon: Lock, name: "Zero Trust", desc: "Security framework" },
+    { icon: ZapIcon, name: "Advanced ML", desc: "Neural networks" },
+    { icon: DatabaseIcon, name: "Big Data", desc: "Real-time processing" },
+    { icon: CloudIcon, name: "Cloud Native", desc: "Scalable architecture" },
+    { icon: LockIcon, name: "Zero Trust", desc: "Security framework" },
   ];
 
   return (
@@ -34,7 +34,7 @@ export function TechStack() {
               >
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-12 h-12 bg-accent/10 rounded-sm flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-accent-foreground" />
+                    <Icon className="w-6 h-6 text-accent-foreground" strokeWidth={1} />
                   </div>
                   <p className="font-semibold text-primary">{tech.name}</p>
                   <p className="text-sm text-muted-foreground">{tech.desc}</p>

@@ -3,12 +3,16 @@ import { Marquee } from "@/components/ui/marquee";
 import { getImageUrl } from "@/lib/utils";
 
 const backers = [
-  { id: 1, name: "TechSecure", logo: "/tech-security-logo.jpg" },
-  { id: 2, name: "CyberShield", logo: "/cyber-defense-logo.jpg" },
-  { id: 3, name: "DefenseNet", logo: "/defense-network-logo.jpg" },
-  { id: 4, name: "SecureVault", logo: "/secure-vault-logo.jpg" },
-  { id: 5, name: "ThreatGuard", logo: "/threat-protection-logo.jpg" },
-  { id: 6, name: "IntelSecure", logo: "/intelligence-security-logo.jpg" },
+  { id: 1, name: "TechSecure", logo: { url: "/tech-security-logo.jpg" } },
+  { id: 2, name: "CyberShield", logo: { url: "/cyber-defense-logo.jpg" } },
+  { id: 3, name: "DefenseNet", logo: { url: "/defense-network-logo.jpg" } },
+  { id: 4, name: "SecureVault", logo: { url: "/secure-vault-logo.jpg" } },
+  { id: 5, name: "ThreatGuard", logo: { url: "/threat-protection-logo.jpg" } },
+  {
+    id: 6,
+    name: "IntelSecure",
+    logo: { url: "/intelligence-security-logo.jpg" },
+  },
 ];
 
 export function BackedBySection() {
