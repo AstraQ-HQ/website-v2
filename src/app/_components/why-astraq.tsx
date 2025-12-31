@@ -32,12 +32,14 @@ export function WhyAstraQ() {
               <div
                 key={stat.label}
                 className={cn(
-                  "text-center transition-all duration-700",
+                  "text-center",
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10",
                 )}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                style={{
+                  transition: `opacity 700ms ${index * 150}ms, transform 700ms ${index * 150}ms`,
+                }}
               >
                 <div className="w-14 h-14 bg-accent/10 rounded-sm flex items-center justify-center mx-auto mb-4">
                   <Icon

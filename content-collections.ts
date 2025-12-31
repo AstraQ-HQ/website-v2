@@ -33,6 +33,7 @@ const products = defineCollection({
     description: z.string(),
     features: z.array(z.string()),
     icon: z.string(),
+    category: z.string(),
   }),
   transform: async (document) => {
     return {

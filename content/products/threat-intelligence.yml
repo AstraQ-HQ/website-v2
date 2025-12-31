@@ -1,0 +1,10 @@
+name: "Threat Intelligence"
+tagline: "Stay ahead of threats"
+description: "Real-time threat intelligence feeds with actionable insights. Know about emerging threats before they impact your organization."
+features:
+  - "Real-time feeds"
+  - "Threat indicators"
+  - "Attack patterns"
+  - "Expert analysis"
+icon: "RadarIcon"
+category: "Compliance"

@@ -6,3 +6,4 @@ features:
   - "ML-powered detection"
   - "Zero false positives"
 icon: "BrainIcon"
+category: "Detection"

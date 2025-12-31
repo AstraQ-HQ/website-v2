@@ -175,12 +175,14 @@ export default function BlogPage() {
                 <div
                   key={post.id}
                   className={cn(
-                    "group p-6 bg-card border border-border rounded-lg hover:shadow-lg hover:border-accent transition-all duration-300 hover:-translate-y-2",
+                    "group p-6 bg-card border border-border rounded-lg hover:shadow-lg hover:border-accent hover:-translate-y-2",
                     isVisible
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-10",
                   )}
-                  style={{ transitionDelay: `${index * 100}ms` }}
+                  style={{
+                    transition: `opacity 700ms ${index * 100}ms, transform 700ms ${index * 100}ms, box-shadow 300ms, border-color 300ms`,
+                  }}
                 >
                   <div className="w-full h-40 bg-gradient-to-br from-accent/10 to-accent/5 rounded-lg mb-4 flex items-center justify-center">
                     <div className="text-4xl">📝</div>

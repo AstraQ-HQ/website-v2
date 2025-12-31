@@ -6,3 +6,4 @@ features:
   - "Incident tracking"
   - "Automated response"
 icon: "ShieldIcon"
+category: "Response"

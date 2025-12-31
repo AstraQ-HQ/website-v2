@@ -1,0 +1,10 @@
+name: "Zero Trust Platform"
+tagline: "Never trust, always verify"
+description: "Implement zero trust architecture across your organization. Every access request is verified regardless of source or location."
+features:
+  - "Access control"
+  - "Device verification"
+  - "Network segmentation"
+  - "Continuous verification"
+icon: "LockIcon"
+category: "Detection"

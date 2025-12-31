@@ -1,28 +1,22 @@
 "use client";
 
-import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-
-interface Product {
-  id: number;
-  name: string;
-  tagline: string;
-  description: string;
-  features: string[];
-  icon: LucideIcon;
-}
+import { Icon } from "@/components/ui/icon";
+import type { Product } from "@/lib/content";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const Icon = product.icon;
-
   return (
     <div className="group p-8 bg-card border border-border rounded-sm hover:shadow-lg hover:border-accent transition-all duration-300 hover:-translate-y-2">
       <div className="w-12 h-12 bg-accent/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-accent/15 transition-colors">
-        <Icon className="w-6 h-6 text-accent-foreground" strokeWidth={1} />
+        <Icon
+          name={product.icon}
+          className="w-6 h-6 text-accent-foreground"
+          strokeWidth={1}
+        />
       </div>
       <h3 className="font-mono text-2xl text-primary mb-1">{product.name}</h3>
       <p className="text-sm text-accent-foreground font-semibold mb-3">

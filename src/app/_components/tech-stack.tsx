@@ -25,10 +25,11 @@ export function TechStack() {
               <div
                 key={tech.name}
                 className={cn(
-                  "transition-all duration-700",
                   isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90",
                 )}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                style={{
+                  transition: `opacity 700ms ${index * 100}ms, transform 700ms ${index * 100}ms`,
+                }}
               >
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-12 h-12 bg-accent/10 rounded-sm flex items-center justify-center">

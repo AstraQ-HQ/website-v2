@@ -6,3 +6,4 @@ features:
   - "Detailed reports"
   - "Remediation guidance"
 icon: "ZapIcon"
+category: "Testing"

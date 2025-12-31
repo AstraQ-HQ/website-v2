@@ -14,6 +14,6 @@ export const allBlogsByDate = allBlogs;
 export const allFeaturedProducts = allProducts;
 export const allFeaturedServices = allServices;
 
-export { allServices, allTestimonials };
+export { allProducts, allServices, allTestimonials };
 
 export type { Blog, Product, Service, Testimonial };
