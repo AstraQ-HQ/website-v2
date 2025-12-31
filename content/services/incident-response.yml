@@ -1,3 +1,4 @@
 name: "Incident Response"
-description: "Rapid response to security incidents with expert analysis, containment, and recovery guidance to minimize damage and restore operations."
+description: "Rapid response to security incidents with expert analysis, containment, and recovery guidance."
 icon: "AlertCircleIcon"
+featured: true

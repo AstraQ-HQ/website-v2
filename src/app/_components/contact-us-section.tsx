@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSet,
@@ -78,11 +79,7 @@ export function ContactUsSection() {
                           placeholder="Your name"
                           className="border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
                         />
-                        {field.state.meta.errors.length > 0 ? (
-                          <div className="text-red-500 text-sm mt-1">
-                            {field.state.meta.errors.join(", ")}
-                          </div>
-                        ) : null}
+                        <FieldError errors={field.state.meta.errors} />
                       </Field>
                     )}
                   </form.Field>
@@ -106,11 +103,7 @@ export function ContactUsSection() {
                           placeholder="your.email@example.com"
                           className="border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
                         />
-                        {field.state.meta.errors.length > 0 ? (
-                          <div className="text-red-500 text-sm mt-1">
-                            {field.state.meta.errors.join(", ")}
-                          </div>
-                        ) : null}
+                        <FieldError errors={field.state.meta.errors} />
                       </Field>
                     )}
                   </form.Field>
@@ -136,11 +129,7 @@ export function ContactUsSection() {
                           placeholder="Your company name"
                           className="border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
                         />
-                        {field.state.meta.errors.length > 0 ? (
-                          <div className="text-red-500 text-sm mt-1">
-                            {field.state.meta.errors.join(", ")}
-                          </div>
-                        ) : null}
+                        <FieldError errors={field.state.meta.errors} />
                       </Field>
                     )}
                   </form.Field>
@@ -163,11 +152,7 @@ export function ContactUsSection() {
                           placeholder="Tell us about your product or questions..."
                           className="min-h-[120px] resize-none border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
                         />
-                        {field.state.meta.errors.length > 0 ? (
-                          <div className="text-red-500 text-sm mt-1">
-                            {field.state.meta.errors.join(", ")}
-                          </div>
-                        ) : null}
+                        <FieldError errors={field.state.meta.errors} />
                       </Field>
                     )}
                   </form.Field>

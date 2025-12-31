@@ -7,3 +7,4 @@ features:
   - "Remediation guidance"
 icon: "ZapIcon"
 category: "Testing"
+featured: true

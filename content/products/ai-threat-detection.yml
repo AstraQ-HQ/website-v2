@@ -7,3 +7,4 @@ features:
   - "Zero false positives"
 icon: "BrainIcon"
 category: "Detection"
+featured: true

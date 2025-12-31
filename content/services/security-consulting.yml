@@ -1,3 +1,4 @@
 name: "Security Consulting"
-description: "Expert advice on security strategy, architecture, and best practices tailored to your organization's unique needs and risk profile."
+description: "Expert advice on security strategy, architecture, and best practices tailored to your organization."
 icon: "ShieldIcon"
+featured: true

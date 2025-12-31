@@ -7,3 +7,4 @@ features:
   - "Automated response"
 icon: "ShieldIcon"
 category: "Response"
+featured: true

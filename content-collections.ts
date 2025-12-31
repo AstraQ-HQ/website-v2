@@ -34,6 +34,7 @@ const products = defineCollection({
     features: z.array(z.string()),
     icon: z.string(),
     category: z.string(),
+    featured: z.boolean().optional().default(false),
   }),
   transform: async (document) => {
     return {
@@ -52,6 +53,7 @@ const services = defineCollection({
     name: z.string(),
     description: z.string(),
     icon: z.string(),
+    featured: z.boolean().optional().default(false),
   }),
   transform: async (document) => {
     return {
