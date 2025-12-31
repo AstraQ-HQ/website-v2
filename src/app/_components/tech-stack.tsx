@@ -2,6 +2,7 @@
 
 import { CloudIcon, DatabaseIcon, LockIcon, ZapIcon } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { cn } from "@/lib/utils";
 
 export function TechStack() {
   const { ref, isVisible } = useIntersectionObserver();
@@ -29,12 +30,18 @@ export function TechStack() {
             return (
               <div
                 key={tech.name}
-                className={`transition-all duration-700 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}
+                className={cn(
+                  "transition-all duration-700",
+                  isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90",
+                )}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-12 h-12 bg-accent/10 rounded-sm flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-accent-foreground" strokeWidth={1} />
+                    <Icon
+                      className="w-6 h-6 text-accent-foreground"
+                      strokeWidth={1}
+                    />
                   </div>
                   <p className="font-semibold text-primary">{tech.name}</p>
                   <p className="text-sm text-muted-foreground">{tech.desc}</p>

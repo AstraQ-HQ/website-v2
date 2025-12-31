@@ -11,6 +11,7 @@ import {
 import { ServiceCard } from "@/app/_components/service-card";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { cn } from "@/lib/utils";
 
 const allServices = [
   {
@@ -73,11 +74,12 @@ export default function ServicesPage() {
             {allServices.map((service, index) => (
               <div
                 key={service.name}
-                className={`transition-all duration-700 ${
+                className={cn(
+                  "transition-all duration-700",
                   isVisible
                     ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
+                    : "opacity-0 translate-y-10",
+                )}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <ServiceCard service={service} />

@@ -5,6 +5,7 @@ import type { Route } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,9 +29,10 @@ export function NavBar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-secondary shadow-sm" : "bg-transparent"
-      }`}
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled ? "bg-secondary shadow-sm" : "bg-transparent",
+      )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -64,7 +66,11 @@ export function NavBar() {
             variant="outline"
             className="md:hidden p-2 text-foreground"
           >
-            {isMobileMenuOpen ? <XIcon size={24} strokeWidth={1} /> : <MenuIcon size={24} strokeWidth={1} />}
+            {isMobileMenuOpen ? (
+              <XIcon size={24} strokeWidth={1} />
+            ) : (
+              <MenuIcon size={24} strokeWidth={1} />
+            )}
           </Button>
         </div>
 

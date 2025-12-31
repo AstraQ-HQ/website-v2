@@ -2,6 +2,7 @@
 
 import { AwardIcon, ClockIcon, TrendingUpIcon } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { cn } from "@/lib/utils";
 
 export function WhyAstraQ() {
   const { ref, isVisible } = useIntersectionObserver();
@@ -35,15 +36,19 @@ export function WhyAstraQ() {
             return (
               <div
                 key={stat.label}
-                className={`text-center transition-all duration-700 ${
+                className={cn(
+                  "text-center transition-all duration-700",
                   isVisible
                     ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
+                    : "opacity-0 translate-y-10",
+                )}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <div className="w-14 h-14 bg-accent/10 rounded-sm flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-7 h-7 text-accent-foreground" strokeWidth={1} />
+                  <Icon
+                    className="w-7 h-7 text-accent-foreground"
+                    strokeWidth={1}
+                  />
                 </div>
                 <p className="font-mono text-4xl text-primary mb-2">
                   {stat.value}
@@ -74,11 +79,12 @@ export function WhyAstraQ() {
           ].map((item, index) => (
             <div
               key={item.title}
-              className={`p-8 border border-border rounded-sm bg-card hover:shadow-lg hover:border-accent ${
+              className={cn(
+                "p-8 border border-border rounded-sm bg-card hover:shadow-lg hover:border-accent",
                 isVisible
                   ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              }`}
+                  : "opacity-0 translate-y-10",
+              )}
               style={{
                 transition: `opacity 700ms ${(index + 3) * 150}ms, transform 700ms ${(index + 3) * 150}ms, box-shadow 300ms, border-color 300ms`,
               }}

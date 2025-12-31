@@ -158,7 +158,10 @@ export function FeaturedProducts() {
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-sm bg-accent/10 flex items-center justify-center shrink-0">
-                <Icon className="w-6 h-6 text-accent-foreground" strokeWidth={1} />
+                <Icon
+                  className="w-6 h-6 text-accent-foreground"
+                  strokeWidth={1}
+                />
               </div>
               <div className="flex-1">
                 <h3 className="font-mono text-3xl sm:text-4xl text-foreground mb-2">

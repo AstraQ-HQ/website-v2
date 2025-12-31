@@ -1,8 +1,6 @@
 "use client";
 
-import type React from "react";
-
-import { useState } from "react";
+import { useForm } from "@tanstack/react-form";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -14,38 +12,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { submitContactForm } from "@/lib/actions/contact";
+import { type ContactFormData, contactFormSchema } from "@/lib/constants";
 
 export function ContactUsSection() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    success: boolean;
-    message?: string;
-  } | null>(null);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    const formData = new FormData(e.currentTarget);
-
-    const result = await submitContactForm(formData);
-
-    setIsSubmitting(false);
-
-    if (result.success) {
-      setSubmitStatus({
-        success: true,
-        message: "Message sent successfully! We'll get back to you soon.",
-      });
-      e.currentTarget.reset();
-    } else {
-      setSubmitStatus({
-        success: false,
-        message: result.error ?? "Failed to send message. Please try again.",
-      });
-    }
-  }
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      company: "",
+      message: "",
+    } as ContactFormData,
+    validators: {
+      onChange: contactFormSchema,
+    },
+    onSubmit: async ({ value }) => {
+      // TODO: Handle response
+      await submitContactForm(value);
+    },
+  });
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center gap-2 overflow-hidden">
@@ -63,101 +47,147 @@ export function ContactUsSection() {
           </div>
           <div className="flex w-full max-w-[497px] flex-col items-center justify-center gap-6">
             <form
-              onSubmit={handleSubmit}
+              onSubmit={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                form.handleSubmit();
+              }}
               className="flex w-full flex-col gap-6"
             >
               <FieldSet>
                 <FieldGroup>
-                  <Field>
-                    <FieldLabel
-                      htmlFor="name"
-                      className="font-medium font-sans text-secondary-foreground text-sm leading-6"
-                    >
-                      Name
-                    </FieldLabel>
-                    <Input
-                      id="name"
-                      name="name"
-                      type="text"
-                      placeholder="Your name"
-                      required
-                      disabled={isSubmitting}
-                      className="border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
-                    />
-                  </Field>
-                  <Field>
-                    <FieldLabel
-                      htmlFor="email"
-                      className="font-medium font-sans text-secondary-foreground text-sm leading-6"
-                    >
-                      Email
-                    </FieldLabel>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="your.email@example.com"
-                      required
-                      disabled={isSubmitting}
-                      className="border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
-                    />
-                  </Field>
-                  <Field>
-                    <FieldLabel
-                      htmlFor="company"
-                      className="font-medium font-sans text-secondary-foreground text-sm leading-6"
-                    >
-                      Company
-                      <FieldDescription className="font-normal font-sans text-muted-foreground text-xs leading-5">
-                        Optional
-                      </FieldDescription>
-                    </FieldLabel>
-                    <Input
-                      id="company"
-                      name="company"
-                      type="text"
-                      placeholder="Your company name"
-                      disabled={isSubmitting}
-                      className="border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
-                    />
-                  </Field>
-                  <Field>
-                    <FieldLabel
-                      htmlFor="message"
-                      className="font-medium font-sans text-secondary-foreground text-sm leading-6"
-                    >
-                      Message
-                    </FieldLabel>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      placeholder="Tell us about your product or questions..."
-                      required
-                      disabled={isSubmitting}
-                      className="min-h-[120px] resize-none border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
-                    />
-                  </Field>
+                  <form.Field name="name">
+                    {(field) => (
+                      <Field>
+                        <FieldLabel
+                          htmlFor={field.name}
+                          className="font-medium font-sans text-secondary-foreground text-sm leading-6"
+                        >
+                          Name
+                        </FieldLabel>
+                        <Input
+                          id={field.name}
+                          name={field.name}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          placeholder="Your name"
+                          className="border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
+                        />
+                        {field.state.meta.errors.length > 0 ? (
+                          <div className="text-red-500 text-sm mt-1">
+                            {field.state.meta.errors.join(", ")}
+                          </div>
+                        ) : null}
+                      </Field>
+                    )}
+                  </form.Field>
+
+                  <form.Field name="email">
+                    {(field) => (
+                      <Field>
+                        <FieldLabel
+                          htmlFor={field.name}
+                          className="font-medium font-sans text-secondary-foreground text-sm leading-6"
+                        >
+                          Email
+                        </FieldLabel>
+                        <Input
+                          id={field.name}
+                          name={field.name}
+                          type="email"
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          placeholder="your.email@example.com"
+                          className="border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
+                        />
+                        {field.state.meta.errors.length > 0 ? (
+                          <div className="text-red-500 text-sm mt-1">
+                            {field.state.meta.errors.join(", ")}
+                          </div>
+                        ) : null}
+                      </Field>
+                    )}
+                  </form.Field>
+
+                  <form.Field name="company">
+                    {(field) => (
+                      <Field>
+                        <FieldLabel
+                          htmlFor={field.name}
+                          className="font-medium font-sans text-secondary-foreground text-sm leading-6"
+                        >
+                          Company
+                          <FieldDescription className="font-normal font-sans text-muted-foreground text-xs leading-5">
+                            Optional
+                          </FieldDescription>
+                        </FieldLabel>
+                        <Input
+                          id={field.name}
+                          name={field.name}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          placeholder="Your company name"
+                          className="border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
+                        />
+                        {field.state.meta.errors.length > 0 ? (
+                          <div className="text-red-500 text-sm mt-1">
+                            {field.state.meta.errors.join(", ")}
+                          </div>
+                        ) : null}
+                      </Field>
+                    )}
+                  </form.Field>
+
+                  <form.Field name="message">
+                    {(field) => (
+                      <Field>
+                        <FieldLabel
+                          htmlFor={field.name}
+                          className="font-medium font-sans text-secondary-foreground text-sm leading-6"
+                        >
+                          Message
+                        </FieldLabel>
+                        <Textarea
+                          id={field.name}
+                          name={field.name}
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                          placeholder="Tell us about your product or questions..."
+                          className="min-h-[120px] resize-none border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
+                        />
+                        {field.state.meta.errors.length > 0 ? (
+                          <div className="text-red-500 text-sm mt-1">
+                            {field.state.meta.errors.join(", ")}
+                          </div>
+                        ) : null}
+                      </Field>
+                    )}
+                  </form.Field>
                 </FieldGroup>
               </FieldSet>
-              {submitStatus && (
-                <div
-                  className={`font-medium text-sm ${submitStatus.success ? "text-green-600" : "text-red-600"}`}
-                >
-                  {submitStatus.message}
-                </div>
-              )}
-              <div className="flex items-center justify-start gap-4">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  variant="default"
-                  className="h-10 overflow-hidden px-12 py-[6px] w-full md:w-auto"
-                >
-                  <div className="relative z-10 flex flex-col justify-center font-medium font-sans text-[13px] text-primary-foreground leading-5">
-                    {isSubmitting ? "Sending..." : "Send message"}
+
+              <form.Subscribe
+                selector={(state) => [state.canSubmit, state.isSubmitting]}
+              >
+                {([canSubmit, isSubmitting]) => (
+                  <div className="flex items-center justify-start gap-4">
+                    <Button
+                      type="submit"
+                      disabled={!canSubmit || isSubmitting}
+                      variant="default"
+                      className="h-10 overflow-hidden px-12 py-[6px] w-full md:w-auto"
+                    >
+                      <div className="relative z-10 flex flex-col justify-center font-medium font-sans text-[13px] text-primary-foreground leading-5">
+                        {isSubmitting ? "Sending..." : "Send message"}
+                      </div>
+                    </Button>
                   </div>
-                </Button>
-              </div>
+                )}
+              </form.Subscribe>
             </form>
           </div>
         </div>

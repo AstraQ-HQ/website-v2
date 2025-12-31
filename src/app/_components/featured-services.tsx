@@ -1,6 +1,11 @@
 "use client";
 
-import { AlertCircleIcon, BookOpenIcon, ShieldIcon, UsersIcon } from "lucide-react";
+import {
+  AlertCircleIcon,
+  BookOpenIcon,
+  ShieldIcon,
+  UsersIcon,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { cn } from "@/lib/utils";
@@ -131,7 +136,10 @@ export function FeaturedServices() {
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-sm bg-accent/10 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-6 h-6 text-accent-foreground" strokeWidth={1} />
+                <Icon
+                  className="w-6 h-6 text-accent-foreground"
+                  strokeWidth={1}
+                />
               </div>
               <div className="flex-1">
                 <h3 className="font-mono text-3xl sm:text-4xl text-foreground">

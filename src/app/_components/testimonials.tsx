@@ -3,6 +3,7 @@
 import { ChevronLeftIcon, ChevronRightIcon, QuoteIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const testimonials = [
   {
@@ -61,7 +62,10 @@ export function Testimonials() {
 
         <div className="relative bg-background rounded-sm p-8 md:p-12 border border-border">
           <div className="min-h-48 flex flex-col justify-center">
-            <QuoteIcon className="w-8 h-8 text-accent-foreground mb-4 opacity-50" strokeWidth={1} />
+            <QuoteIcon
+              className="w-8 h-8 text-accent-foreground mb-4 opacity-50"
+              strokeWidth={1}
+            />
             <blockquote className="text-xl md:text-2xl font-mono mb-6 text-primary leading-relaxed">
               "{testimonials[current].quote}"
             </blockquote>
@@ -90,7 +94,12 @@ export function Testimonials() {
                     setCurrent(index);
                     setAutoPlay(false);
                   }}
-                  className={`w-2 h-2 rounded-full transition-all ${index === current ? "bg-accent-foreground w-8" : "bg-border"}`}
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-all",
+                    index === current
+                      ? "bg-accent-foreground w-8"
+                      : "bg-border",
+                  )}
                 />
               ))}
             </div>

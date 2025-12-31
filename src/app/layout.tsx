@@ -5,6 +5,7 @@ import type React from "react";
 import { Footer } from "./_components/footer";
 import { NavBar } from "./_components/navbar";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 const spaceMono = Space_Mono({
   weight: ["400", "700"],
@@ -35,7 +36,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceMono.variable} ${nunito.variable} font-sans antialiased`}
+        className={cn(
+          spaceMono.variable,
+          nunito.variable,
+          "font-sans antialiased",
+        )}
       >
         <main className="min-h-screen bg-background">
           <NavBar />

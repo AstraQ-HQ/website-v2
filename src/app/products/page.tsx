@@ -1,10 +1,18 @@
 "use client";
 
-import { BrainIcon, CheckCircleIcon, LockIcon, RadarIcon, ShieldIcon, ZapIcon } from "lucide-react";
+import {
+  BrainIcon,
+  CheckCircleIcon,
+  LockIcon,
+  RadarIcon,
+  ShieldIcon,
+  ZapIcon,
+} from "lucide-react";
 import { useState } from "react";
 import { ProductCard } from "@/app/_components/product-card";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { cn } from "@/lib/utils";
 
 const allProducts = [
   {
@@ -144,11 +152,12 @@ export default function ProductsPage() {
             {filteredProducts.map((product, index) => (
               <div
                 key={product.id}
-                className={`transition-all duration-700 ${
+                className={cn(
+                  "transition-all duration-700",
                   isVisible
                     ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
+                    : "opacity-0 translate-y-10",
+                )}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <ProductCard product={product} />

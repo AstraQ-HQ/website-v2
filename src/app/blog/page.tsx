@@ -4,6 +4,7 @@ import { CalendarIcon, SearchIcon } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { cn } from "@/lib/utils";
 
 const blogPosts = [
   {
@@ -124,9 +125,10 @@ export default function BlogPage() {
                 key={category}
                 onClick={() => setActiveCategory(category)}
                 variant={activeCategory === category ? "default" : "outline"}
-                className={`px-4 py-2 rounded-sm font-semibold whitespace-nowrap ${
-                  activeCategory === category ? "text-primary-foreground" : ""
-                }`}
+                className={cn(
+                  "px-4 py-2 rounded-sm font-semibold whitespace-nowrap",
+                  activeCategory === category ? "text-primary-foreground" : "",
+                )}
               >
                 {category}
               </Button>
@@ -154,7 +156,8 @@ export default function BlogPage() {
                 </p>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
-                    <CalendarIcon size={16} strokeWidth={1} /> {featuredPost.date}
+                    <CalendarIcon size={16} strokeWidth={1} />{" "}
+                    {featuredPost.date}
                   </span>
                   <span>{featuredPost.readTime}</span>
                 </div>
@@ -171,11 +174,12 @@ export default function BlogPage() {
               {otherPosts.map((post, index) => (
                 <div
                   key={post.id}
-                  className={`group p-6 bg-card border border-border rounded-lg hover:shadow-lg hover:border-accent transition-all duration-300 hover:-translate-y-2 ${
+                  className={cn(
+                    "group p-6 bg-card border border-border rounded-lg hover:shadow-lg hover:border-accent transition-all duration-300 hover:-translate-y-2",
                     isVisible
                       ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-10"
-                  }`}
+                      : "opacity-0 translate-y-10",
+                  )}
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <div className="w-full h-40 bg-gradient-to-br from-accent/10 to-accent/5 rounded-lg mb-4 flex items-center justify-center">
