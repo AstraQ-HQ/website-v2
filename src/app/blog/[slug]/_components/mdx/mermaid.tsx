@@ -56,7 +56,7 @@ export function Mermaid({ chart }: { chart: string }) {
     <div
       dangerouslySetInnerHTML={{ __html: svgString }}
       ref={containerRef}
-      className="flex justify-center"
+      className="flex justify-center py-2"
     />
   );
 }

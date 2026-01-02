@@ -33,7 +33,7 @@ export function Testimonials() {
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <h2 className="font-mono text-4xl sm:text-5xl text-primary mb-16 text-center">
           {siteConfig.pages.home.testimonials.title}
         </h2>

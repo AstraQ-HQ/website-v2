@@ -9,15 +9,6 @@ import {
   ZapIcon,
 } from "lucide-react";
 
-type IconName =
-  | "ShieldIcon"
-  | "AlertCircleIcon"
-  | "BookOpenIcon"
-  | "UsersIcon"
-  | "BrainIcon"
-  | "ZapIcon"
-  | "CheckCircleIcon";
-
 const iconMap: Record<string, LucideIcon> = {
   ShieldIcon,
   AlertCircleIcon,

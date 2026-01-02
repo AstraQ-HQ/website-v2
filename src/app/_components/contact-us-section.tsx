@@ -39,9 +39,9 @@ export function ContactUsSection() {
   });
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center gap-2 overflow-hidden">
-      <div className="relative z-10 flex items-center justify-center gap-6 self-stretch border-border border-t border-b px-6 py-12 md:px-24 md:py-12">
-        <div className="relative z-20 flex flex-col md:flex-row w-full items-center justify-center gap-6 overflow-hidden rounded-lg px-6 py-5 md:py-8">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 border-t border-border">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row w-full items-center justify-center gap-6 md:gap-12">
           <div className="flex flex-col items-start justify-start gap-3 self-stretch">
             <div className="flex flex-col justify-center self-stretch font-mono text-3xl text-secondary-foreground leading-tight tracking-tight md:text-5xl md:leading-[56px]">
               {title}
@@ -181,6 +181,6 @@ export function ContactUsSection() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
