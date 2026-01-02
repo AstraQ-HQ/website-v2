@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import type { Route } from "next";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
+  SheetFooter,
 } from "@/components/ui/sheet";
 import { siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -67,7 +69,11 @@ export function NavBar() {
             ))}
           </div>
 
-          <Button className="hidden md:block">{siteConfig.header.cta}</Button>
+          <Button className="hidden md:block" asChild>
+            <Link href={siteConfig.header.cta.url}>
+              {siteConfig.header.cta.text}
+            </Link>
+          </Button>
 
           <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -77,7 +83,7 @@ export function NavBar() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="top" className="p-6">
-                <SheetHeader className="p-0">
+                <SheetHeader className="p-0 flex flex-row items-center justify-between space-y-0">
                   <SheetTitle className="text-left flex items-center gap-2">
                     <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
                       <span className="text-primary-foreground font-bold text-lg">
@@ -86,7 +92,13 @@ export function NavBar() {
                     </div>
                     {siteConfig.name}
                   </SheetTitle>
-                  <SheetDescription className="hidden">
+                  <SheetClose asChild>
+                    <Button variant="ghost" size="icon" className="-mr-2">
+                      <XIcon size={24} strokeWidth={1} />
+                      <span className="sr-only">Close</span>
+                    </Button>
+                  </SheetClose>
+                  <SheetDescription className="sr-only">
                     Mobile navigation menu
                   </SheetDescription>
                 </SheetHeader>
@@ -100,8 +112,14 @@ export function NavBar() {
                       {item.label}
                     </div>
                   ))}
-                  <Button className="w-full mt-4">{siteConfig.header.cta}</Button>
                 </div>
+                <SheetFooter className="p-0 mt-4">
+                  <Button className="w-full" asChild>
+                    <Link href={siteConfig.header.cta.url}>
+                      {siteConfig.header.cta.text}
+                    </Link>
+                  </Button>
+                </SheetFooter>
               </SheetContent>
             </Sheet>
           </div>

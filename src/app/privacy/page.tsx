@@ -4,7 +4,7 @@ export default function PrivacyPage() {
       <div className="max-w-3xl mx-auto">
         <h1 className="font-mono text-5xl text-primary mb-2">Privacy Policy</h1>
         <p className="text-muted-foreground mb-8">
-          Last updated: December 27, 2024
+          Last updated: January 1, 2025
         </p>
 
         <div className="prose prose-sm max-w-none">

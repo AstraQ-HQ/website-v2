@@ -38,7 +38,10 @@ export const siteConfig = {
       { label: "About", href: "/#why-astraq" },
       { label: "Contact", href: "/#contact" },
     ] satisfies NavItem[],
-    cta: "Book Demo",
+    cta: {
+      text: "Book Demo",
+      url: "https://cal.com/astraq-cyber-defence" as Route
+    },
   },
   pages: {
     home: {
@@ -178,7 +181,6 @@ export const siteConfig = {
     legal: [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
-      { label: "Cookie Policy", href: "/cookies" },
     ] as NavItem[],
     socials: [
       { label: "LinkedIn", href: "#" },

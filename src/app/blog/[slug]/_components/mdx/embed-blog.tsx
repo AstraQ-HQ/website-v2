@@ -10,13 +10,13 @@ import {
 import { allBlogsByDate } from "@/lib/content";
 
 export function EmbedBlog({
-  fileName,
+  slug,
   placeholder,
 }: {
-  fileName: string;
+  slug: string;
   placeholder?: string;
 }) {
-  const blog = allBlogsByDate.find((blog) => blog._meta.fileName === fileName);
+  const blog = allBlogsByDate.find((blog) => blog.slug === slug);
   if (!blog) return null;
 
   return (

@@ -6,7 +6,7 @@ category: "AI & Machine Learning"
 draft: false
 ---
 
-In our [previous guide on RAG systems](/blog/rag-complete-guide), we covered the fundamentals of building production-ready retrieval-augmented generation pipelines with Qdrant and FastEmbed. Now, let's take it to the next level with **agentic RAG**, where the LLM becomes an intelligent agent capable of multi-hop reasoning, query restructuring, and strategic retrieval.
+In our <EmbedBlog slug="rag-complete-guide" placeholder="previous guide on RAG systems" />, we covered the fundamentals of building production-ready retrieval-augmented generation pipelines with Qdrant and FastEmbed. Now, let's take it to the next level with **agentic RAG**, where the LLM becomes an intelligent agent capable of multi-hop reasoning, query restructuring, and strategic retrieval.
 
 ## Why Agentic RAG?
 
@@ -49,8 +49,8 @@ uv add langchain langchain-openai langgraph
 The key to effective agentic RAG is a well-designed system prompt. We use **chain-of-thought** reasoning combined with **multi-shot examples** to teach the agent how to think:
 
 <GithubLink
-  repoName="astraq-hq/rag-agent-prompts"
-  filePath="prompts/agent_prompt.py"
+  owner="astraq-hq"
+  repo="rag-agent-prompts"
 />
 
 ```python filename=prompts/agent_prompt.py
@@ -492,7 +492,7 @@ You can build AI assistants that truly *research* rather than just *search*.
 ---
 
 **Related Articles:**
-- [Building Production-Ready RAG Systems: A Complete Guide](/blog/rag-complete-guide) - Start here for the fundamentals
-- [Evaluating RAG Systems with RAGAS: Metrics That Matter](/blog/evaluating-rag-ragas) - Measure what matters with the RAGAS framework
+- <EmbedBlog slug="rag-complete-guide" /> - Start here for the fundamentals
+- <EmbedBlog slug="evaluating-rag-ragas" /> - Measure what matters with the RAGAS framework
 
 *Need help implementing agentic RAG? [Contact us](/contact) to learn how AstraQ can accelerate your AI development.*

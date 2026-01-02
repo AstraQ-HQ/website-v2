@@ -222,7 +222,7 @@ const components = {
   Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
     <h3
       className={cn(
-        "mt-8 scroll-m-20 font-heading font-semibold text-xl tracking-tight",
+        "mt-8 scroll-m-20 font-mono text-xl tracking-tight",
         className,
       )}
       {...props}
@@ -267,7 +267,7 @@ const components = {
   }: React.ComponentProps<typeof TabsContent>) => (
     <TabsContent
       className={cn(
-        "relative [&_h3.font-heading]:font-semibold [&_h3.font-heading]:text-base",
+        "relative [&_h3.font-mono]:text-base",
         className,
       )}
       {...props}

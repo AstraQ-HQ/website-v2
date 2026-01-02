@@ -19,6 +19,7 @@ import { BlogSidebar } from "./_components/sidebar";
 import { MobileTableOfContents } from "./_components/toc";
 import "@/styles/mdx.css";
 import "@/styles/shiki.css";
+import "katex/dist/katex.min.css"
 
 export async function generateMetadata({
   params,

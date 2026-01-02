@@ -1,11 +1,29 @@
 @reference "./globals.css";
 
-.mdx > .steps:first-child > h3:first-child {
-  @apply mt-0;
+.step {
+  counter-increment: step;
+  @apply relative;
+}
+
+.step::before {
+  @apply text-muted-foreground right-0 mr-2 hidden size-7 items-center justify-center rounded-full text-center -indent-px font-mono text-sm md:absolute md:flex;
+  content: counter(step);
+}
+
+.steps:first-child {
+  @apply !mt-0;
+}
+
+.steps:first-child > h3:first-child {
+  @apply !mt-0;
 }
 
 .steps > h3 {
-  @apply mb-4 mt-8 text-base font-semibold;
+  @apply !mt-16;
+}
+
+.steps > h3 + p {
+  @apply !mt-2;
 }
 
 :not(pre) > code {
