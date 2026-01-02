@@ -16,7 +16,7 @@ export function HeroSection() {
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="flex flex-col max-w-3xl ml-auto lg:pr-12">
-            <h1 className="font-mono text-5xl sm:text-6xl lg:text-7xl mb-6 text-primary leading-tight">
+            <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 text-primary leading-tight break-words">
               {title}
             </h1>
 

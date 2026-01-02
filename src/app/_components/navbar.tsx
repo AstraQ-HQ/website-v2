@@ -1,15 +1,31 @@
 "use client";
 
-import { MenuIcon, XIcon } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import Link from "next/link";
+import type { Route } from "next";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const handleMobileLinkClick = (href: Route) => {
+    setIsOpen(false);
+    router.push(href);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,33 +69,43 @@ export function NavBar() {
 
           <Button className="hidden md:block">{siteConfig.header.cta}</Button>
 
-          <Button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            variant="outline"
-            className="md:hidden p-2 text-foreground"
-          >
-            {isMobileMenuOpen ? (
-              <XIcon size={24} strokeWidth={1} />
-            ) : (
-              <MenuIcon size={24} strokeWidth={1} />
-            )}
-          </Button>
-        </div>
-
-        {isMobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-border">
-            {siteConfig.header.navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="block py-2 text-foreground hover:text-accent-foreground transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Button className="w-full mt-4">{siteConfig.header.cta}</Button>
+          <div className="md:hidden">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <MenuIcon size={24} strokeWidth={1} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="top" className="p-6">
+                <SheetHeader className="p-0">
+                  <SheetTitle className="text-left flex items-center gap-2">
+                    <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+                      <span className="text-primary-foreground font-bold text-lg">
+                        {siteConfig.name.charAt(0)}
+                      </span>
+                    </div>
+                    {siteConfig.name}
+                  </SheetTitle>
+                  <SheetDescription className="hidden">
+                    Mobile navigation menu
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="flex flex-col gap-4 mt-8">
+                  {siteConfig.header.navItems.map((item) => (
+                    <div
+                      key={item.label}
+                      onClick={() => handleMobileLinkClick(item.href)}
+                      className="text-foreground hover:text-accent-foreground transition-colors text-lg font-medium cursor-pointer"
+                    >
+                      {item.label}
+                    </div>
+                  ))}
+                  <Button className="w-full mt-4">{siteConfig.header.cta}</Button>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );

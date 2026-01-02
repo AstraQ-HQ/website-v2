@@ -48,11 +48,11 @@ export default async function Page({ params }: PageProps<"/blog/[slug]">) {
   const path = `/blog/${blog.slug}`;
 
   return (
-    <div className="pt-40">
-      <article className="container-custom section-spacing relative">
+    <div className="pt-20 md:pt-40">
+      <article className="container-custom px-4 section-spacing relative">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="order-2 lg:order-1">
+            <div>
               <div className="mb-4 font-medium text-muted-foreground text-sm">
                 <Badge variant="outline">{blog.category}</Badge> •{" "}
                 {formatDate(blog.publishedAt, "MMMM do, yyyy")} •{" "}
