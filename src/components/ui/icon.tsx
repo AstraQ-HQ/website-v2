@@ -9,7 +9,7 @@ import {
   ZapIcon,
 } from "lucide-react";
 
-export type IconName =
+type IconName =
   | "ShieldIcon"
   | "AlertCircleIcon"
   | "BookOpenIcon"

@@ -2,7 +2,6 @@
 
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import { Check, Copy } from "lucide-react";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +14,7 @@ export function CopyButton({
 }) {
   const [copiedText, copyToClipboard] = useCopyToClipboard();
   const handleCopy = () => {
-    copyToClipboard(code).catch(() => toast.error("Could not copy"));
+    copyToClipboard(code).catch(() => console.error("Could not copy"));
   };
 
   return (

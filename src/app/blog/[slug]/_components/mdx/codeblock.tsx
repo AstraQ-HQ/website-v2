@@ -8,7 +8,7 @@ type CodeblockFn = (
   meta: Record<string, string | undefined>,
 ) => React.ReactNode;
 
-export const customCodeblockHandlers: Record<string, CodeblockFn> = {
+const customCodeblockHandlers: Record<string, CodeblockFn> = {
   mermaid: (code: string) => {
     return <Mermaid chart={code} />;
   },

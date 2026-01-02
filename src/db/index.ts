@@ -8,7 +8,7 @@ const globalForDb = globalThis as unknown as {
   client: Client | undefined;
 };
 
-export const client =
+const client =
   globalForDb.client ??
   createClient({
     url: env.TURSO_DATABASE_URL,

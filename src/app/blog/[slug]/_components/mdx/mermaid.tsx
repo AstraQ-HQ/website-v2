@@ -53,6 +53,10 @@ export function Mermaid({ chart }: { chart: string }) {
 
   return (
     // biome-ignore lint/security/noDangerouslySetInnerHtml: svg is safe
-    <div dangerouslySetInnerHTML={{ __html: svgString }} ref={containerRef} className="flex justify-center" />
+    <div
+      dangerouslySetInnerHTML={{ __html: svgString }}
+      ref={containerRef}
+      className="flex justify-center"
+    />
   );
 }
