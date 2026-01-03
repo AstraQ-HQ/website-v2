@@ -11,6 +11,7 @@ export function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
                 <span className="text-primary-foreground font-bold">
+                  {/* FIXME(logo): Use proper logo */}
                   {siteConfig.name.charAt(0)}
                 </span>
               </div>

@@ -40,7 +40,7 @@ export const siteConfig = {
     ] satisfies NavItem[],
     cta: {
       text: "Book Demo",
-      url: "https://cal.com/astraq-cyber-defence" as Route
+      href: "https://cal.com/astraq-cyber-defence" as Route,
     },
   },
   pages: {
@@ -50,8 +50,11 @@ export const siteConfig = {
         description:
           "Protect your organization with cutting-edge artificial intelligence. Detect threats before they strike, respond in seconds, and ensure compliance effortlessly.",
         cta: {
-          primary: "Explore Solutions",
-          secondary: "Book Demo",
+          primary: { text: "Explore Solutions", href: "/products" as Route },
+          secondary: {
+            text: "Book Demo",
+            href: "https://cal.com/astraq-cyber-defence" as Route,
+          },
         },
         tags: ["Enterprise Grade", "Lightning Fast", "Always Secure"],
       },
@@ -61,33 +64,13 @@ export const siteConfig = {
         backers: [
           {
             id: 1,
-            name: "TechSecure",
-            logo: { url: "/tech-security-logo.jpg" },
+            name: "C-DOT",
+            logo: { url: "/images/cdot.png" },
           },
           {
             id: 2,
-            name: "CyberShield",
-            logo: { url: "/cyber-defense-logo.jpg" },
-          },
-          {
-            id: 3,
-            name: "DefenseNet",
-            logo: { url: "/defense-network-logo.jpg" },
-          },
-          {
-            id: 4,
-            name: "SecureVault",
-            logo: { url: "/secure-vault-logo.jpg" },
-          },
-          {
-            id: 5,
-            name: "ThreatGuard",
-            logo: { url: "/threat-protection-logo.jpg" },
-          },
-          {
-            id: 6,
-            name: "IntelSecure",
-            logo: { url: "/intelligence-security-logo.jpg" },
+            name: "STPI",
+            logo: { url: "/images/stpi.png" },
           },
         ],
       },
@@ -174,9 +157,7 @@ export const siteConfig = {
     ] as NavItem[],
     resources: [
       { label: "Blog", href: "/blog" },
-      { label: "Case Studies", href: "#" },
-      { label: "Documentation", href: "#" },
-      { label: "Webinars", href: "#" },
+      { label: "Open Source", href: "#" },
     ] as NavItem[],
     legal: [
       { label: "Privacy Policy", href: "/privacy" },

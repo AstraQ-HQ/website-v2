@@ -1,4 +1,5 @@
 import { ChevronDownIcon } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/constants";
 import { Globe } from "./globe";
@@ -25,14 +26,18 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-16">
-              <Button className="px-8 py-3 text-primary-foreground rounded-sm font-semibold hover:shadow-lg transition-all hover:scale-105">
-                {cta.primary}
+              <Button
+                className="px-8 py-3 text-primary-foreground font-semibold hover:shadow-lg transition-all hover:scale-105"
+                asChild
+              >
+                <Link href={cta.primary.href}>{cta.primary.text}</Link>
               </Button>
               <Button
                 variant="outline"
-                className="px-8 py-3 border border-primary text-primary rounded-sm font-semibold hover:bg-primary hover:text-primary-foreground transition-all bg-transparent"
+                className="px-8 py-3 border border-primary text-primary font-semibold hover:bg-primary hover:text-primary-foreground transition-all bg-transparent"
+                asChild
               >
-                {cta.secondary}
+                <Link href={cta.secondary.href}>{cta.secondary.text}</Link>
               </Button>
             </div>
 

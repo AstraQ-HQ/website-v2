@@ -19,7 +19,7 @@ import { BlogSidebar } from "./_components/sidebar";
 import { MobileTableOfContents } from "./_components/toc";
 import "@/styles/mdx.css";
 import "@/styles/shiki.css";
-import "katex/dist/katex.min.css"
+import "katex/dist/katex.min.css";
 
 export async function generateMetadata({
   params,
@@ -59,9 +59,11 @@ export default async function Page({ params }: PageProps<"/blog/[slug]">) {
                 {formatDate(blog.publishedAt, "MMMM do, yyyy")} •{" "}
                 {blog.readingTime}
               </div>
-              <h1 className="mb-6 font-mono text-4xl md:text-5xl lg:text-5xl">
-                {blog.title}
-              </h1>
+              <h1
+                className="mb-6 font-mono text-4xl md:text-5xl lg:text-5xl"
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: This is trusted content from our CMS
+                dangerouslySetInnerHTML={{ __html: blog.htmlTitle }}
+              />
               <p className="mb-6 text-muted-foreground font-mono">
                 {blog.summary}
               </p>

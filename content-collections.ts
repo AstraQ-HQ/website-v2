@@ -18,6 +18,7 @@ import rehypeStringify from "rehype-stringify";
 import remarkGemoji from "remark-gemoji";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
+import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import type { ShikiTransformer } from "shiki";
 import { unified } from "unified";
@@ -30,6 +31,27 @@ type Headings = {
 }[];
 
 const headingProcessor = unified().use(remarkRehype).use(rehypeStringify);
+const titleProcessor = unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeStringify);
+const titlePlainProcessor = unified().use(remarkParse);
+
+async function processTitle(
+  title: string,
+): Promise<{ plain: string; html: string }> {
+  const htmlFile = await titleProcessor.process(title);
+  const htmlString = htmlFile.toString();
+  const match = htmlString.match(/<p>([\s\S]*)<\/p>/);
+
+  const plainTree = titlePlainProcessor.parse(title);
+  const plainString = mdastToString(plainTree);
+
+  return {
+    plain: plainString,
+    html: match ? match[1] : htmlString,
+  };
+}
 
 async function headingToHtml(node: Heading): Promise<string> {
   const tempNode: Paragraph = {
@@ -142,11 +164,16 @@ const blogs = defineCollection({
     );
 
     const slug = document._meta.fileName.replace(".mdx", "");
+    const { html: htmlTitle, plain: plainTitle } = await processTitle(
+      document.title,
+    );
 
     return {
       ...document,
       banner: document.banner ?? `/images/blog/${slug}.png`,
+      title: plainTitle,
       html,
+      htmlTitle,
       headings: cachedHeadings,
       slug,
       readingTime: time,

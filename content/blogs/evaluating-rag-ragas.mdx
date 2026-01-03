@@ -1,5 +1,5 @@
 ---
-title: "Evaluating RAG Systems with RAGAS: Metrics That Matter"
+title: "*Evaluating* RAG Systems with **RAGAS**: Metrics That *Matter*"
 summary: "A comprehensive guide to evaluating RAG systems using RAGAS framework. Learn how to measure faithfulness, answer relevancy, context precision, and context recall to build reliable AI applications."
 publishedAt: 2026-01-03
 category: "AI & Machine Learning"
@@ -492,11 +492,17 @@ print(f"Recall: {results['context_recall']:.3f}")
       from ragas.testset.generator import TestsetGenerator
       from ragas.testset.evolutions import simple, reasoning, multi_context
       from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+      from ragas.llms import LangchainLLMWrapper  # NEW
+      from ragas.embeddings import LangchainEmbeddingsWrapper  # NEW
 
-      generator = TestsetGenerator.from_langchain(
-          generator_llm=ChatOpenAI(model="gpt-4o"),
-          critic_llm=ChatOpenAI(model="gpt-4o"),
-          embeddings=OpenAIEmbeddings(),
+      generator_llm = LangchainLLMWrapper(ChatOpenAI(model="gpt-4o"))
+      critic_llm = LangchainLLMWrapper(ChatOpenAI(model="gpt-4o"))
+      embeddings = LangchainEmbeddingsWrapper(OpenAIEmbeddings())
+
+      generator = TestsetGenerator(
+          generator_llm=generator_llm,
+          critic_llm=critic_llm,
+          embeddings=embeddings,
       )
 
       # Generate diverse test cases

@@ -1,5 +1,5 @@
 ---
-title: "Building Multi-Hop RAG Agents with Chain-of-Thought Reasoning"
+title: "Building Multi-Hop RAG Agents with **Chain-of-Thought** Reasoning"
 summary: "Learn how to build advanced RAG agents that can perform multi-hop reasoning, query restructuring, and use retrieval as a tool with LangChain, chain-of-thought, and multi-shot prompting."
 publishedAt: 2026-01-02
 category: "AI & Machine Learning"
@@ -259,7 +259,7 @@ Now let's build the main agent using LangGraph's ReAct pattern:
 
 ```python filename=agents/rag_agent.py
 from langchain_openai import ChatOpenAI
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from prompts.agent_prompt import AGENT_SYSTEM_PROMPT
@@ -273,7 +273,7 @@ llm = ChatOpenAI(
 )
 
 # Create the agent with our retrieval tool
-agent = create_react_agent(  # [!code highlight:4]
+agent = create_agent(  # [!code highlight:4]
     model=llm,
     tools=[search_knowledge_base],
 )

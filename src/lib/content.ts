@@ -1,3 +1,4 @@
+import { compareDesc } from "date-fns";
 import {
   allBlogs,
   allProducts,
@@ -8,7 +9,6 @@ import {
   type Service,
   type Testimonial,
 } from "../../.content-collections/generated";
-import { compareDesc } from "date-fns";
 
 export const allBlogsByDate = allBlogs.toSorted((a, b) =>
   compareDesc(new Date(a.publishedAt), new Date(b.publishedAt)),

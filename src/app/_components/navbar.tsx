@@ -1,20 +1,20 @@
 "use client";
 
 import { MenuIcon, XIcon } from "lucide-react";
-import Link from "next/link";
 import type { Route } from "next";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetClose,
-  SheetFooter,
 } from "@/components/ui/sheet";
 import { siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -49,6 +49,7 @@ export function NavBar() {
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">
+                {/* FIXME(logo): Use proper logo */}
                 {siteConfig.name.charAt(0)}
               </span>
             </div>
@@ -70,7 +71,7 @@ export function NavBar() {
           </div>
 
           <Button className="hidden md:block" asChild>
-            <Link href={siteConfig.header.cta.url}>
+            <Link href={siteConfig.header.cta.href}>
               {siteConfig.header.cta.text}
             </Link>
           </Button>
@@ -87,6 +88,7 @@ export function NavBar() {
                   <SheetTitle className="text-left flex items-center gap-2">
                     <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
                       <span className="text-primary-foreground font-bold text-lg">
+                        {/* FIXME(logo): Use proper logo */}
                         {siteConfig.name.charAt(0)}
                       </span>
                     </div>
@@ -104,6 +106,7 @@ export function NavBar() {
                 </SheetHeader>
                 <div className="flex flex-col gap-4 mt-8">
                   {siteConfig.header.navItems.map((item) => (
+                    // biome-ignore lint/a11y: Required
                     <div
                       key={item.label}
                       onClick={() => handleMobileLinkClick(item.href)}
@@ -115,7 +118,7 @@ export function NavBar() {
                 </div>
                 <SheetFooter className="p-0 mt-4">
                   <Button className="w-full" asChild>
-                    <Link href={siteConfig.header.cta.url}>
+                    <Link href={siteConfig.header.cta.href}>
                       {siteConfig.header.cta.text}
                     </Link>
                   </Button>

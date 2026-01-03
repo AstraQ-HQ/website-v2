@@ -11,6 +11,14 @@ import {
 } from "@/components/ui/accordion";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { Callout } from "./callout";
@@ -159,24 +167,27 @@ const components = {
     <hr className="my-4 md:my-8" {...props} />
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="my-6 w-full overflow-y-auto">
-      <table
-        className={cn(
-          "relative w-full overflow-hidden border-none text-sm",
-          className,
-        )}
-        {...props}
-      />
+    <div className="my-6 w-full">
+      <Table className={className} {...props} />
     </div>
   ),
+  thead: ({
+    className,
+    ...props
+  }: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <TableHeader className={className} {...props} />
+  ),
+  tbody: ({
+    className,
+    ...props
+  }: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <TableBody className={className} {...props} />
+  ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-    <tr
-      className={cn("m-0 border-b last:border-b-none", className)}
-      {...props}
-    />
+    <TableRow className={cn("m-0 border-b", className)} {...props} />
   ),
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <th
+    <TableHead
       className={cn(
         "px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
         className,
@@ -185,7 +196,7 @@ const components = {
     />
   ),
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <td
+    <TableCell
       className={cn(
         "px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right",
         className,
@@ -266,10 +277,7 @@ const components = {
     ...props
   }: React.ComponentProps<typeof TabsContent>) => (
     <TabsContent
-      className={cn(
-        "relative [&_h3.font-mono]:text-base",
-        className,
-      )}
+      className={cn("relative [&_h3.font-mono]:text-base", className)}
       {...props}
     />
   ),

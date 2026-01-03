@@ -90,7 +90,7 @@ export default function BlogPage() {
         <section className="py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <Link href={`/blog/${featuredPost.slug}`} className="block group">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-secondary rounded-lg overflow-hidden border border-border p-8 transition-all group-hover:border-accent group-hover:shadow-lg">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-card rounded-lg overflow-hidden border border-border p-8 transition-all group-hover:border-accent group-hover:shadow-lg">
                 <div className="relative bg-gradient-to-br from-accent/10 to-accent/5 rounded-lg overflow-hidden min-h-[320px]">
                   <Image
                     src={featuredPost.banner}
@@ -104,9 +104,11 @@ export default function BlogPage() {
                   <span className="text-accent-foreground font-semibold text-sm mb-2">
                     Latest
                   </span>
-                  <h2 className="font-mono text-3xl text-primary mb-3 group-hover:text-accent-foreground transition-colors">
-                    {featuredPost.title}
-                  </h2>
+                  <h2
+                    className="font-mono text-3xl text-primary mb-3 group-hover:text-accent-foreground transition-colors"
+                    // biome-ignore lint/security/noDangerouslySetInnerHtml: This is trusted content from our CMS
+                    dangerouslySetInnerHTML={{ __html: featuredPost.htmlTitle }}
+                  />
                   <p className="text-muted-foreground mb-4">
                     {featuredPost.summary}
                   </p>
@@ -153,9 +155,11 @@ export default function BlogPage() {
                   <span className="text-xs font-semibold text-accent-foreground bg-accent/10 px-3 py-1 rounded-sm inline-block mb-3">
                     {post.category}
                   </span>
-                  <h3 className="font-mono text-lg text-primary mb-2 group-hover:text-accent-foreground transition-colors">
-                    {post.title}
-                  </h3>
+                  <h3
+                    className="font-mono text-lg text-primary mb-2 group-hover:text-accent-foreground transition-colors"
+                    // biome-ignore lint/security/noDangerouslySetInnerHtml: This is trusted content from our CMS
+                    dangerouslySetInnerHTML={{ __html: post.htmlTitle }}
+                  />
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
                     {post.summary}
                   </p>
