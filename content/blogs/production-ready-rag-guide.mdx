@@ -122,7 +122,10 @@ def chunk_document(
 ```
 
 <Callout variant="info" title="Chunk Size Matters" icon="info">
-  Smaller chunks (500-1000 tokens) provide more precise retrieval but may lose context. Larger chunks (1500-2000 tokens) preserve more context but may include irrelevant information. Experiment to find the right balance for your use case.
+  Smaller chunks (500-1000 tokens) provide more precise retrieval but may lose
+  context. Larger chunks (1500-2000 tokens) preserve more context but may
+  include irrelevant information. Experiment to find the right balance for your
+  use case.
 </Callout>
 
 ### Handling Different File Types
@@ -202,14 +205,15 @@ def generate_query_embeddings(query: str) -> dict:
 
 ### Understanding the Three Embedding Types
 
-| Type | Model | Purpose |
-|------|-------|---------|
-| **Dense** | all-MiniLM-L6-v2 | Captures semantic meaning |
-| **Sparse** | BM25 | Keyword matching, term frequency |
-| **Late Interaction** | ColBERT v2 | Contextual reranking |
+| Type                 | Model            | Purpose                          |
+| -------------------- | ---------------- | -------------------------------- |
+| **Dense**            | all-MiniLM-L6-v2 | Captures semantic meaning        |
+| **Sparse**           | BM25             | Keyword matching, term frequency |
+| **Late Interaction** | ColBERT v2       | Contextual reranking             |
 
 <Callout variant="warning" title="First Run Downloads" icon="alert-triangle">
-  The first time you run the embedding code, FastEmbed will download the model weights. This may take a few minutes depending on your connection.
+  The first time you run the embedding code, FastEmbed will download the model
+  weights. This may take a few minutes depending on your connection.
 </Callout>
 
 ## Vector Store with Qdrant
@@ -256,7 +260,8 @@ client.create_collection(
 ```
 
 <Callout variant="info" title="Why Disable HNSW for ColBERT?" icon="info">
-  We set `m=0` for the late interaction vectors because they're used for reranking, not initial retrieval. This saves memory and indexing time.
+  We set `m=0` for the late interaction vectors because they're used for
+  reranking, not initial retrieval. This saves memory and indexing time.
 </Callout>
 
 ### Upserting Documents
@@ -360,12 +365,12 @@ graph TB
     R --> F[Final Top 10]
 ```
 
-| Strategy | Pros | Cons |
-|----------|------|------|
-| Dense Only | Understands meaning | May miss exact matches |
-| Sparse Only | Precise keyword matches | Misses synonyms |
-| Hybrid | Best of both | More compute |
-| Hybrid + Rerank | Most accurate | Most compute |
+| Strategy        | Pros                    | Cons                   |
+| --------------- | ----------------------- | ---------------------- |
+| Dense Only      | Understands meaning     | May miss exact matches |
+| Sparse Only     | Precise keyword matches | Misses synonyms        |
+| Hybrid          | Best of both            | More compute           |
+| Hybrid + Rerank | Most accurate           | Most compute           |
 
 ## Generation Pipeline
 
@@ -406,7 +411,8 @@ def generate_response(query: str, context: list[str]) -> str:
 ```
 
 <Callout variant="success" title="Pro Tip" icon="lightbulb">
-  Always include instructions for the LLM to indicate when it doesn't have enough context to answer. This prevents hallucinations and builds user trust.
+  Always include instructions for the LLM to indicate when it doesn't have
+  enough context to answer. This prevents hallucinations and builds user trust.
 </Callout>
 
 ## Putting It All Together
@@ -445,7 +451,10 @@ Improve recall by expanding the original query:
   <AccordionItem value="query-expansion">
     <AccordionTrigger>How Query Expansion Works</AccordionTrigger>
     <AccordionContent>
-      Query expansion generates multiple variations of the user's query to capture different phrasings and increase the chances of finding relevant documents. This technique is especially useful when users may phrase questions differently than the source documents.
+      Query expansion generates multiple variations of the user's query to
+      capture different phrasings and increase the chances of finding relevant
+      documents. This technique is especially useful when users may phrase
+      questions differently than the source documents.
     </AccordionContent>
   </AccordionItem>
 </Accordion>
@@ -487,7 +496,8 @@ def filtered_search(
 ## Production Considerations
 
 <Callout variant="error" title="Critical Security Note" icon="shield-alert">
-  Never expose your API keys in client-side code. Always proxy requests through your backend and implement proper rate limiting.
+  Never expose your API keys in client-side code. Always proxy requests through
+  your backend and implement proper rate limiting.
 </Callout>
 
 ### Monitoring and Observability
@@ -551,12 +561,13 @@ With Qdrant and FastEmbed, you get a powerful, self-hosted solution that combine
 Ready to take your RAG system further? Check out our advanced guide:
 
 <Callout variant="success" title="Advanced Guide" icon="arrow-right">
-  <EmbedBlog slug="advanced-rag-agents" /> - Learn how to build agentic RAG systems that can perform multi-hop reasoning, query restructuring, and use retrieval as a tool with LangChain.
+  <EmbedBlog slug="multi-hop-rag-agents" /> - Learn how to build agentic RAG
+  systems that can perform multi-hop reasoning, query restructuring, and use
+  retrieval as a tool with LangChain.
 </Callout>
 
 ---
 
-*For advanced techniques like multi-hop reasoning, query restructuring, and agentic RAG, see our <EmbedBlog slug="advanced-rag-agents" placeholder="Advanced RAG Agents Guide" />.*
+_For advanced techniques like multi-hop reasoning, query restructuring, and agentic RAG, see our <EmbedBlog slug="multi-hop-rag-agents" placeholder="Advanced RAG Agents Guide" />._
 
-*Have questions about implementing RAG in your organization? [Contact us](/contact) to learn how AstraQ can help.*
-
+_Have questions about implementing RAG in your organization? [Contact us](/contact) to learn how AstraQ can help._

@@ -18,14 +18,6 @@ export const metadata: Metadata = {
   title: "AstraQ Cyber Defence - AI-Powered Cybersecurity Solutions",
   description:
     "Enterprise-grade AI-powered cybersecurity solutions. Threat detection, incident response, and compliance management for modern businesses.",
-  icons: {
-    icon: [
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-  },
 };
 
 export default function RootLayout({

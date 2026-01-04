@@ -19,9 +19,9 @@ import { MobileTableOfContents } from "./_components/toc";
 import "@/styles/mdx.css";
 import "@/styles/shiki.css";
 import "katex/dist/katex.min.css";
+import logo from "@/app/icon.svg";
 import { env } from "@/env";
 import { siteConfig } from "@/lib/constants";
-import logo from "@/logo.svg";
 
 export async function generateMetadata({
   params,

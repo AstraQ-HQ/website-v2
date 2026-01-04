@@ -1,8 +1,8 @@
 import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import logo from "@/app/icon.svg";
 import { siteConfig } from "@/lib/constants";
-import logo from "@/logo.svg";
 
 export function Footer() {
   return (

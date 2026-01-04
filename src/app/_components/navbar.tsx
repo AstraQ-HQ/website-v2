@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import logo from "@/app/icon.svg";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -19,7 +20,6 @@ import {
 } from "@/components/ui/sheet";
 import { siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import logo from "@/logo.svg";
 
 export function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);

@@ -6,7 +6,7 @@ category: "AI & Machine Learning"
 draft: false
 ---
 
-In our <EmbedBlog slug="rag-complete-guide" placeholder="previous guide on RAG systems" />, we covered the fundamentals of building production-ready retrieval-augmented generation pipelines with Qdrant and FastEmbed. Now, let's take it to the next level with **agentic RAG**, where the LLM becomes an intelligent agent capable of multi-hop reasoning, query restructuring, and strategic retrieval.
+In our <EmbedBlog slug="production-ready-rag-guide" placeholder="previous guide on RAG systems" />, we covered the fundamentals of building production-ready retrieval-augmented generation pipelines with Qdrant and FastEmbed. Now, let's take it to the next level with **agentic RAG**, where the LLM becomes an intelligent agent capable of multi-hop reasoning, query restructuring, and strategic retrieval.
 
 ## Why Agentic RAG?
 
@@ -41,17 +41,16 @@ uv add langchain langchain-openai langgraph
 ```
 
 <Callout variant="info" title="Prerequisites" icon="info">
-  This guide assumes you have the Qdrant hybrid search setup from our [RAG Complete Guide](/blog/rag-complete-guide). We'll use that as our retrieval backend.
+  This guide assumes you have the Qdrant hybrid search setup from our [RAG
+  Complete Guide](/blog/production-ready-rag-guide). We'll use that as our
+  retrieval backend.
 </Callout>
 
 ## The Agent Prompt
 
 The key to effective agentic RAG is a well-designed system prompt. We use **chain-of-thought** reasoning combined with **multi-shot examples** to teach the agent how to think:
 
-<GithubLink
-  owner="astraq-hq"
-  repo="rag-agent-prompts"
-/>
+<GithubLink owner="astraq-hq" repo="rag-agent-prompts" />
 
 ```python filename=prompts/agent_prompt.py
 """Multi-hop RAG Agent Prompt with Chain-of-Thought and Multi-shot Examples."""
@@ -343,6 +342,7 @@ print(answer)
 
       **Answer**: [Synthesized comprehensive comparison]
     </AccordionContent>
+
   </AccordionItem>
 </Accordion>
 
@@ -421,19 +421,19 @@ graph TB
 ### 1. Prompt Engineering
 
 <Callout variant="success" title="Chain-of-Thought Tips" icon="lightbulb">
-  - Always include multi-shot examples showing the reasoning process
-  - Explicitly instruct the model to show its thinking
-  - Use structured output formats (Thought/Action/Observation)
+  - Always include multi-shot examples showing the reasoning process -
+  Explicitly instruct the model to show its thinking - Use structured output
+  formats (Thought/Action/Observation)
 </Callout>
 
 ### 2. Retrieval Strategy
 
-| Scenario | Strategy |
-|----------|----------|
-| Simple factual question | Single retrieval |
-| Comparison question | Multiple targeted retrievals |
-| Vague question | Query restructuring + iteration |
-| No results found | Reformulate with synonyms |
+| Scenario                | Strategy                        |
+| ----------------------- | ------------------------------- |
+| Simple factual question | Single retrieval                |
+| Comparison question     | Multiple targeted retrievals    |
+| Vague question          | Query restructuring + iteration |
+| No results found        | Reformulate with synonyms       |
 
 ### 3. Error Recovery
 
@@ -464,7 +464,8 @@ Essential shortcuts when developing RAG agents:
 ## Production Considerations
 
 <Callout variant="warning" title="Token Usage" icon="alert-triangle">
-  Multi-hop agents use significantly more tokens than single-shot RAG. Monitor usage carefully and set appropriate limits on the number of retrieval steps.
+  Multi-hop agents use significantly more tokens than single-shot RAG. Monitor
+  usage carefully and set appropriate limits on the number of retrieval steps.
 </Callout>
 
 ### Observability with LangSmith
@@ -487,12 +488,15 @@ Agentic RAG with multi-hop reasoning represents a significant upgrade over tradi
 - **Query restructuring** for better search coverage
 - **Iterative retrieval** for complex questions
 
-You can build AI assistants that truly *research* rather than just *search*.
+You can build AI assistants that truly _research_ rather than just _search_.
 
 ---
 
 **Related Articles:**
-- <EmbedBlog slug="rag-complete-guide" /> - Start here for the fundamentals
-- <EmbedBlog slug="evaluating-rag-ragas" /> - Measure what matters with the RAGAS framework
 
-*Need help implementing agentic RAG? [Contact us](/contact) to learn how AstraQ can accelerate your AI development.*
+- <EmbedBlog slug="production-ready-rag-guide" /> - Start here for the
+  fundamentals
+- <EmbedBlog slug="evaluating-rag-with-ragas" /> - Measure what matters with the
+  RAGAS framework
+
+_Need help implementing agentic RAG? [Contact us](/contact) to learn how AstraQ can accelerate your AI development._

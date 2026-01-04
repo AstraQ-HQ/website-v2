@@ -17,17 +17,22 @@ This blog post demonstrates every MDX component and feature available. Use it as
 ### Headings
 
 # Heading 1
+
 ## Heading 2
+
 ### Heading 3
+
 #### Heading 4
+
 ##### Heading 5
+
 ###### Heading 6
 
-#### **Bold** and *Italic* in heading
+#### **Bold** and _Italic_ in heading
 
 ### Text Formatting
 
-This is a regular paragraph with **bold text**, *italic text*, and ***bold italic text***. You can also use ~~strikethrough~~ text.
+This is a regular paragraph with **bold text**, _italic text_, and **_bold italic text_**. You can also use ~~strikethrough~~ text.
 
 Here's some `inline code` within a paragraph.
 
@@ -79,17 +84,17 @@ Here's some `inline code` within a paragraph.
 
 ## Tables
 
-| Feature | Supported | Notes |
-|---------|:---------:|-------|
-| Markdown | ✅ | Full support |
-| MDX | ✅ | With custom components |
-| Syntax Highlighting | ✅ | Via Shiki |
-| Math | ✅ | Via KaTeX |
+| Feature             | Supported | Notes                  |
+| ------------------- | :-------: | ---------------------- |
+| Markdown            |    ✅     | Full support           |
+| MDX                 |    ✅     | With custom components |
+| Syntax Highlighting |    ✅     | Via Shiki              |
+| Math                |    ✅     | Via KaTeX              |
 
 | Left Aligned | Center Aligned | Right Aligned |
-|:-------------|:--------------:|--------------:|
-| Left | Center | Right |
-| Text | Text | Text |
+| :----------- | :------------: | ------------: |
+| Left         |     Center     |         Right |
+| Text         |      Text      |          Text |
 
 ---
 
@@ -221,7 +226,8 @@ bun add @langchain/core @langchain/openai
 <Callout variant="info" title="Information" icon="info">
   This is an info callout. Use it to provide helpful context or tips.
 
-  It can contain **formatted text** and `inline code`.
+It can contain **formatted text** and `inline code`.
+
 </Callout>
 
 <Callout variant="success" title="Success" icon="check-circle">
@@ -244,19 +250,23 @@ bun add @langchain/core @langchain/openai
   <AccordionItem value="item-1">
     <AccordionTrigger>What is MDX?</AccordionTrigger>
     <AccordionContent>
-      MDX is a format that lets you seamlessly write JSX in your Markdown documents. You can import components and use them alongside your content.
+      MDX is a format that lets you seamlessly write JSX in your Markdown
+      documents. You can import components and use them alongside your content.
     </AccordionContent>
   </AccordionItem>
   <AccordionItem value="item-2">
     <AccordionTrigger>How does syntax highlighting work?</AccordionTrigger>
     <AccordionContent>
-      Syntax highlighting is powered by Shiki, which uses TextMate grammars for accurate tokenization. It supports many programming languages out of the box.
+      Syntax highlighting is powered by Shiki, which uses TextMate grammars for
+      accurate tokenization. It supports many programming languages out of the
+      box.
     </AccordionContent>
   </AccordionItem>
   <AccordionItem value="item-3">
     <AccordionTrigger>Can I use custom components?</AccordionTrigger>
     <AccordionContent>
-      Yes! You can create custom React components and use them directly in your MDX files. This allows for interactive and dynamic content.
+      Yes! You can create custom React components and use them directly in your
+      MDX files. This allows for interactive and dynamic content.
     </AccordionContent>
   </AccordionItem>
 </Accordion>
@@ -285,9 +295,7 @@ bun add @langchain/core @langchain/openai
                 {
                   type: "folder",
                   name: "[slug]",
-                  children: [
-                    { type: "file", name: "page.tsx" },
-                  ],
+                  children: [{ type: "file", name: "page.tsx" }],
                 },
               ],
             },
@@ -436,6 +444,7 @@ export const config = {
 Use <Kbd>Cmd + K</Kbd> to open the command palette.
 
 Common shortcuts:
+
 - <Kbd>Cmd + S</Kbd> - Save file
 - <Kbd>Cmd + Shift + P</Kbd> - Command palette
 - <Kbd>Ctrl + Space</Kbd> - Trigger autocomplete
@@ -511,7 +520,10 @@ Check out these repositories:
 
 ## Aspect Ratio
 
-<AspectRatio ratio={16/9} className="bg-muted rounded-lg flex items-center justify-center">
+<AspectRatio
+  ratio={16 / 9}
+  className="bg-muted rounded-lg flex items-center justify-center"
+>
   <p className="text-muted-foreground">16:9 Aspect Ratio Container</p>
 </AspectRatio>
 
@@ -579,11 +591,11 @@ Content above the rule.
 
 Content below the rule.
 
-***
+---
 
 Another rule style.
 
-___
+---
 
 And another.
 
@@ -591,7 +603,7 @@ And another.
 
 ## Embed Blog
 
-<EmbedBlog slug="rag-complete-guide" />
+<EmbedBlog slug="production-ready-rag-guide" />
 
 ---
 

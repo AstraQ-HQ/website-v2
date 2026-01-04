@@ -48,7 +48,7 @@ export default async function Image({ params }: Props) {
   const mimeType = ext === "jpg" ? "jpeg" : ext;
   const bannerUrl = `data:image/${mimeType};base64,${bannerBuffer.toString("base64")}`;
 
-  const logoPath = join(process.cwd(), "src", "logo.svg");
+  const logoPath = join(process.cwd(), "src", "app", "icon.svg");
   const logoBuffer = readFileSync(logoPath);
   const logoUrl = `data:image/svg+xml;base64,${logoBuffer.toString("base64")}`;
 

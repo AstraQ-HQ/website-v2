@@ -6,7 +6,7 @@ category: "AI & Machine Learning"
 draft: false
 ---
 
-In our <EmbedBlog slug="rag-complete-guide" placeholder="RAG Complete Guide" /> and <EmbedBlog slug="advanced-rag-agents" placeholder="Advanced RAG Agents" /> articles, we built production-ready retrieval systems with hybrid search and multi-hop reasoning. But how do you know if your RAG system is actually *good*? Enter **RAGAS**, the gold standard for evaluating retrieval-augmented generation systems.
+In our <EmbedBlog slug="production-ready-rag-guide" placeholder="RAG Complete Guide" /> and <EmbedBlog slug="multi-hop-rag-agents" placeholder="Advanced RAG Agents" /> articles, we built production-ready retrieval systems with hybrid search and multi-hop reasoning. But how do you know if your RAG system is actually _good_? Enter **RAGAS**, the gold standard for evaluating retrieval-augmented generation systems.
 
 ## Why Evaluate RAG Systems?
 
@@ -34,15 +34,18 @@ graph LR
 
 RAGAS provides four core metrics that evaluate different aspects of your RAG pipeline:
 
-| Metric | What It Measures | Range | Target |
-|--------|-----------------|-------|--------|
-| **Faithfulness** | Is the answer grounded in context? | 0-1 | > 0.9 |
-| **Answer Relevancy** | Does it answer the question? | 0-1 | > 0.8 |
-| **Context Precision** | Are retrieved docs ranked correctly? | 0-1 | > 0.75 |
-| **Context Recall** | Was all necessary info retrieved? | 0-1 | > 0.8 |
+| Metric                | What It Measures                     | Range | Target |
+| --------------------- | ------------------------------------ | ----- | ------ |
+| **Faithfulness**      | Is the answer grounded in context?   | 0-1   | > 0.9  |
+| **Answer Relevancy**  | Does it answer the question?         | 0-1   | > 0.8  |
+| **Context Precision** | Are retrieved docs ranked correctly? | 0-1   | > 0.75 |
+| **Context Recall**    | Was all necessary info retrieved?    | 0-1   | > 0.8  |
 
 <Callout variant="info" title="Why Four Metrics?" icon="info">
-  Each metric catches different failure modes. A system might retrieve perfect context but hallucinate (low faithfulness), or generate accurate answers from poorly ranked results (low precision). Measuring all four gives you complete visibility.
+  Each metric catches different failure modes. A system might retrieve perfect
+  context but hallucinate (low faithfulness), or generate accurate answers from
+  poorly ranked results (low precision). Measuring all four gives you complete
+  visibility.
 </Callout>
 
 ### The Metric Relationships
@@ -244,7 +247,9 @@ Faithfulness = (Supported Claims) / (Total Claims)
 ```
 
 <Callout variant="warning" title="Common Pitfalls" icon="alert-triangle">
-  Faithfulness scores can be misleadingly high if your LLM generates very short, non-committal answers. Always pair faithfulness with answer relevancy to ensure completeness.
+  Faithfulness scores can be misleadingly high if your LLM generates very short,
+  non-committal answers. Always pair faithfulness with answer relevancy to
+  ensure completeness.
 </Callout>
 
 ## Deep Dive: Answer Relevancy
@@ -325,11 +330,11 @@ Even if you retrieve all relevant documents, **poor ranking wastes context windo
 - Potential hallucinations from irrelevant context
 
 | Position | Precision@K Weight |
-|----------|-------------------|
-| 1st | Highest impact |
-| 2nd | High impact |
-| 3rd | Medium impact |
-| 4th+ | Decreasing impact |
+| -------- | ------------------ |
+| 1st      | Highest impact     |
+| 2nd      | High impact        |
+| 3rd      | Medium impact      |
+| 4th+     | Decreasing impact  |
 
 ## Deep Dive: Context Recall
 
@@ -358,7 +363,9 @@ poor_recall = {
 ```
 
 <Callout variant="info" title="Recall Requires Ground Truth" icon="info">
-  Unlike the other metrics, context recall needs ground truth answers to determine what information *should* be retrieved. This makes it harder to scale but essential for thorough evaluation.
+  Unlike the other metrics, context recall needs ground truth answers to
+  determine what information *should* be retrieved. This makes it harder to
+  scale but essential for thorough evaluation.
 </Callout>
 
 ## Building an Evaluation Pipeline
@@ -517,6 +524,7 @@ print(f"Recall: {results['context_recall']:.3f}")
       )
       ```
     </AccordionContent>
+
   </AccordionItem>
 </Accordion>
 
@@ -559,32 +567,33 @@ print(f"Recall: {results['context_recall']:.3f}")
 
 ### When Metrics Disagree
 
-| Scenario | Likely Cause | Action |
-|----------|-------------|--------|
-| High Faithfulness, Low Relevancy | Overly cautious answers | Adjust prompt to be more comprehensive |
+| Scenario                         | Likely Cause                            | Action                                         |
+| -------------------------------- | --------------------------------------- | ---------------------------------------------- |
+| High Faithfulness, Low Relevancy | Overly cautious answers                 | Adjust prompt to be more comprehensive         |
 | Low Faithfulness, High Relevancy | Hallucinating relevant-sounding content | Add grounding instructions, reduce temperature |
-| High Precision, Low Recall | Not retrieving enough docs | Increase `k`, broaden search |
-| Low Precision, High Recall | Too many irrelevant docs | Add reranking, tune similarity threshold |
+| High Precision, Low Recall       | Not retrieving enough docs              | Increase `k`, broaden search                   |
+| Low Precision, High Recall       | Too many irrelevant docs                | Add reranking, tune similarity threshold       |
 
 ### Setting Thresholds
 
 <Callout variant="error" title="Quality Gates" icon="shield-alert">
   For production systems, establish minimum thresholds and fail deployments that don't meet them:
 
-  ```python
-  QUALITY_GATES = {
-      "faithfulness": 0.85,
-      "answer_relevancy": 0.75,
-      "context_precision": 0.70,
-      "context_recall": 0.70,
-  }
+```python
+QUALITY_GATES = {
+    "faithfulness": 0.85,
+    "answer_relevancy": 0.75,
+    "context_precision": 0.70,
+    "context_recall": 0.70,
+}
 
-  def check_quality_gates(results: dict) -> bool:
-      for metric, threshold in QUALITY_GATES.items():
-          if results[metric] < threshold:
-              return False
-      return True
-  ```
+def check_quality_gates(results: dict) -> bool:
+    for metric, threshold in QUALITY_GATES.items():
+        if results[metric] < threshold:
+            return False
+    return True
+```
+
 </Callout>
 
 ## A/B Testing RAG Changes
@@ -627,8 +636,8 @@ name: RAG Evaluation
 on:
   pull_request:
     paths:
-      - 'src/rag/**'
-      - 'prompts/**'
+      - "src/rag/**"
+      - "prompts/**"
 
 jobs:
   evaluate:
@@ -639,7 +648,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
@@ -717,9 +726,12 @@ Integrate evaluation into your development workflow, set quality gates, and cont
 <Callout variant="success" title="Master RAG Development" icon="book-open">
   This is Part 3 of our comprehensive RAG series:
 
-  1. <EmbedBlog slug="rag-complete-guide" /> - Fundamentals with Qdrant & FastEmbed
-  2. <EmbedBlog slug="advanced-rag-agents" /> - Agentic RAG with chain-of-thought reasoning
-  3. **Evaluating RAG with RAGAS** - You are here ✓
+1. <EmbedBlog slug="production-ready-rag-guide" /> - Fundamentals with Qdrant &
+   FastEmbed
+2. <EmbedBlog slug="multi-hop-rag-agents" /> - Agentic RAG with chain-of-thought
+   reasoning
+3. **Evaluating RAG with RAGAS** - You are here ✓
+
 </Callout>
 
-*Need help evaluating your RAG system? [Contact us](/contact) to learn how AstraQ can help you build reliable AI applications.*
+_Need help evaluating your RAG system? [Contact us](/contact) to learn how AstraQ can help you build reliable AI applications._
