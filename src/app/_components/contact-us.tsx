@@ -1,9 +1,12 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
+import Script from "next/script";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Field,
+  FieldContent,
   FieldDescription,
   FieldError,
   FieldGroup,
@@ -12,6 +15,8 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+
+import { useTurnstile } from "@/hooks/use-turnstile";
 import { submitContactForm } from "@/lib/actions/contact";
 import {
   type ContactFormData,
@@ -21,6 +26,7 @@ import {
 
 export function ContactUsSection() {
   const { title, subtitle } = siteConfig.pages.home.contactUs;
+  const turnstileRef = useRef<HTMLDivElement>(null);
 
   const form = useForm({
     defaultValues: {
@@ -28,18 +34,38 @@ export function ContactUsSection() {
       email: "",
       company: "",
       message: "",
+      turnstileToken: "",
     } as ContactFormData,
     validators: {
-      onChange: contactFormSchema,
+      onSubmit: contactFormSchema,
     },
     onSubmit: async ({ value }) => {
-      // TODO: Handle response
-      await submitContactForm(value);
+      const result = await submitContactForm(value);
+      if (!result.success) {
+        resetTurnstile();
+      } else {
+        form.reset();
+        // TODO: Show success message/toast here
+      }
     },
   });
 
+  const { buildTurnstile, resetTurnstile } = useTurnstile(
+    turnstileRef,
+    (token) => form.setFieldValue("turnstileToken", token),
+  );
+
   return (
-    <section id="contact" className="py-12 px-4 sm:px-6 lg:px-8 border-t border-border">
+    <section
+      id="contact"
+      className="py-12 px-4 sm:px-6 lg:px-8 border-t border-border"
+    >
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        async
+        defer
+        onReady={buildTurnstile}
+      />
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row w-full items-center justify-center gap-6 md:gap-12">
           <div className="flex flex-col items-start justify-start gap-3 self-stretch">
@@ -152,6 +178,17 @@ export function ContactUsSection() {
                           placeholder="Tell us about your product or questions..."
                           className="min-h-[120px] resize-none border-border bg-card text-secondary-foreground placeholder:text-muted-foreground focus-visible:ring-border"
                         />
+                        <FieldError errors={field.state.meta.errors} />
+                      </Field>
+                    )}
+                  </form.Field>
+
+                  <form.Field name="turnstileToken">
+                    {(field) => (
+                      <Field>
+                        <FieldContent>
+                          <div ref={turnstileRef} />
+                        </FieldContent>
                         <FieldError errors={field.state.meta.errors} />
                       </Field>
                     )}

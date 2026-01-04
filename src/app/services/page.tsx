@@ -1,12 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { ServiceCard } from "@/app/_components/service-card";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { siteConfig } from "@/lib/constants";
 import { allServices } from "@/lib/content";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
 export default function ServicesPage() {
   const { ref, isVisible } = useIntersectionObserver();
@@ -52,7 +52,10 @@ export default function ServicesPage() {
               Contact our team to discuss which services are right for your
               organization
             </p>
-            <Button className="text-primary-foreground rounded-sm font-semibold hover:shadow-lg" asChild>
+            <Button
+              className="text-primary-foreground rounded-sm font-semibold hover:shadow-lg"
+              asChild
+            >
               <Link href={siteConfig.pages.services.cta.href}>
                 {siteConfig.pages.services.cta.text}
               </Link>

@@ -18,6 +18,7 @@ export const contactFormSchema = z.object({
   email: z.email("Invalid email address"),
   company: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters long"),
+  turnstileToken: z.string().min(1, "You must verify you're human"),
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -146,7 +147,7 @@ export const siteConfig = {
         text: "Schedule Consultation",
         href: "https://cal.com/astraq-cyber-defence" as Route,
       },
-    }
+    },
   },
   footer: {
     products: [
@@ -163,16 +164,16 @@ export const siteConfig = {
     ] as NavItem[],
     resources: [
       { label: "Blog", href: "/blog" },
-      { label: "Open Source", href: "#" },
+      { label: "Open Source", href: "https://github.com/Astraq-HQ" },
     ] as NavItem[],
     legal: [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
     ] as NavItem[],
     socials: [
-      { label: "LinkedIn", href: "#" },
-      { label: "Twitter", href: "#" },
-      { label: "GitHub", href: "#" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/astrqcd/" },
+      { label: "Twitter", href: "https://x.com/astraqcd" },
+      { label: "GitHub", href: "https://github.com/Astraq-HQ" },
     ] as NavItem[],
     contact: {
       email: CONTACT_EMAIL,
