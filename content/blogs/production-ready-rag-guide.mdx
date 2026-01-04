@@ -504,10 +504,12 @@ def filtered_search(
 
 Track these key metrics for your RAG system:
 
-1. **Retrieval Quality** - Are you finding relevant documents?
-2. **Latency** - P50, P95, P99 response times
-3. **Cost** - API usage and embedding generation costs
-4. **User Satisfaction** - Thumbs up/down on responses
+| Metric                | Description                                                     |
+| :-------------------- | :-------------------------------------------------------------- |
+| **Retrieval Quality** | Are you finding relevant documents? Measured by MRR or NDCG.    |
+| **Latency**           | P50, P95, P99 response times for both retrieval and generation. |
+| **Cost**              | API usage (tokens) and embedding generation/storage costs.      |
+| **User Satisfaction** | Thumbs up/down on responses or explicit user feedback.          |
 
 ### Error Handling
 
