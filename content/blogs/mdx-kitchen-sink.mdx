@@ -207,13 +207,34 @@ npm install @langchain/core
 
 ### Tabbed Commands
 
-```shell tabs=npm,pnpm,bun
+<Tabs defaultValue="npm">
+  <TabsList>
+    <TabsTrigger value="npm">npm</TabsTrigger>
+    <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+    <TabsTrigger value="bun">bun</TabsTrigger>
+  </TabsList>
+  <TabsContent value="npm">
+
+```shell
 npm install @langchain/core @langchain/openai
----
+```
+
+  </TabsContent>
+  <TabsContent value="pnpm">
+
+```shell
 pnpm add @langchain/core @langchain/openai
----
+```
+
+  </TabsContent>
+  <TabsContent value="bun">
+
+```shell
 bun add @langchain/core @langchain/openai
 ```
+
+  </TabsContent>
+</Tabs>
 
 ---
 

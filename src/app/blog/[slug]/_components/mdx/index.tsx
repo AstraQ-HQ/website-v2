@@ -247,7 +247,7 @@ const components = {
     />
   ),
   Tabs: ({ className, ...props }: React.ComponentProps<typeof Tabs>) => (
-    <Tabs className={cn("relative mt-6", className)} {...props} />
+    <Tabs className={cn("relative mt-6 gap-0", className)} {...props} />
   ),
   TabsList: ({
     className,
@@ -255,7 +255,7 @@ const components = {
   }: React.ComponentProps<typeof TabsList>) => (
     <TabsList
       className={cn(
-        "justify-start rounded-b-none rounded-t-lg border bg-transparent p-0",
+        "justify-start rounded-none border bg-transparent p-0 rounded-t-lg",
         className,
       )}
       {...props}
@@ -267,7 +267,7 @@ const components = {
   }: React.ComponentProps<typeof TabsTrigger>) => (
     <TabsTrigger
       className={cn(
-        "relative h-9 rounded-b-none rounded-t-lg border-b-2 border-b-transparent bg-transparent px-4 pt-2 pb-3 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none",
+        "relative h-9 bg-transparent px-4 pt-2 pb-3 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-none",
         className,
       )}
       {...props}
@@ -278,7 +278,7 @@ const components = {
     ...props
   }: React.ComponentProps<typeof TabsContent>) => (
     <TabsContent
-      className={cn("relative [&_h3.font-mono]:text-base", className)}
+      className={cn("relative [&>pre]:my-0 [&>pre]:mb-4", className)}
       {...props}
     />
   ),

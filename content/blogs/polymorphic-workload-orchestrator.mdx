@@ -1,5 +1,5 @@
 ---
-title: "Building a Polymorphic Workload Orchestrator with Go and Kubernetes"
+title: "Building a **Polymorphic Workload Orchestrator** with *Go* and *Kubernetes*"
 summary: "Learn how to build a scalable control plane for on-demand AI agents and data tasks using Go interfaces, Redis queues, and Kubernetes."
 publishedAt: 2026-01-06
 category: "System Design"
@@ -12,7 +12,7 @@ In this guide (Part 1 of a series), we'll build a **Polymorphic Workload Orchest
 
 ## The Problem: "One Size Fits None"
 
-Imagine you're building a platform like AstraQ that needs to handle two distinct types of tasks:
+Imagine you're building a platform that needs to handle two distinct types of tasks:
 
 1.  **Trusted Internal Tasks:** Data aggregation, report generation. Fast startup is key; isolation is less critical.
 2.  **Untrusted User Code:** AI agents executing Python scripts. Security and hard isolation are non-negotiable.
@@ -280,7 +280,7 @@ kubectl run redis-client --image=redis --restart=Never -- redis-cli -h redis-ser
   LPUSH workload_queue '{"id":"test-1", "type":"trusted", "image":"alpine", "cmd":["echo", "hello"]}'
 ```
 
-## Conclusion & What's Next
+## Conclusion and What's Next
 
 We've built a robust foundation. Our Application Layer is decoupled from the Infrastructure Layer via the `WorkloadRuntime` interface. We can currently spawn generic Kubernetes Pods for trusted tasks.
 

@@ -1,5 +1,5 @@
 ---
-title: "Zero-Trust Networking for AI Agents: Protecting Your Internal VPC"
+title: "**Zero-Trust Networking** for *AI Agents*: Protecting Your Internal VPC"
 summary: "Part 3: Preventing SSRF and lateral movement by dynamically provisioning Kubernetes Network Policies for untrusted workloads."
 publishedAt: 2026-01-12
 category: "Security"
@@ -22,7 +22,7 @@ We want a networking model where:
 2.  **Internal Egress is Blocked:** The agent cannot talk to other Pods, Services, or the Node IP.
 3.  **Public Egress is Allowed:** The agent _can_ reach the public internet (Google, OpenAI, etc.).
 
-## Step 1: Default Deny Policy
+## Default Deny Policy
 
 We don't want to rely on manual configuration. We'll update our Go `FirecrackerRuntime` to create a `NetworkPolicy` alongside every Pod.
 
@@ -108,7 +108,7 @@ func (f *FirecrackerRuntime) createNetworkPolicy(ctx context.Context, id string)
   policies but requires the separate Network Policy Agent.
 </Callout>
 
-## Step 2: Integrating with Provision()
+## Integrating with Provision()
 
 We simply add this call to our existing `Provision` method.
 

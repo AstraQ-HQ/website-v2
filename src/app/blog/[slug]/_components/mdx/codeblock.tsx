@@ -6,6 +6,7 @@ import { Shell } from "./shell";
 type CodeblockFn = (
   code: string,
   meta: Record<string, string | undefined>,
+  children: React.ReactNode,
 ) => React.ReactNode;
 
 const customCodeblockHandlers: Record<string, CodeblockFn> = {
@@ -13,8 +14,16 @@ const customCodeblockHandlers: Record<string, CodeblockFn> = {
     return <Mermaid chart={code} />;
   },
 
-  shell: (code: string, meta: Record<string, string | undefined>) => {
-    return <Shell code={code} meta={meta} />;
+  shell: (
+    code: string,
+    meta: Record<string, string | undefined>,
+    children: React.ReactNode,
+  ) => {
+    return (
+      <Shell code={code} meta={meta}>
+        {children}
+      </Shell>
+    );
   },
 };
 
@@ -45,7 +54,7 @@ export function Codeblock({
 
   const handler = customCodeblockHandlers[lang];
   if (handler) {
-    return handler(code, meta);
+    return handler(code, meta, props.children);
   }
 
   const filename = meta.filename;

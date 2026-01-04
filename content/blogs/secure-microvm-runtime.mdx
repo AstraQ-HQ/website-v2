@@ -1,5 +1,5 @@
 ---
-title: "Hardening the Control Plane: From Pods to MicroVMs"
+title: "*Hardening* the **Control Plane**: From Pods to *MicroVMs*"
 summary: "Part 2: Securing your workload orchestrator by swapping standard Containers for Firecracker MicroVMs using Kata Containers and the Go WorkloadRuntime interface."
 publishedAt: 2026-01-09
 category: "System Design"
@@ -49,15 +49,16 @@ graph LR
         Interface{WorkloadRuntime}
     end
 
-    Interface -->|Type: Trusted| RunC[runc (Standard)]
-    Interface -->|Type: Untrusted| Kata[kata-runtime (MicroVM)]
+    Interface -->|Type: Trusted| RunC["runc (Standard)"]
+    Interface -->|Type: Untrusted| Kata["kata-runtime (MicroVM)"]
 
     RunC -.-> Kernel[Host Kernel]
     Kata -.-> Hypervisor[Firecracker VMM]
-    Hypervisor -.-> Kernel
+    Hypervisor -.-> GuestKernel[Guest Kernel]
+    GuestKernel -.-> Kernel
 ```
 
-## Step 1: Kubernetes Configuration
+## Kubernetes Configuration
 
 First, we need to register the Kata runtime class in our cluster.
 
@@ -73,7 +74,7 @@ overhead:
     cpu: "250m"
 ```
 
-## Step 2: The Firecracker Runtime Implementation
+## The Firecracker Runtime Implementation
 
 Now we create the `FirecrackerRuntime` in Go. It's almost identical to our generic `K8sRuntime`, but with one key difference: it requests the `kata-fc` RuntimeClass.
 
@@ -136,7 +137,7 @@ func (f *FirecrackerRuntime) Provision(ctx context.Context, id string, spec runt
 }
 ```
 
-## Step 3: Wiring It Up
+## Wiring It Up
 
 Back in our worker's event loop, we can finally uncomment the logic we hinted at in Part 1.
 
@@ -178,4 +179,4 @@ We now have a system that is:
 2.  **Scalable:** Managed via Redis queues.
 3.  **Secure:** Uses hardware virtualization for untrusted agents.
 
-In <EmbedBlog slug="secure-agent-networking" placeholder="Part 3" />, we'll look at **Networking**. How do we let these agents talk to the internet (or AstraQ APIs) without letting them scan our internal VPC?
+In <EmbedBlog slug="secure-agent-networking" placeholder="Part 3" />, we'll look at **Networking**. How do we let these agents talk to the internet (or specific internal APIs) without letting them scan our internal VPC?

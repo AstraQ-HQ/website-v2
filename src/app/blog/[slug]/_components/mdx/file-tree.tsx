@@ -1,5 +1,5 @@
 "use client";
-import { FileIcon, FolderIcon } from "lucide-react";
+import { FileTextIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
 import { useState } from "react";
 import {
   Accordion,
@@ -83,7 +83,7 @@ function Tree({
           type="button"
           className="flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm transition focus-visible:ring-2"
         >
-          <FileIcon className="size-4" />
+          <FileTextIcon className="size-4" />
           {item.name}
         </button>
       </li>
@@ -101,7 +101,11 @@ function Tree({
       >
         <AccordionItem value={`folder-${item.name}`}>
           <AccordionTrigger className="flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm justify-start">
-            <FolderIcon className="size-4" />
+            {value === `folder-${item.name}` ? (
+              <FolderOpenIcon className="size-4" />
+            ) : (
+              <FolderIcon className="size-4" />
+            )}
             {item.name}
           </AccordionTrigger>
           <AccordionContent>
