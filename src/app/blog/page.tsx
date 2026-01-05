@@ -2,9 +2,9 @@
 
 import { formatDate } from "date-fns";
 import { CalendarIcon, SearchIcon } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { BlogBannerImage } from "@/components/blog-banner-image";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { allBlogsByDate } from "@/lib/content";
@@ -92,12 +92,12 @@ export default function BlogPage() {
             <Link href={`/blog/${featuredPost.slug}`} className="block group">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-card rounded-lg overflow-hidden border border-border p-8 transition-all group-hover:border-accent group-hover:shadow-lg">
                 <div className="relative bg-linear-to-br from-accent/10 to-accent/5 rounded-lg overflow-hidden lg:min-h-[320px] aspect-3/2">
-                  <Image
-                    src={featuredPost.banner}
-                    alt={featuredPost.title}
+                  <BlogBannerImage
+                    slug={featuredPost.slug}
+                    title={featuredPost.title}
                     fill
                     className="object-cover"
-                    priority
+                    preload
                   />
                 </div>
                 <div className="flex flex-col justify-center">
@@ -153,9 +153,9 @@ export default function BlogPage() {
                   }}
                 >
                   <div className="relative w-full bg-linear-to-br from-accent/10 to-accent/5 rounded-lg mb-4 overflow-hidden aspect-3/2">
-                    <Image
-                      src={post.banner}
-                      alt={post.title}
+                    <BlogBannerImage
+                      slug={post.slug}
+                      title={post.title}
                       fill
                       className="object-cover"
                     />

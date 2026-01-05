@@ -1,5 +1,15 @@
 @reference "./globals.css";
 
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    /* biome-ignore lint/complexity/noImportantStyles: This is required by shiki */
+    color: var(--shiki-dark) !important;
+    /* biome-ignore lint/complexity/noImportantStyles: This is required by shiki */
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
 .shiki .line.diff {
   @apply !w-[calc(100%+2rem)];
 }

@@ -22,6 +22,7 @@ import "@/styles/mdx.css";
 import "@/styles/shiki.css";
 import "katex/dist/katex.min.css";
 import logo from "@/app/icon.svg";
+import { BlogBannerImage } from "@/components/blog-banner-image";
 import { env } from "@/env";
 import { siteConfig } from "@/lib/constants";
 
@@ -136,14 +137,14 @@ export default async function Page({ params }: PageProps<"/blog/[slug]">) {
             </div>
 
             <div className="order-1 lg:order-2">
-              <div className="aspect-16/9 overflow-hidden rounded-lg">
-                <Image
-                  alt={blog.title}
+              <div className="aspect-3/2 overflow-hidden rounded-lg">
+                <BlogBannerImage
+                  title={blog.title}
+                  slug={blog.slug}
                   className="h-full w-full object-cover"
-                  height={600}
-                  src={blog.banner ?? `/images/blogs/${blog.slug}.png`}
-                  width={1200}
-                  priority
+                  height={1024}
+                  width={1536}
+                  preload
                   unoptimized
                   fetchPriority="high"
                 />

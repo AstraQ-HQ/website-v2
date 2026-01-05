@@ -2,9 +2,11 @@
 
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
+import { useDarkMode } from "@/hooks/use-dark-mode";
 
 export function Globe() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isDark = useDarkMode();
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -17,14 +19,14 @@ export function Globe() {
       height: 500 * 2,
       phi: 0,
       theta: 0,
-      dark: 0,
       diffuse: 0,
       mapSamples: 18000,
       mapBrightness: 12,
       mapBaseBrightness: 0,
+      dark: isDark ? 1 : 0,
       baseColor: [1, 1, 1],
       markerColor: [1, 1, 1],
-      glowColor: [1, 1, 1],
+      glowColor: isDark ? [0, 0, 0] : [1, 1, 1],
       markers: [],
       onRender: (state) => {
         state.phi = phi;
@@ -35,7 +37,7 @@ export function Globe() {
     return () => {
       globe.destroy();
     };
-  }, []);
+  }, [isDark]);
 
   return (
     <div className="w-full h-full flex items-center justify-center">

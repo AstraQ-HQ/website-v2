@@ -128,7 +128,7 @@ const blogs = defineCollection({
         [
           rehypeShiki,
           {
-            theme: "vitesse-light",
+            themes: { light: "vitesse-light", dark: "vitesse-black" },
             transformers: [
               transformerNotationDiff(),
               transformerNotationHighlight(),
@@ -241,7 +241,6 @@ const blogs = defineCollection({
 
     return {
       ...document,
-      banner: `/images/blog/${slug}.png`,
       title: plainTitle,
       html,
       htmlTitle,

@@ -5,6 +5,7 @@ import type React from "react";
 import { Footer } from "./_components/footer";
 import { NavBar } from "./_components/navbar";
 import "@/styles/globals.css";
+import { env } from "@/env";
 import { cn } from "@/lib/utils";
 
 const spaceMono = Space_Mono({
@@ -15,6 +16,7 @@ const spaceMono = Space_Mono({
 const nunito = Nunito_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
+  metadataBase: env.NEXT_PUBLIC_BASE_URL,
   title: "AstraQ Cyber Defence - AI-Powered Cybersecurity Solutions",
   description:
     "Enterprise-grade AI-powered cybersecurity solutions. Threat detection, incident response, and compliance management for modern businesses.",

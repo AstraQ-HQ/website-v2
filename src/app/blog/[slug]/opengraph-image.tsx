@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
@@ -13,13 +13,8 @@ export const size = {
   height: 630,
 };
 
-const spaceMonoBold = fetch(
-  "https://raw.githubusercontent.com/google/fonts/refs/heads/main/ofl/spacemono/SpaceMono-Bold.ttf",
-).then((res) => res.arrayBuffer());
-
-const spaceMonoRegular = fetch(
-  "https://raw.githubusercontent.com/google/fonts/refs/heads/main/ofl/spacemono/SpaceMono-Regular.ttf",
-).then((res) => res.arrayBuffer());
+const readFont = (name: string) =>
+  readFile(join(process.cwd(), "assets", name));
 
 export function generateStaticParams() {
   return allBlogsByDate.map((blog) => ({ slug: blog.slug }));
@@ -37,19 +32,26 @@ export default async function Image({ params }: Props) {
     notFound();
   }
 
-  const [boldFont, regularFont] = await Promise.all([
-    spaceMonoBold,
-    spaceMonoRegular,
-  ]);
-
-  const bannerPath = join(process.cwd(), "public", blog.banner);
-  const bannerBuffer = readFileSync(bannerPath);
-  const ext = blog.banner.split(".").pop() || "png";
-  const mimeType = ext === "jpg" ? "jpeg" : ext;
-  const bannerUrl = `data:image/${mimeType};base64,${bannerBuffer.toString("base64")}`;
-
+  const bannerPath = join(
+    process.cwd(),
+    "public",
+    "images",
+    "blog-banners",
+    "light",
+    `${slug}.png`,
+  );
   const logoPath = join(process.cwd(), "src", "app", "icon.svg");
-  const logoBuffer = readFileSync(logoPath);
+
+  const [boldFont, regularFont, nunitoFont, bannerBuffer, logoBuffer] =
+    await Promise.all([
+      readFont("space-mono.ttf"),
+      readFont("space-mono-bold.ttf"),
+      readFont("nunito-sans.ttf"),
+      readFile(bannerPath),
+      readFile(logoPath),
+    ]);
+
+  const bannerUrl = `data:image/png;base64,${bannerBuffer.toString("base64")}`;
   const logoUrl = `data:image/svg+xml;base64,${logoBuffer.toString("base64")}`;
 
   return new ImageResponse(
@@ -158,6 +160,7 @@ export default async function Image({ params }: Props) {
             display: "-webkit-box",
             WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical",
+            fontFamily: "Nunito Sans",
           }}
         >
           {blog.summary}
@@ -179,8 +182,7 @@ export default async function Image({ params }: Props) {
               borderRadius: "6px",
               fontSize: 18,
               fontWeight: 400,
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
+              fontFamily: "Nunito Sans",
             }}
           >
             #{blog.category}
@@ -200,6 +202,12 @@ export default async function Image({ params }: Props) {
         {
           name: "Space Mono",
           data: regularFont,
+          weight: 400,
+          style: "normal",
+        },
+        {
+          name: "Nunito Sans",
+          data: nunitoFont,
           weight: 400,
           style: "normal",
         },
