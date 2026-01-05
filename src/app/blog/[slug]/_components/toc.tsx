@@ -33,7 +33,10 @@ export function MobileTableOfContents({ headings }: TableOfContentsProps) {
                 }}
                 style={{ paddingLeft: `${heading.depth * 10}px` }}
               >
-                <span className="mr-2">•</span>
+                <ChevronRightIcon
+                  className="size-3 text-foreground mr-2"
+                  strokeWidth={1}
+                />
                 <span className="truncate text-base font-medium">
                   {heading.value}
                 </span>

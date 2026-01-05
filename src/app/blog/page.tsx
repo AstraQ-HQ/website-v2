@@ -91,7 +91,7 @@ export default function BlogPage() {
           <div className="max-w-7xl mx-auto">
             <Link href={`/blog/${featuredPost.slug}`} className="block group">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-card rounded-lg overflow-hidden border border-border p-8 transition-all group-hover:border-accent group-hover:shadow-lg">
-                <div className="relative bg-linear-to-br from-accent/10 to-accent/5 rounded-lg overflow-hidden min-h-[320px]">
+                <div className="relative bg-linear-to-br from-accent/10 to-accent/5 rounded-lg overflow-hidden lg:min-h-[320px] aspect-3/2">
                   <Image
                     src={featuredPost.banner}
                     alt={featuredPost.title}
@@ -152,7 +152,7 @@ export default function BlogPage() {
                     transition: `opacity 700ms ${index * 100}ms, transform 700ms ${index * 100}ms, box-shadow 300ms, border-color 300ms`,
                   }}
                 >
-                  <div className="relative w-full h-40 bg-linear-to-br from-accent/10 to-accent/5 rounded-lg mb-4 overflow-hidden">
+                  <div className="relative w-full bg-linear-to-br from-accent/10 to-accent/5 rounded-lg mb-4 overflow-hidden aspect-3/2">
                     <Image
                       src={post.banner}
                       alt={post.title}

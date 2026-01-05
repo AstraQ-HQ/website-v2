@@ -77,7 +77,6 @@ const blogs = defineCollection({
     publishedAt: z.coerce.date(),
     category: z.string(),
     draft: z.boolean().default(false),
-    banner: z.string().optional(),
     content: z.string(),
     author: z
       .object({
@@ -242,7 +241,7 @@ const blogs = defineCollection({
 
     return {
       ...document,
-      banner: document.banner ?? `/images/blog/${slug}.png`,
+      banner: `/images/blog/${slug}.png`,
       title: plainTitle,
       html,
       htmlTitle,
