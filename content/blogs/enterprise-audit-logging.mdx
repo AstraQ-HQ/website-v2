@@ -1,5 +1,5 @@
 ---
-title: "Enterprise Audit Logging: The Missing Piece of the Control Plane"
+title: "**Enterprise Audit Logging**: The Missing Piece of the *Control Plane*"
 summary: "Part 4: Implementing tamper-proof, asynchronous audit logging for ephemeral workloads using Go middleware and the Decorator pattern."
 publishedAt: 2026-01-05
 category: "System Design"
@@ -70,17 +70,17 @@ func (a *AuditMiddleware) Provision(ctx context.Context, id string, spec runtime
 
 ```mermaid
 graph LR
-    Call[Provision() Call] --> Middleware[Audit Middleware]
+    Call["Provision() Call"] --> Middleware["Audit Middleware"]
 
-    subgraph "Synchronous Path"
-        Middleware --> Runtime[Firecracker Runtime]
-        Runtime --> K8s[Kubernetes API]
+    subgraph Sync["Synchronous Path"]
+        Middleware --> Runtime["Firecracker Runtime"]
+        Runtime --> K8s["Kubernetes API"]
     end
 
-    subgraph "Asynchronous Path"
-        Middleware -.->|Go Channel| Buffer[Memory Buffer]
-        Buffer --> Worker[Sink Worker]
-        Worker --> DB[(ClickHouse/Kafka)]
+    subgraph Async["Asynchronous Path"]
+        Middleware -.->|"Go Channel"| Buffer["Memory Buffer"]
+        Buffer --> Worker["Sink Worker"]
+        Worker --> DB[("ClickHouse/Kafka")]
     end
 ```
 

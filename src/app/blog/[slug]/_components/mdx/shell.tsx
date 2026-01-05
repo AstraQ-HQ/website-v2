@@ -16,7 +16,8 @@ export function Shell({
       )}
     >
       <CopyButton className="top-1.5 right-1 absolute" code={code} />
-      <span className="text-cyan-800 select-none text-sm">$&gt;</span> {children}
+      <span className="text-cyan-800 select-none text-sm">$&gt;</span>{" "}
+      {children}
     </pre>
   );
 }

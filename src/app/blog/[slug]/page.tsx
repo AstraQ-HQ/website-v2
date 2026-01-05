@@ -14,8 +14,10 @@ import {
 } from "@/components/ui/popover";
 import { allBlogsByDate } from "@/lib/content";
 import { Mdx } from "./_components/mdx";
-import { BlogSidebar } from "./_components/sidebar";
-import { MobileTableOfContents } from "./_components/toc";
+import {
+  DesktopTableOfContents,
+  MobileTableOfContents,
+} from "./_components/toc";
 import "@/styles/mdx.css";
 import "@/styles/shiki.css";
 import "katex/dist/katex.min.css";
@@ -155,7 +157,7 @@ export default async function Page({ params }: PageProps<"/blog/[slug]">) {
             <div className="prose prose-lg min-w-0">
               <Mdx code={blog.html} />
             </div>
-            <BlogSidebar headings={blog.headings} />
+            <DesktopTableOfContents headings={blog.headings} />
           </div>
         </div>
       </article>
