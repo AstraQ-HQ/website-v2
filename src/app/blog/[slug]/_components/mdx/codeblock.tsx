@@ -70,7 +70,7 @@ export function Codeblock({
       <div className="relative">
         <pre
           className={cn(
-            "relative max-h-[650px] overflow-x-auto rounded-b-lg px-2 py-3",
+            "relative max-h-[650px] overflow-auto rounded-b-lg px-2 py-3",
             className,
           )}
           {...props}

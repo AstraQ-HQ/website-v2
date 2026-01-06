@@ -568,6 +568,17 @@ Standard markdown image:
 
 ![Placeholder Image](https://placehold.co/800x400?text=Placeholder+Image)
 
+### Dark and Light Mode Images
+
+Images can be conditionally displayed based on the color scheme using URL hash fragments:
+
+![Dark Mode Image](https://placehold.co/800x400/1a1a1a/ffffff?text=Dark+Mode+Image#dark-mode-only)
+
+![Light Mode Image](https://placehold.co/800x400/ffffff/1a1a1a?text=Light+Mode+Image#light-mode-only)
+
+The `#dark-mode-only` hash will hide the image in light mode and show it in dark mode. The `#light-mode-only` hash does the opposite.
+Change the theme to see the effect.
+
 ---
 
 ## Horizontal Rules

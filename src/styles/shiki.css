@@ -1,44 +1,74 @@
 @reference "./globals.css";
 
 @media (prefers-color-scheme: dark) {
-  .shiki,
-  .shiki span {
-    /* biome-ignore lint/complexity/noImportantStyles: This is required by shiki */
+  .shiki {
+    /* biome-ignore-start lint/complexity/noImportantStyles: This is required by shiki */
     color: var(--shiki-dark) !important;
-    /* biome-ignore lint/complexity/noImportantStyles: This is required by shiki */
     background-color: var(--shiki-dark-bg) !important;
+  }
+  .shiki span {
+    color: var(--shiki-dark) !important;
+    /* biome-ignore-end lint/complexity/noImportantStyles: This is required by shiki */
+    background-color: var(--shiki-dark-bg);
+  }
+
+  .shiki .line.highlighted span,
+  .shiki .line.diff span {
+    background-color: transparent;
   }
 }
 
 .shiki .line.diff {
-  @apply !w-[calc(100%+2rem)];
+  @apply w-[calc(100%+2rem)]!;
 }
 
 .shiki .line.highlighted {
-  @apply -ml-4 !w-[calc(100%+2rem)] border-l-2 border-l-muted-foreground bg-muted pl-3.5;
+  @apply -ml-4 w-[calc(100%+2rem)]! border-l-2 border-l-muted-foreground bg-muted pl-3.5;
+  @variant dark {
+    @apply border-l-slate-400 bg-slate-800/60;
+  }
 }
 
 .shiki .line.highlighted.error {
-  @apply border-l-2 border-l-[#ff3f5e] bg-[#ff3f5e29];
+  @apply border-l-2 border-l-[#ff3f5e] bg-[#ff3f5e29] underline decoration-wavy decoration-[#ff3f5e];
+  @variant dark {
+    @apply border-l-[#f87171] bg-[#7f1d1d40];
+  }
 }
+
 .shiki .line.highlighted.warning {
-  @apply border-l-2 border-l-[#eab308] bg-[#eab30829];
+  @apply border-l-2 border-l-[#eab308] bg-[#eab30829] underline decoration-wavy decoration-[#eab308];
+  @variant dark {
+    @apply border-l-[#facc15] bg-[#713f1240];
+  }
 }
 
 .shiki .line.diff.add {
   @apply -ml-4 border-l-2 border-l-green-600 bg-green-500/10 pl-3.5;
+  @variant dark {
+    @apply border-l-green-400 bg-green-900/40;
+  }
 }
 
 .shiki .line.diff.remove {
   @apply -ml-4 border-l-2 border-l-red-600 bg-red-500/10 pl-3.5;
+  @variant dark {
+    @apply border-l-red-400 bg-red-900/40;
+  }
 }
 
 .shiki .line.diff.add > *:first-child::before {
   @apply absolute left-5 text-green-600 content-['+'];
+  @variant dark {
+    @apply text-green-400;
+  }
 }
 
 .shiki .line.diff.remove > *:first-child::before {
   @apply absolute left-5 text-red-600 content-['-'];
+  @variant dark {
+    @apply text-red-400;
+  }
 }
 
 .shiki[data-show-line-numbers="false"] .line.diff.add > *:first-child::before,
