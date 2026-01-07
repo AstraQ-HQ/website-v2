@@ -285,7 +285,7 @@ const products = defineCollection({
     tagline: z.string(),
     description: z.string(),
     features: z.array(z.string()),
-    icon: z.string(),
+    logo: z.string(),
     category: z.string(),
     featured: z.boolean().optional().default(false),
   }),

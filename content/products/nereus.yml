@@ -6,7 +6,7 @@ features:
   - "AIS correlation & identity matching"
   - "Trajectory interpolation & tracking"
   - "Anomaly & dark vessel detection"
-icon: "Ship"
+logo: "/images/products/nereus.png"
 category: "Maritime Intelligence"
 featured: true
 

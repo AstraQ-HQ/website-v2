@@ -6,7 +6,7 @@ features:
   - "Evidence-grounded generation"
   - "Multi-hop reasoning support"
   - "Citation & source traceability"
-icon: "Database"
+logo: "/images/products/phoebe.png"
 category: "RAG"
 featured: true
 

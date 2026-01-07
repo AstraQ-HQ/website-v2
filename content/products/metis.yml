@@ -6,7 +6,7 @@ features:
   - "Visual & brand impersonation analysis"
   - "Zero-day attack identification"
   - "Cross-platform protection"
-icon: "ShieldAlert"
+logo: "/images/products/metis.png"
 category: "Phishing"
 featured: true
 

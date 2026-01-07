@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { Icon } from "@/components/ui/icon";
 import type { Product } from "@/lib/content";
 
 interface ProductCardProps {
@@ -11,17 +11,23 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="group p-8 bg-card border border-border rounded-sm hover:shadow-lg hover:border-accent transition-all duration-300 hover:-translate-y-2">
-      <div className="w-12 h-12 bg-accent/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-accent/15 transition-colors">
-        <Icon
-          name={product.icon}
-          className="w-6 h-6 text-accent-foreground"
-          strokeWidth={1}
+      <div className="flex items-start justify-start gap-4">
+        <Image
+          src={product.logo}
+          alt={product.name}
+          width={48}
+          height={48}
+          className="object-contain"
         />
+        <div>
+          <h3 className="font-mono text-2xl text-primary mb-1">
+            {product.name}
+          </h3>
+          <p className="text-sm text-accent-foreground font-semibold mb-3">
+            {product.tagline}
+          </p>
+        </div>
       </div>
-      <h3 className="font-mono text-2xl text-primary mb-1">{product.name}</h3>
-      <p className="text-sm text-accent-foreground font-semibold mb-3">
-        {product.tagline}
-      </p>
       <p className="text-muted-foreground mb-4">{product.description}</p>
 
       <ul className="space-y-2 mb-6">

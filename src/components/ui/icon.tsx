@@ -1,10 +1,10 @@
 import {
   AlertCircleIcon,
   BookOpenIcon,
+  BookSearchIcon,
   BrainIcon,
   CheckCircleIcon,
   ClipboardCheckIcon,
-  BookSearchIcon,
   GraduationCapIcon,
   type LucideIcon,
   ShieldCheckIcon,

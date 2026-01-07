@@ -6,7 +6,7 @@ features:
   - "Adaptive challenge difficulty"
   - "Blue & red team scenarios"
   - "Skill analytics and scoring"
-icon: "Target"
+logo: "/images/products/athena.png"
 category: "CTF"
 featured: true
 

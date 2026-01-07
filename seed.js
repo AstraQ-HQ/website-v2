@@ -1,4 +1,5 @@
-[{
+[
+  {
     icon: GraduationCap,
     name: "Cybersecurity Training & CTF Programs",
     description:
@@ -27,4 +28,5 @@
     name: "Maritime Domain Intelligence Services",
     description:
       "Advanced maritime surveillance and analytics using EO/SAR satellite data and AIS correlation to support coastal security, port monitoring, and dark-vessel detection.",
-  },]
+  },
+];

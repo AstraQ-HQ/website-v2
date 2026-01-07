@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Icon } from "@/components/ui/icon";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { siteConfig } from "@/lib/constants";
 import { allFeaturedProducts } from "@/lib/content";
@@ -77,20 +77,13 @@ export function FeaturedProducts() {
                       }}
                     />
                   )}
-                  <div
-                    className={cn(
-                      "w-10 h-10 rounded-sm flex items-center justify-center shrink-0 transition-colors",
-                      isActive
-                        ? "bg-accent/20 text-accent-foreground"
-                        : "bg-border text-muted-foreground",
-                    )}
-                  >
-                    <Icon
-                      name={product.icon}
-                      className="w-5 h-5"
-                      strokeWidth={1}
-                    />
-                  </div>
+                  <Image
+                    src={product.logo}
+                    alt={product.name}
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
                   <div className="flex-1">
                     <h3
                       className={cn(
@@ -118,13 +111,13 @@ export function FeaturedProducts() {
 
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-sm bg-accent/10 flex items-center justify-center shrink-0">
-                <Icon
-                  name={activeProductData.icon}
-                  className="w-6 h-6 text-accent-foreground"
-                  strokeWidth={1}
-                />
-              </div>
+              <Image
+                src={activeProductData.logo}
+                alt={activeProductData.name}
+                width={48}
+                height={48}
+                className="object-contain"
+              />
               <div className="flex-1">
                 <h3 className="font-mono text-3xl sm:text-4xl text-foreground mb-2">
                   {activeProductData.name}

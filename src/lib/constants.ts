@@ -1,6 +1,5 @@
 import {
   AwardIcon,
-  ClockIcon,
   CloudIcon,
   DatabaseIcon,
   LockIcon,
@@ -28,7 +27,7 @@ type NavItem = {
   href: Route;
 };
 
-export const calLink = "https://cal.com/astraqcd" as Route
+export const calLink = "https://cal.com/astraqcd" as Route;
 
 export const siteConfig = {
   name: "AstraQ",
