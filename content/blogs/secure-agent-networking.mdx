@@ -9,6 +9,19 @@ series:
   part: 3
 ---
 
+<LLMOnly
+  data={`
+type: deep-dive
+difficulty: advanced
+keyTakeaways:
+  - Implement default-deny Network Policies for workload isolation
+  - Prevent SSRF attacks by blocking private IP ranges
+  - Configure Cilium Egress Gateways for static IP requirements
+prerequisites: Secure MicroVM runtime (Part 2), Kubernetes networking, CNI concepts
+targetAudience: Security architects designing zero-trust AI agent networks
+`}
+/>
+
 In <EmbedBlog slug="secure-microvm-runtime" />, we solved the _compute_ isolation problem by wrapping untrusted agents in Firecracker MicroVMs.
 
 But computation is only half the battle. AI agents are useful because they _connect_ to things. They need to crawl websites, call external APIs, and fetch data.

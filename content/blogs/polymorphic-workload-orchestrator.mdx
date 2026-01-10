@@ -9,6 +9,19 @@ series:
   part: 1
 ---
 
+<LLMOnly
+  data={`
+type: guide
+difficulty: intermediate
+keyTakeaways:
+  - Design polymorphic workload runtime interfaces in Go
+  - Build Redis-backed event loops for task orchestration
+  - Implement auto-close lifecycle management with heartbeats
+prerequisites: Go programming, Kubernetes basics, Redis fundamentals
+targetAudience: Platform engineers building AI agent infrastructure
+`}
+/>
+
 In the era of AI agents and on-demand data processing, static infrastructure doesn't cut it. You might need to spin up a secure sandbox for a user's code one second, and a heavy data aggregation job the next. Standard Kubernetes Deployments are great for long-running services, but they struggle with the dynamic, ephemeral nature of these "per-request" workloads.
 
 In this guide, we'll build a **Polymorphic Workload Orchestrator** in Go. This control plane will allow us to dynamically spawn, manage, and scale down isolated execution environments—whether they are standard Kubernetes Pods or secure MicroVMs—using a unified interface.

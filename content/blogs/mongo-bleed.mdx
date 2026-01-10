@@ -6,6 +6,29 @@ category: "Security"
 draft: false
 ---
 
+<LLMOnly
+  data={`
+type: deep-dive
+difficulty: advanced
+keyTakeaways:
+  - Understand MongoBleed heap memory disclosure vulnerability mechanics
+  - Detect exploitation attempts with Falco, WAF, and SIEM rules
+  - Implement immediate mitigation through patching, compression disabling, and network controls
+prerequisites: MongoDB basics, security fundamentals, networking concepts
+targetAudience: Security engineers, database administrators, and DevOps teams
+`}
+/>
+
+<Callout
+  variant="error"
+  title="Critical Security Vulnerability"
+  icon="shield-alert"
+>
+  MongoBleed (CVE-2025-14847) is a CVSS 7.5 pre-authentication vulnerability
+  affecting MongoDB deployments with zlib compression enabled. **Patch
+  immediately** or disable zlib compression as a temporary mitigation.
+</Callout>
+
 MongoBleed represents a critical information disclosure vulnerability in MongoDB's network protocol implementation that allows unauthenticated remote attackers to read sensitive data directly from server heap memory. Discovered and disclosed on December 19, 2025, this vulnerability carries a CVSS score of 7.5 and affects MongoDB deployments with zlib compression enabled a common default configuration.
 
 What makes MongoBleed particularly dangerous is its pre-authentication nature. Attackers require no credentials, no special privileges, and no prior access to the database. A single TCP connection to an exposed MongoDB instance is sufficient to begin extracting sensitive information including authentication credentials, API keys, session tokens, and other confidential data residing in adjacent heap memory allocations.

@@ -1,5 +1,11 @@
-import type { ReactNode } from "react";
+interface LLMOnlyProps {
+  data: string;
+}
 
-export function LLMOnly({ children: _children }: { children: ReactNode }) {
-  return null;
+export function LLMOnly({ data }: LLMOnlyProps) {
+  return (
+    <pre className="hidden llm-use-only" aria-hidden="true">
+      {data}
+    </pre>
+  );
 }

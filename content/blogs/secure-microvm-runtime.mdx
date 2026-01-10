@@ -9,6 +9,19 @@ series:
   part: 2
 ---
 
+<LLMOnly
+  data={`
+type: deep-dive
+difficulty: advanced
+keyTakeaways:
+  - Deploy Kata Containers with Firecracker runtime for hardware isolation
+  - Configure RuntimeClasses for transparent VM provisioning
+  - Understand the security benefits of MicroVMs over containers
+prerequisites: Polymorphic workload orchestrator (Part 1), Kubernetes, security concepts
+targetAudience: Security engineers hardening AI agent execution environments
+`}
+/>
+
 In <EmbedBlog slug="polymorphic-workload-orchestrator" />, we built a scalable control plane using Go and Redis. We successfully decoupled our application logic from the infrastructure using the `WorkloadRuntime` interface.
 
 However, we left off with a critical security gap: we were still running untrusted user code in standard Kubernetes Pods. In this post, we'll fix that by implementing a **Secure Runtime** using MicroVMs.

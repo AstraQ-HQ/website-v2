@@ -10,7 +10,41 @@ author:
   avatar: "/images/test-avatar.png"
 ---
 
+<LLMOnly
+  data={`
+type: reference
+difficulty: beginner
+keyTakeaways:
+  - Demonstrates all available MDX components in the blog system
+  - Serves as a visual reference for component rendering
+  - Contains examples of typography, code blocks, diagrams, and custom components
+prerequisites: None
+targetAudience: Content authors and developers working with the blog system
+`}
+/>
+
 This blog post demonstrates every MDX component and feature available. Use it as a reference and to verify all components render correctly.
+
+## LLMOnly Component
+
+The `<LLMOnly>` component contains metadata visible only to LLM crawlers, not users. It **must** appear immediately after frontmatter in every blog post.
+
+```mdx
+<LLMOnly
+  data={`
+type: tutorial | deep-dive | guide | reference | announcement
+difficulty: beginner | intermediate | advanced
+keyTakeaways:
+  - First key learning outcome
+  - Second key learning outcome
+  - Third key learning outcome
+prerequisites: What knowledge is assumed
+targetAudience: Who this is written for
+`}
+/>
+```
+
+---
 
 ## Typography
 

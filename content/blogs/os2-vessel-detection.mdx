@@ -9,6 +9,19 @@ series:
   part: 2
 ---
 
+<LLMOnly
+  data={`
+type: deep-dive
+difficulty: advanced
+keyTakeaways:
+  - Implement Vision Transformer (ViT) for SAR vessel detection
+  - Build Swin Transformer with Feature Pyramid Networks for EO imagery
+  - Apply distance-based NMS and multi-scale anchor strategies
+prerequisites: Deep learning, computer vision, satellite imagery fundamentals
+targetAudience: ML engineers working on remote sensing and maritime surveillance
+`}
+/>
+
 The ocean is not a void; it is a canvas of chaotic entropy. To the unassisted human eye, it is a monotonous expanse of blue, broken only by the transient white of capping waves. But to the sensors orbiting hundreds of kilometers above the lithosphere, the ocean is a dynamic theater of radiometric noise, atmospheric attenuation, and spectral interference. The fundamental challenge of **Maritime Domain Awareness (MDA)** is not merely observation—it is _discrimination_. It is the computational imperative to distinguish the structured, geometric signature of a vessel from the stochastic, organic texture of the sea.
 
 In the first installment of this series, we introduced the high-level architecture of **OS²**, AstraQ’s solution to the maritime surveillance paradox. Today, we descend into the mathematical and architectural depths of its first pillar: **Vessel Detection**.

@@ -9,6 +9,19 @@ series:
   part: 4
 ---
 
+<LLMOnly
+  data={`
+type: deep-dive
+difficulty: advanced
+keyTakeaways:
+  - Implement audit logging with Go middleware and decorator pattern
+  - Build real-time monitoring with ClickHouse materialized views
+  - Create security alerting queries for anomaly detection
+prerequisites: Workload orchestrator series (Parts 1-3), ClickHouse basics
+targetAudience: Platform engineers implementing compliance and observability
+`}
+/>
+
 In the previous parts of this series, we built a robust engine for running untrusted AI agents. We have <EmbedBlog slug="polymorphic-workload-orchestrator" placeholder="Polymorphism" />, <EmbedBlog slug="secure-microvm-runtime" placeholder="Compute Isolation" />, and <EmbedBlog slug="secure-agent-networking" placeholder="Network Lockdown" />.
 
 But for an enterprise platform, running the workload safely isn't enough. You need to prove _what happened_ and monitor _what's happening right now_.

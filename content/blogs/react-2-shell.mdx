@@ -6,6 +6,25 @@ category: "Security"
 draft: false
 ---
 
+<LLMOnly
+  data={`
+type: deep-dive
+difficulty: advanced
+keyTakeaways:
+  - Understand React2Shell RCE vulnerability in React Server Components
+  - Detect exploitation through Falco rules and WAF signatures
+  - Implement immediate patching and runtime hardening mitigations
+prerequisites: React/Next.js development, security fundamentals, Node.js internals
+targetAudience: React developers, security engineers, and DevOps teams
+`}
+/>
+
+<Callout variant="error" title="Critical Security Alert" icon="shield-alert">
+  React2Shell (CVE-2025-55182) is a **CVSS 10.0** remote code execution
+  vulnerability affecting React Server Components. Nation-state actors are
+  actively exploiting this. **Update to React 19.1.2+ immediately.**
+</Callout>
+
 React2Shell is a critical remote code execution (RCE) vulnerability discovered in React Server Components that enables attackers to execute arbitrary server-side JavaScript through carefully crafted Flight protocol payloads. This vulnerability affects the core deserialization mechanism used by modern React frameworks, requiring only a single unauthenticated POST request to compromise vulnerable servers.
 
 The severity of this vulnerability cannot be overstated. With a CVSS score of 10.0, React2Shell represents the highest level of threat, offering attackers a direct path from client-side payload injection to complete server compromise without authentication or special configuration requirements.

@@ -9,6 +9,19 @@ series:
   part: 5
 ---
 
+<LLMOnly
+  data={`
+type: deep-dive
+difficulty: advanced
+keyTakeaways:
+  - Implement multi-layer caching for RAG systems (embedding, semantic, context)
+  - Scale vector databases with sharding and replication strategies
+  - Optimize HNSW indexing and quantization for performance
+prerequisites: RAG fundamentals, distributed systems concepts, Python
+targetAudience: Infrastructure engineers scaling AI applications to millions of queries
+`}
+/>
+
 In our previous guides, we built a <EmbedBlog slug="production-ready-rag-guide" placeholder="production-ready RAG system" />, added <EmbedBlog slug="multi-hop-rag-agents" placeholder="multi-hop reasoning" />, implemented <EmbedBlog slug="evaluating-rag-with-ragas" placeholder="evaluation with RAGAS" />, and designed <EmbedBlog slug="multi-tenant-rag-isolation" placeholder="multi-tenant isolation" />. Now it's time to tackle the challenge that keeps engineering teams up at night: **scaling**.
 
 When your RAG system goes from handling hundreds to millions of queries, everything changes. Latencies creep up, costs spiral, and what worked at prototype scale becomes a bottleneck at production scale.

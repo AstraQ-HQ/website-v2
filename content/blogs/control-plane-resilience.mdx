@@ -9,6 +9,19 @@ series:
   part: 5
 ---
 
+<LLMOnly
+  data={`
+type: deep-dive
+difficulty: advanced
+keyTakeaways:
+  - Implement circuit breakers to prevent cascading failures
+  - Design bulkhead patterns for resource isolation
+  - Build graceful degradation for non-critical system failures
+prerequisites: Go programming, distributed systems, Kubernetes fundamentals
+targetAudience: Platform engineers building resilient control plane systems
+`}
+/>
+
 In the previous parts of this series, we built a production-grade workload orchestration platform with <EmbedBlog slug="polymorphic-workload-orchestrator" placeholder="polymorphic runtimes" />, <EmbedBlog slug="secure-microvm-runtime" placeholder="hardware isolation" />, <EmbedBlog slug="secure-agent-networking" placeholder="zero-trust networking" />, and <EmbedBlog slug="enterprise-audit-logging" placeholder="comprehensive audit logging" />.
 
 But there's a critical gap: **What happens when things fail?**
