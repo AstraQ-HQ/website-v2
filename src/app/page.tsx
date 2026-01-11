@@ -1,6 +1,5 @@
 "use client";
 
-import { BackedBySection } from "./_components/backed-by";
 import { ContactUsSection } from "./_components/contact-us";
 import { FeaturedProducts } from "./_components/featured-products";
 import { FeaturedServices } from "./_components/featured-services";
@@ -13,7 +12,6 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <BackedBySection />
       <FeaturedProducts />
       <FeaturedServices />
       <WhyAstraQ />

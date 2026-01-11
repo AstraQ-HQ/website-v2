@@ -26,7 +26,7 @@ In the previous parts of this series, we built a production-grade workload orche
 
 But there's a critical gap: **What happens when things fail?**
 
-In distributed systems, failures are not exceptional—they're inevitable. A single slow database query can cascade into a complete platform outage. A Kubernetes API server hiccup can block thousands of workload provisions. A Redis connection timeout can deadlock your entire control plane.
+In distributed systems, failures are not exceptional, they're inevitable. A single slow database query can cascade into a complete platform outage. A Kubernetes API server hiccup can block thousands of workload provisions. A Redis connection timeout can deadlock your entire control plane.
 
 In this final part, we'll implement **Resilience Patterns** to ensure our control plane degrades gracefully under failure conditions rather than collapsing catastrophically.
 

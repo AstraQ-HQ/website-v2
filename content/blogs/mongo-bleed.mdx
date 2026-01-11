@@ -49,13 +49,13 @@ Exposed MongoDB instances on port **27017** are particularly at risk, especially
 
 ## Technical Root Cause
 
-MongoBleed originates from a subtle but critical programming error in MongoDB's message compression handling code, specifically in the `message_compressor_zlib.cpp` file. The vulnerability stems from incorrect length calculation during the decompression of network protocol messages.
+MongoBleed originates from a subtle but critical programming error in MongoDB's message compression handling code, specifically in the `message_compressor_zlib.cpp` file. The vulnerability stems from incorrect length calculation during the decompression of network protocol messages.
 
 ### The Flawed Implementation
 
 When MongoDB receives a compressed message over the network, it must decompress the payload before processing. The decompression logic is supposed to return the actual size of the decompressed data. However, due to a programming error, the code returns the allocated buffer size (`output.length()`) instead of the actual decompressed data length.
 
-This discrepancy creates a critical vulnerability: when an attacker sends an undersized compressed payload, the server allocates a buffer based on claimed decompressed size but only fills a portion of it with actual data. The remaining buffer space contains whatever data happened to be in that heap memory location previously—potentially including sensitive information from prior operations.
+This discrepancy creates a critical vulnerability: when an attacker sends an undersized compressed payload, the server allocates a buffer based on claimed decompressed size but only fills a portion of it with actual data. The remaining buffer space contains whatever data happened to be in that heap memory location previously, potentially including sensitive information from prior operations.
 
 ### Vulnerable Code Pattern
 
@@ -133,11 +133,11 @@ flowchart LR
 
 The simplicity of exploitation is what makes MongoBleed particularly concerning:
 
-- **Network Reachability:** Ability to connect to MongoDB port 27017 (or custom port)
-- **zlib Compression Enabled:** Server must have zlib compression support (common default)
-- **No Authentication Required:** Vulnerability triggered before authentication checks
-- **Single TCP Connection:** One connection sufficient for exploitation
-- **No Special Privileges:** Works from completely unprivileged network position
+- **Network Reachability:** Ability to connect to MongoDB port 27017 (or custom port)
+- **zlib Compression Enabled:** Server must have zlib compression support (common default)
+- **No Authentication Required:** Vulnerability triggered before authentication checks
+- **Single TCP Connection:** One connection sufficient for exploitation
+- **No Special Privileges:** Works from completely unprivileged network position
 
 ### Proof of Concept Attack Code
 
@@ -217,11 +217,11 @@ Organizations should implement comprehensive monitoring to detect MongoBleed exp
 
 Monitor network traffic destined for MongoDB servers (typically port 27017) for the following suspicious patterns:
 
-- **OP_COMPRESSED Messages:** Watch for OP_COMPRESSED opcode (0x2012) with inconsistent compressed/decompressed length ratios
-- **Undersized Payloads:** zlib-compressed payloads smaller than 100 bytes claiming large decompressed sizes (1KB+)
-- **Repeated Connections:** Multiple TCP connections from same source with compression probes
-- **Abnormal Response Sizes:** Server responses significantly larger than request complexity warrants
-- **Non-BSON Data in Responses:** Binary data that doesn't conform to BSON structure (leaked heap garbage)
+- **OP_COMPRESSED Messages:** Watch for OP_COMPRESSED opcode (0x2012) with inconsistent compressed/decompressed length ratios
+- **Undersized Payloads:** zlib-compressed payloads smaller than 100 bytes claiming large decompressed sizes (1KB+)
+- **Repeated Connections:** Multiple TCP connections from same source with compression probes
+- **Abnormal Response Sizes:** Server responses significantly larger than request complexity warrants
+- **Non-BSON Data in Responses:** Binary data that doesn't conform to BSON structure (leaked heap garbage)
 
 ### Wireshark Detection Filter
 
@@ -466,23 +466,23 @@ MongoBleed has demonstrated significant real-world impact within hours of public
 
 ### Documented Attack Campaigns
 
-- **Mass Scanning Operations:** Within 24 hours, automated scanners probed millions of IPv4 addresses for open MongoDB ports (27017)
-- **Credential Harvesting:** Attackers extract database passwords, API keys, and JWT tokens from heap memory leaks
-- **Lateral Movement:** Harvested credentials used to pivot to adjacent systems and cloud infrastructure
-- **Data Exfiltration:** Once authenticated via leaked credentials, attackers dump entire databases
-- **Ransomware Deployment:** Compromised MongoDB instances used as initial access for ransomware campaigns
+- **Mass Scanning Operations:** Within 24 hours, automated scanners probed millions of IPv4 addresses for open MongoDB ports (27017)
+- **Credential Harvesting:** Attackers extract database passwords, API keys, and JWT tokens from heap memory leaks
+- **Lateral Movement:** Harvested credentials used to pivot to adjacent systems and cloud infrastructure
+- **Data Exfiltration:** Once authenticated via leaked credentials, attackers dump entire databases
+- **Ransomware Deployment:** Compromised MongoDB instances used as initial access for ransomware campaigns
 
 ### Types of Sensitive Data Exposed
 
 Heap memory in MongoDB servers frequently contains high-value targets:
 
-- **Authentication Credentials:** Database usernames and passwords from recent authentication attempts
-- **API Keys:** Application API keys used in connection strings
-- **Session Tokens:** JWT tokens and session identifiers from web applications
-- **Document Fragments:** Partial or complete BSON documents from other users' queries
-- **Connection Strings:** Full MongoDB URIs including credentials for other databases
-- **Encryption Keys:** Client-side field encryption keys stored in memory
-- **PII Data:** Personally identifiable information from cached query results
+- **Authentication Credentials:** Database usernames and passwords from recent authentication attempts
+- **API Keys:** Application API keys used in connection strings
+- **Session Tokens:** JWT tokens and session identifiers from web applications
+- **Document Fragments:** Partial or complete BSON documents from other users' queries
+- **Connection Strings:** Full MongoDB URIs including credentials for other databases
+- **Encryption Keys:** Client-side field encryption keys stored in memory
+- **PII Data:** Personally identifiable information from cached query results
 
 ## Long-Term Security Recommendations
 
@@ -490,7 +490,7 @@ Beyond immediate MongoBleed mitigation, organizations should implement comprehen
 
 ### 1. Network Security Architecture
 
-- Never expose MongoDB directly to the internet—always place behind VPN, bastion hosts, or private cloud networks
+- Never expose MongoDB directly to the internet, always place behind VPN, bastion hosts, or private cloud networks
 - Implement network segmentation to isolate database tier from application and presentation tiers
 - Use VPC peering or private link for cloud-to-cloud database connections
 - Deploy intrusion detection systems (IDS) on database network segments

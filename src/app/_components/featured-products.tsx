@@ -40,10 +40,7 @@ export function FeaturedProducts() {
   const activeProductData = allFeaturedProducts[activeProduct];
 
   return (
-    <section
-      ref={ref}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-background border-b border-border"
-    >
+    <section ref={ref} className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
           <h2 className="font-mono text-4xl sm:text-5xl text-foreground mb-4">

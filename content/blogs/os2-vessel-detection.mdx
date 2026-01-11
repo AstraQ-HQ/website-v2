@@ -22,15 +22,15 @@ targetAudience: ML engineers working on remote sensing and maritime surveillance
 `}
 />
 
-The ocean is not a void; it is a canvas of chaotic entropy. To the unassisted human eye, it is a monotonous expanse of blue, broken only by the transient white of capping waves. But to the sensors orbiting hundreds of kilometers above the lithosphere, the ocean is a dynamic theater of radiometric noise, atmospheric attenuation, and spectral interference. The fundamental challenge of **Maritime Domain Awareness (MDA)** is not merely observation—it is _discrimination_. It is the computational imperative to distinguish the structured, geometric signature of a vessel from the stochastic, organic texture of the sea.
+The ocean is not a void; it is a canvas of chaotic entropy. To the unassisted human eye, it is a monotonous expanse of blue, broken only by the transient white of capping waves. But to the sensors orbiting hundreds of kilometers above the lithosphere, the ocean is a dynamic theater of radiometric noise, atmospheric attenuation, and spectral interference. The fundamental challenge of **Maritime Domain Awareness (MDA)** is not merely observation: it is _discrimination_. It is the computational imperative to distinguish the structured, geometric signature of a vessel from the stochastic, organic texture of the sea.
 
-In the first installment of this series, we introduced the high-level architecture of **OS²**, AstraQ’s solution to the maritime surveillance paradox. Today, we descend into the mathematical and architectural depths of its first pillar: **Vessel Detection**.
+In the first installment of this series, we introduced the high-level architecture of **OS²**, AstraQ's solution to the maritime surveillance paradox. Today, we descend into the mathematical and architectural depths of its first pillar: **Vessel Detection**.
 
 This is not a task that can be solved by a single modality. The maritime environment is fickle; it hides behind clouds, it darkens at night, and it dazzles under the specular reflection of the sun. To pierce this veil, our solution employs a **dual-sensor strategy**, synthesizing the all-weather persistence of **Synthetic Aperture Radar (SAR)** with the high-fidelity characterization of **Electro-Optical (EO)** multispectral imagery.
 
 This treatise will bifurcate the analysis: first, examining the physics and processing of radar returns through the lens of Sentinel-1, and second, exploring the spectral richness of Sentinel-2 through hierarchical transformer architectures.
 
-## Part I: The Piercing Gaze – Synthetic Aperture Radar (SAR)
+## Part I: The Piercing Gaze - Synthetic Aperture Radar (SAR)
 
 ![Synthetic Aperture Radar imagery showing vessel detection](/images/blog/os2-vessel-detection/sar2.jpg)
 
@@ -38,11 +38,11 @@ This treatise will bifurcate the analysis: first, examining the physics and proc
 
 To understand why we use SAR, one must appreciate the limitations of light. Optical sensors are passive; they rely on reflected solar energy. When the sun sets or the stratus clouds thicken, optical sensors are blinded. SAR, conversely, is an active sensor. It illuminates the Earth with microwave pulses and records the echo.
 
-In the context of maritime detection, we are interested in **backscatter**—the portion of the radar energy reflected directly back to the sensor. The ocean surface acts largely as a specular reflector; most of the radar energy glances off the water and travels away from the sensor, resulting in a dark image (low backscatter). However, wind-driven waves create roughness, causing Bragg scattering which manifests as noise, or "sea clutter."
+In the context of maritime detection, we are interested in **backscatter**: the portion of the radar energy reflected directly back to the sensor. The ocean surface acts largely as a specular reflector; most of the radar energy glances off the water and travels away from the sensor, resulting in a dark image (low backscatter). However, wind-driven waves create roughness, causing Bragg scattering which manifests as noise, or "sea clutter."
 
 Vessels, constructed of hard, metallic angles, behave as **corner reflectors**. When a radar pulse strikes the superstructure of a ship, it bounces off the deck, hits the bridge, and returns strongly to the source. This "double-bounce" mechanism creates a bright, high-intensity signal against the darker oceanic background.
 
-However, SAR imagery is plagued by **speckle noise**—a granular interference pattern caused by the coherent nature of the radar waves interfering constructively and destructively Detecting a vessel in SAR is not simply finding a bright spot; it is statistically differentiating a structural anomaly from the multiplicative noise of the sea state.
+However, SAR imagery is plagued by **speckle noise**: a granular interference pattern caused by the coherent nature of the radar waves interfering constructively and destructively Detecting a vessel in SAR is not simply finding a bright spot; it is statistically differentiating a structural anomaly from the multiplicative noise of the sea state.
 
 ### The Sentinel-1 Pipeline: From Raw Signal to Tensor
 
@@ -107,7 +107,7 @@ $$
 \mathcal{L}^{RPN} = \mathcal{L}_{cls} + \lambda \mathcal{L}_{reg}
 $$
 
-The regression loss employs **Smooth L1 Loss**, which is robust to outliers—a critical feature when dealing with the noisy variance of SAR data.
+The regression loss employs **Smooth L1 Loss**, which is robust to outliers: a critical feature when dealing with the noisy variance of SAR data.
 
 **Distance-Based Non-Maximum Suppression (NMS)**
 Standard NMS uses Intersection-over-Union (IoU) to eliminate duplicate detections. If two boxes overlap significantly, the one with the lower score is discarded. However, this fails in maritime scenarios. Ships are often long and thin. If a ship is oriented diagonally, a standard bounding box might be large and mostly empty. A second, overlapping detection might have a low IoU but essentially describe the same vessel.
@@ -146,9 +146,9 @@ graph TD
     end
 ```
 
-## Part II: The Spectral Analyst – Electro-Optical (EO) Detection
+## Part II: The Spectral Analyst - Electro-Optical (EO) Detection
 
-While SAR provides the "where," Sentinel-2 EO imagery provides the "what." Optical data offers intuitive visual confirmation and, crucially, spectral depth. A vessel is not just a shape; it is a material composition—steel, paint, rust—sitting atop water. Sentinel-2’s multispectral instrument (MSI) allows us to exploit these spectral contrasts.
+While SAR provides the "where," Sentinel-2 EO imagery provides the "what." Optical data offers intuitive visual confirmation and, crucially, spectral depth. A vessel is not just a shape; it is a material composition: steel, paint, rust, sitting atop water. Sentinel-2's multispectral instrument (MSI) allows us to exploit these spectral contrasts.
 
 ### The Multispectral Advantage
 
@@ -258,6 +258,6 @@ graph TD
 
 The **OS²** detection architecture is a testament to the power of specialized intelligence. We do not force a single model to carry the burden of the entire electromagnetic spectrum. Instead, we deploy an ensemble of masters: the Vision Transformer for the noisy, abstract world of radar, and the Swin Transformer for the detailed, multi-scaled world of optics.
 
-By anchoring our deep learning models in the physical realities of the domain—using distance-based suppression for maritime geometries, cartesian decomposition for angular headings, and decibel calibration for radar reflectivity—we achieve a robustness that purely data-driven approaches cannot match.
+By anchoring our deep learning models in the physical realities of the domain, using distance-based suppression for maritime geometries, cartesian decomposition for angular headings, and decibel calibration for radar reflectivity, we achieve a robustness that purely data-driven approaches cannot match.
 
 Yet, a detection is merely a snapshot in time. A ship detected at $14:00$ is a ghost by $14:05$. To transform these static coordinates into a living, breathing understanding of maritime flow, we must connect the dots. In the next installment, we will explore the **Correlation Engine**, the mathematical weaver that binds these isolated detections to their digital identities.

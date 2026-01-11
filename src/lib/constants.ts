@@ -28,7 +28,7 @@ type NavItem = {
   href: Route;
 };
 
-export const calLink = "https://cal.com/astraqcd" as Route;
+const calLink = "https://cal.com/astraqcd" as Route;
 
 export const siteConfig = {
   name: "AstraQ",

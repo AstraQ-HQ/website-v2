@@ -24,13 +24,13 @@ targetAudience: Geospatial engineers building vessel tracking and prediction sys
 
 > "I can't change the direction of the wind, but I can adjust my sails to reach my destination."
 >
-> — Cora L. V. Hatch, 1859
+> - Cora L. V. Hatch, 1859
 
 The maritime domain is defined by silence. While the Automatic Identification System (AIS) acts as the digital heartbeat of global shipping, the pulse is irregular. A vessel transmits its coordinates at `14:32:07`, and then, due to signal interference, satellite blind spots, or deliberate obfuscation, it may vanish until `14:47:33`.
 
 In that fifteen-minute void, the vessel does not cease to exist. It moves. It accelerates. It turns against the resistance of the waves.
 
-The final challenge of Maritime Domain Awareness is not **observation**, but **reconstruction**. It is the mathematical imperative to fill the silence between the signals. This volume explores the **Interpolation Engine** of OS²—a system that rejects the opacity of deep learning in favor of the transparency of cubic splines and kinematic physics.
+The final challenge of Maritime Domain Awareness is not **observation**, but **reconstruction**. It is the mathematical imperative to fill the silence between the signals. This volume explores the **Interpolation Engine** of OS²: a system that rejects the opacity of deep learning in favor of the transparency of cubic splines and kinematic physics.
 
 ## The Fallacy of Linear Assumption
 
@@ -50,7 +50,7 @@ Why splines? Because a vessel in motion adheres to three fundamental continuitie
 2. **Velocity Continuity:** There are no sudden jumps in speed. The momentum is conserved.
 3. **Acceleration Continuity:** There are no infinite forces. The turn rate is smooth.
 
-The algorithm solves a tridiagonal matrix system to define a curve that minimizes "bending energy". It finds the path of least resistance—the path a physical object would naturally take through a fluid medium.
+The algorithm solves a tridiagonal matrix system to define a curve that minimizes "bending energy". It finds the path of least resistance: the path a physical object would naturally take through a fluid medium.
 
 ## The Inertia of Speed: Quadratic Modeling
 
@@ -76,7 +76,7 @@ This equation creates a sigmoid curve that precisely mimics the hydrodynamic res
 
 In the open ocean, the curvature of the Earth renders Euclidean geometry obsolete. Calculating distances on a flat plane introduces unacceptable errors at high latitudes.
 
-OS² enforces a strict **Haversine-only** protocol. All internal metrics—distance, velocity vectors, and spatial separation—are computed using spherical trigonometry.
+OS² enforces a strict **Haversine-only** protocol. All internal metrics, distance, velocity vectors, and spatial separation, are computed using spherical trigonometry.
 
 $$d = 2R \cdot \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \phi}{2}\right) + \cos \phi_1 \cos \phi_2 \sin^2\left(\frac{\Delta \lambda}{2}\right)}\right)$$
 
@@ -90,9 +90,9 @@ The efficacy of this physics-based approach is validated through rigorous stress
 
 The image above shows a vivid example of the effect of our interpolation algorithm.
 
-The left panel captures the raw reality of AIS data before interpolation: sparse position reports punctuated by missing intervals, forcing the vessel’s path into abrupt straight segments and artificial turns. Each visible point is correct, but the silence between them fractures the story—motion appears jagged, headings snap unnaturally, and continuity is lost.
+The left panel captures the raw reality of AIS data before interpolation: sparse position reports punctuated by missing intervals, forcing the vessel's path into abrupt straight segments and artificial turns. Each visible point is correct, but the silence between them fractures the story: motion appears jagged, headings snap unnaturally, and continuity is lost.
 
-The right panel shows the same trajectory after interpolation: the missing segments are reconstructed into a smooth, physically plausible path. Sharp zig-zags dissolve into gentle arcs, turns respect inertia, and the vessel’s movement reads as a continuous flow rather than a sequence of disconnected guesses. What was once absence is now informed motion—bridging data gaps with kinematic realism and restoring coherence to the vessel’s true journey
+The right panel shows the same trajectory after interpolation: the missing segments are reconstructed into a smooth, physically plausible path. Sharp zig-zags dissolve into gentle arcs, turns respect inertia, and the vessel's movement reads as a continuous flow rather than a sequence of disconnected guesses. What was once absence is now informed motion, bridging data gaps with kinematic realism and restoring coherence to the vessel's true journey
 
 ## The Unified Intelligence Picture
 
@@ -100,4 +100,4 @@ This concludes our exploration of the OS² architecture. We have traced the jour
 
 The future of naval intelligence does not rely on acquiring more sensors, but on extracting deeper truth from the data we already possess. By integrating computer vision, graph theory, and kinematic physics, we transform the ocean from a chaotic expanse of blind spots into a domain of structured, predictable, and actionable intelligence.
 
-This framework represents more than an incremental improvement in surveillance efficiency; it constitutes a fundamental shift in the epistemology of the sea. By synthesizing the "Seeing Eye" of multi-modal detection, the "Connecting Thread" of stochastic correlation, and the "Predictive Compass" of kinematic interpolation, OS² transforms the ocean from a chaotic expanse of opacity into a structured domain of unprecedented clarity. The historical asymmetry between the vastness of the maritime theater and the scarcity of observation resources is now reversed. Satellite persistence no longer permits evasion, and the ocean’s vastness no longer guarantees concealment. We have moved beyond the era of reactive observation into the age of algorithmic omniscience, where every vessel movement—past, present, and predicted—becomes computationally observable, analytically tractable, and operationally actionable.
+This framework represents more than an incremental improvement in surveillance efficiency; it constitutes a fundamental shift in the epistemology of the sea. By synthesizing the "Seeing Eye" of multi-modal detection, the "Connecting Thread" of stochastic correlation, and the "Predictive Compass" of kinematic interpolation, OS² transforms the ocean from a chaotic expanse of opacity into a structured domain of unprecedented clarity. The historical asymmetry between the vastness of the maritime theater and the scarcity of observation resources is now reversed. Satellite persistence no longer permits evasion, and the ocean's vastness no longer guarantees concealment. We have moved beyond the era of reactive observation into the age of algorithmic omniscience, where every vessel movement, past, present, and predicted, becomes computationally observable, analytically tractable, and operationally actionable.

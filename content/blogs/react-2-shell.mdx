@@ -109,14 +109,14 @@ Security teams should monitor their React Server Component endpoints for the fol
 
 ### Payload Indicators
 
-- Chunk references containing `$` followed by `__proto__` or `constructor`
-- Base64-encoded blobs exceeding 1KB targeting `/rsc` or `/_rsc` endpoints
-- Repeated requests with `Content-Type: text/x-component` from unexpected sources
+- Chunk references containing `$` followed by `__proto__` or `constructor`
+- Base64-encoded blobs exceeding 1KB targeting `/rsc` or `/_rsc` endpoints
+- Repeated requests with `Content-Type: text/x-component` from unexpected sources
 - Unusual recursive property access patterns in Flight protocol data
 
 ### Runtime Indicators
 
-- Unexpected `child_process` imports in Node.js application logs
+- Unexpected `child_process` imports in Node.js application logs
 - Sudden spawning of shell processes from Node.js worker threads
 - Anomalous network connections originating from Node.js processes
 - Unauthorized file system access or modifications
@@ -282,18 +282,18 @@ app.post("/rsc", (req, res) => {
 
 ### Documented Attack Campaigns
 
-- **Nation-State Actors:** China-nexus threat groups targeted nuclear infrastructure and energy sector organizations using React2Shell exploits within hours of disclosure
-- **Cybercrime Operations:** Criminal actors deployed Cobalt Strike beacons through compromised React applications, establishing persistent access for ransomware deployment
-- **Supply Chain Attacks:** Attackers targeted popular SaaS platforms built on Next.js to gain access to downstream customer environments
+- **Nation-State Actors:** China-nexus threat groups targeted nuclear infrastructure and energy sector organizations using React2Shell exploits within hours of disclosure
+- **Cybercrime Operations:** Criminal actors deployed Cobalt Strike beacons through compromised React applications, establishing persistent access for ransomware deployment
+- **Supply Chain Attacks:** Attackers targeted popular SaaS platforms built on Next.js to gain access to downstream customer environments
 
 ### Post-Exploitation Techniques
 
 Once initial access is achieved through React2Shell, attackers have deployed sophisticated persistence mechanisms:
 
-- **MeshAgent RMM:** Remote monitoring and management tools for persistent access
-- **Cloudflare Tunnel C2:** Command and control infrastructure leveraging legitimate services
-- **Rootkit Bind Mounts:** Kernel-level persistence mechanisms
-- **SSH Key Injection:** Modification of authorized_keys files for backdoor access
+- **MeshAgent RMM:** Remote monitoring and management tools for persistent access
+- **Cloudflare Tunnel C2:** Command and control infrastructure leveraging legitimate services
+- **Rootkit Bind Mounts:** Kernel-level persistence mechanisms
+- **SSH Key Injection:** Modification of authorized_keys files for backdoor access
 -
 
 ## Conclusion

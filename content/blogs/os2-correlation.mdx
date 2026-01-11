@@ -22,9 +22,9 @@ targetAudience: Data scientists working on sensor fusion and tracking systems
 `}
 />
 
-In the previous volume, we explored the "Seeing Eye"—the complex neural architectures that allow machines to perceive vessels amidst the radiometric chaos of the ocean. Yet, perception is not knowledge. A bounding box on a satellite image is merely a spatial assertion: _“Something is here.”_ It possesses geometry, but it lacks **identity**.
+In the previous volume, we explored the "Seeing Eye": the complex neural architectures that allow machines to perceive vessels amidst the radiometric chaos of the ocean. Yet, perception is not knowledge. A bounding box on a satellite image is merely a spatial assertion: _"Something is here."_ It possesses geometry, but it lacks **identity**.
 
-To transform a raw detection into actionable intelligence, we must answer the question: _“Who is this?”_
+To transform a raw detection into actionable intelligence, we must answer the question: _"Who is this?"_
 
 This is the challenge of **Correlation**. It is the digital act of weaving together two disparate threads of reality: the instantaneous, anonymous truth of the satellite image, and the continuous, self-reported narrative of the Automatic Identification System (AIS).
 
@@ -37,7 +37,7 @@ At AstraQ Cyber Defence, we view this not as a simple database join, but as a co
 
 Consider the operational reality. A Sentinel-1 satellite passes over the Strait of Malacca at `14:02:15 UTC`. It detects a vessel at coordinates $(\phi_{det}, \lambda_{det})$.
 
-Meanwhile, the vessel’s AIS transponder—subject to transmission slots, signal collisions, or deliberate "dark" intervals—might have last broadcast its position at `14:00:30 UTC`.
+Meanwhile, the vessel's AIS transponder, subject to transmission slots, signal collisions, or deliberate "dark" intervals, might have last broadcast its position at `14:00:30 UTC`.
 
 We are presented with a fundamental disconnect:
 
@@ -70,7 +70,7 @@ Let us deconstruct the physics behind each term.
 
 ### Spatial Proximity
 
-This is the foundational evidence. We calculate the **Haversine Distance** ($d_{ij}$) between the detection’s coordinates and the AIS candidate’s _estimated_ position at the time of image acquisition.
+This is the foundational evidence. We calculate the **Haversine Distance** ($d_{ij}$) between the detection's coordinates and the AIS candidate's _estimated_ position at the time of image acquisition.
 
 We eschew Euclidean geometry because the Earth is an oblate spheroid. At high latitudes, the distance represented by a degree of longitude shrinks. The Haversine formula ensures numerical stability and geodesic accuracy:
 
@@ -99,7 +99,7 @@ With $w_t = 10.0$, this ensures that a fresh AIS ping is valued significantly hi
 
 #### Morphological Consistency (Length)
 
-Vessel length provides a weak but valuable morphological constraint. Rather than enforcing a hard equality—which would be brittle given sensor noise and partial occlusion—we apply a **ratio-based penalty**.
+Vessel length provides a weak but valuable morphological constraint. Rather than enforcing a hard equality, which would be brittle given sensor noise and partial occlusion, we apply a **ratio-based penalty**.
 
 Let $L_{det}$ be the SAR-derived vessel length and $L_{ais}$ the AIS-reported length. We penalize increasing divergence between the two, while tolerating small discrepancies:
 
@@ -113,7 +113,7 @@ This term improves discrimination in dense traffic environments without excludin
 
 Here, physics takes the helm. A vessel has a velocity vector. If an AIS candidate reports it is moving North ($0^\circ$), but the detection lies directly East ($90^\circ$) of the AIS position, the match becomes physically implausible without a significant maneuver.
 
-We calculate the **Required Bearing**—the angle from the AIS point to the Detection point. We then compare this to the vessel's reported COG. The difference, $\Delta \beta$, represents the **Kinematic Violation**.
+We calculate the **Required Bearing**: the angle from the AIS point to the Detection point. We then compare this to the vessel's reported COG. The difference, $\Delta \beta$, represents the **Kinematic Violation**.
 
 $$
 \Delta \beta = \text{min\_angular\_diff}(\text{Bearing}_{AIS \to Det}, \text{COG}_{AIS})
@@ -123,7 +123,7 @@ We assign a heavy weight $w_v = 20.0$. This high penalty reflects a hard physica
 
 ### Directional Consistency
 
-Finally, if the AIS data includes **True Heading** (the direction the bow is pointing, which can differ from COG due to drift), we compare it against the vessel’s reported Course Over Ground to detect directional inconsistency.
+Finally, if the AIS data includes **True Heading** (the direction the bow is pointing, which can differ from COG due to drift), we compare it against the vessel's reported Course Over Ground to detect directional inconsistency.
 
 $$
 \Delta h = \text{min\_angular\_diff}(\text{Heading}_{AIS}, \text{COG}_{AIS})
@@ -202,7 +202,7 @@ To mimic human analytical reasoning, OS² employs a **Multi-Stage Cascaded Match
 
 This cascaded approach ensures that clear evidence is prioritized, while ambiguous cases are handled with appropriate caution.
 
-It is important to note that the confidence scores assigned to matches are **stage-derived heuristics**, not probabilistic estimates. A “High Confidence” match reflects strong spatiotemporal and kinematic consistency under strict constraints, not a statistical posterior probability.
+It is important to note that the confidence scores assigned to matches are **stage-derived heuristics**, not probabilistic estimates. A "High Confidence" match reflects strong spatiotemporal and kinematic consistency under strict constraints, not a statistical posterior probability.
 
 This distinction preserves interpretability for analysts and avoids overstating mathematical certainty in an inherently uncertain sensing environment.
 
@@ -232,10 +232,10 @@ graph TD
 
 ## Conclusion: The Unified Picture
 
-By the time the Correlation Engine completes its cycle—a process taking mere seconds even for dense scenes —the chaotic scatter of satellite detections has been organized into a structured intelligence picture.
+By the time the Correlation Engine completes its cycle, a process taking mere seconds even for dense scenes, the chaotic scatter of satellite detections has been organized into a structured intelligence picture.
 
-We know which detections correspond to the _MV Ever Given_ and which correspond to anonymous fishing vessels. Crucially, the **unmatched detections**—those that survived all three stages of the cascade without finding a partner—are illuminated. These are the **Dark Vessels**. These are the targets that require immediate operational attention.
+We know which detections correspond to the _MV Ever Given_ and which correspond to anonymous fishing vessels. Crucially, the **unmatched detections**, those that survived all three stages of the cascade without finding a partner, are illuminated. These are the **Dark Vessels**. These are the targets that require immediate operational attention.
 
 The Correlation Engine does not just connect data; it isolates anomalies by explaining away the known traffic.
 
-However, there remains one final challenge. The AIS data we rely on is often fractured, full of gaps and silence. To make our correlation robust, we cannot simply accept these gaps. We must fill them. In the final volume of this series, we will explore **The Predictive Compass**—the physics-based interpolation engine that reconstructs the past and predicts the future of maritime movement.
+However, there remains one final challenge. The AIS data we rely on is often fractured, full of gaps and silence. To make our correlation robust, we cannot simply accept these gaps. We must fill them. In the final volume of this series, we will explore **The Predictive Compass**: the physics-based interpolation engine that reconstructs the past and predicts the future of maritime movement.

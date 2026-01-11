@@ -55,7 +55,7 @@ category: ai                       # Inconsistent category naming
 
 ### Headings
 
-Use headings `h2` through `h6`. **Never use `h1`** in the body—the title is rendered as `h1`.
+Use headings `h2` through `h6`. **Never use `h1`** in the body, the title is rendered as `h1`.
 
 ```markdown
 ## Heading 2    <!-- Main sections -->
