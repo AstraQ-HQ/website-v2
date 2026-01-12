@@ -38,6 +38,7 @@ export const siteConfig = {
       { label: "Products", href: "/products" },
       { label: "Services", href: "/services" },
       { label: "Blog", href: "/blog" },
+      { label: "Case Studies", href: "/case-studies" },
       { label: "About", href: "/#why-astraq" },
       { label: "Contact", href: "/#contact" },
     ] satisfies NavItem[],
@@ -171,6 +172,7 @@ export const siteConfig = {
     })),
     resources: [
       { label: "Blog", href: "/blog" },
+      { label: "Case Studies", href: "/case-studies" },
       { label: "Open Source", href: "https://github.com/Astraq-HQ" },
     ] as NavItem[],
     legal: [

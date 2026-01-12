@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { env } from "@/env";
-import { allBlogsByDate } from "@/lib/content";
+import { allBlogsByDate, allCaseStudiesByDate } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = env.NEXT_PUBLIC_BASE_URL;
@@ -32,6 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/case-studies`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/privacy`,
       lastModified: now,
       changeFrequency: "yearly",
@@ -52,5 +58,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPages];
+  const caseStudyPages: MetadataRoute.Sitemap = allCaseStudiesByDate.map(
+    (caseStudy) => ({
+      url: `${baseUrl}/case-studies/${caseStudy.slug}`,
+      lastModified: caseStudy.publishedAt,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }),
+  );
+
+  return [...staticPages, ...blogPages, ...caseStudyPages];
 }

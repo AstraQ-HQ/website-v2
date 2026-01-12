@@ -4,11 +4,16 @@ import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useActiveHeading } from "@/hooks/use-active-heading";
-import type { Blog } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
+type Heading = {
+  depth: number;
+  value: string;
+  slug: string;
+};
+
 interface TableOfContentsProps {
-  headings: Blog["headings"];
+  headings: Heading[];
   className?: string;
 }
 

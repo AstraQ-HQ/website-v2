@@ -1,6 +1,6 @@
 "use client";
 
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import dynamicIconImports from "lucide-react/dynamicIconImports";
 import dynamic from "next/dynamic";
 import { memo } from "react";
@@ -35,17 +35,24 @@ const variants = cva("", {
       error: "error-callout",
     },
   },
+  defaultVariants: {
+    variant: "default",
+  },
 });
+
+type CalloutVariant = "default" | "info" | "success" | "warning" | "error";
 
 export function Callout({
   title,
   children,
   icon,
-  variant,
+  variant = "default",
   className,
   ...props
-}: React.ComponentProps<typeof Alert> &
-  VariantProps<typeof variants> & { icon?: IconName }) {
+}: Omit<React.ComponentProps<typeof Alert>, "variant"> & {
+  variant?: CalloutVariant;
+  icon?: IconName;
+}) {
   return (
     <Alert
       className={cn(

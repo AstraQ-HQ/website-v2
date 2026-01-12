@@ -1,10 +1,12 @@
 # MDX Components Guide
 
-This guide documents all available MDX components and features for writing blog posts. **This guide is intended for AI usage** when generating blog content.
+This guide documents all available MDX components and features for writing blog posts and case studies. **This guide is intended for AI usage** when generating blog and case study content.
 
 ---
 
 ## Frontmatter Schema
+
+### Blog Posts
 
 Every blog post **must** have valid YAML frontmatter at the top:
 
@@ -46,6 +48,92 @@ title: Building RAG Systems        # Missing quotes for complex titles
 summary:                           # Empty summary
 publishedAt: "August 15, 2025"     # Wrong date format
 category: ai                       # Inconsistent category naming
+---
+```
+
+### Case Studies
+
+Case studies have additional required and optional fields beyond the standard blog post frontmatter:
+
+```yaml
+---
+title: "Case Study Title"          # Required. Can include **bold** and *italic* markdown
+summary: "Brief summary"            # Required. Plain text description
+publishedAt: 2025-08-01             # Required. Date in YYYY-MM-DD format
+attackDate: 2024-01-15             # Required. Date of the attack/incident
+category: "Category Name"           # Required. Category for filtering
+draft: false                        # Optional. Default: false. Set to true to hide from production
+author:                             # Optional. Defaults to AstraQ Team
+  name: "Author Name"
+  bio: "Author bio"                 # Optional
+  avatar: "/images/avatar.png"      # Optional
+attackType:                         # Required. Array of attack type strings
+  - "Phishing"
+  - "Ransomware"
+severity: "High"                    # Optional. One of: "Low", "Medium", "High", "Critical"
+affectedOrganizations:              # Optional. Array of organization names
+  - "Organization A"
+  - "Organization B"
+affectedIndustries:                 # Optional. Array of industry names
+  - "Healthcare"
+  - "Finance"
+threatActors:                       # Optional. Array of threat actor names
+  - "Actor Name"
+impact: "Description of impact"     # Optional. Plain text description
+cvssScore: 8.5                      # Optional. CVSS score (0-10)
+relatedCVEs:                        # Optional. Array of CVE identifiers
+  - "CVE-2024-0001"
+  - "CVE-2024-0002"
+lessonsLearned:                     # Optional. Array of lesson strings
+  - "First lesson learned"
+  - "Second lesson learned"
+tags:                               # Optional. Array of tag strings
+  - "tag1"
+  - "tag2"
+---
+```
+
+### ✅ Good Practice (Case Study)
+```yaml
+---
+title: "**Critical** Ransomware Attack on Healthcare System"
+summary: "Analysis of a major ransomware incident affecting multiple healthcare organizations."
+publishedAt: 2025-08-15
+attackDate: 2024-06-10
+category: "Security"
+draft: false
+attackType:
+  - "Ransomware"
+  - "Data Exfiltration"
+severity: "Critical"
+affectedOrganizations:
+  - "Regional Hospital Network"
+  - "Medical Clinic Chain"
+affectedIndustries:
+  - "Healthcare"
+threatActors:
+  - "Ransomware Group X"
+impact: "Complete shutdown of patient record systems for 3 days"
+relatedCVEs:
+  - "CVE-2024-1234"
+lessonsLearned:
+  - "Importance of regular security audits"
+  - "Need for offline backup systems"
+tags:
+  - "ransomware"
+  - "healthcare"
+  - "critical"
+---
+```
+
+### ❌ Bad Practice (Case Study)
+```yaml
+---
+title: Case Study Title            # Missing quotes
+attackDate: "June 10, 2024"        # Wrong date format (should be YYYY-MM-DD)
+severity: high                     # Wrong: should be "High" (capitalized)
+attackType: Phishing                # Wrong: should be array
+relatedCVEs: CVE-2024-1234          # Wrong: should be array
 ---
 ```
 
@@ -141,10 +229,10 @@ _italic text_
 Standard markdown tables with alignment support:
 
 ```markdown
-| Feature             | Supported | Notes                  |
-| ------------------- | :-------: | ---------------------- |
-| Markdown            |    ✅     | Full support           |
-| MDX                 |    ✅     | With custom components |
+| Feature  | Supported | Notes                  |
+| -------- | :-------: | ---------------------- |
+| Markdown |     ✅     | Full support           |
+| MDX      |     ✅     | With custom components |
 
 | Left Aligned | Center Aligned | Right Aligned |
 | :----------- | :------------: | ------------: |
@@ -276,11 +364,11 @@ Use `<Callout>` for important notices, tips, warnings, and errors.
 
 ### Props
 
-| Prop | Type | Required | Values |
-|------|------|----------|--------|
-| `variant` | string | Yes | `"default"`, `"info"`, `"success"`, `"warning"`, `"error"` |
-| `title` | string | No | Title text |
-| `icon` | string | No | Any [Lucide icon name](https://lucide.dev/icons) in kebab-case |
+| Prop      | Type   | Required | Values                                                         |
+| --------- | ------ | -------- | -------------------------------------------------------------- |
+| `variant` | string | Yes      | `"default"`, `"info"`, `"success"`, `"warning"`, `"error"`     |
+| `title`   | string | No       | Title text                                                     |
+| `icon`    | string | No       | Any [Lucide icon name](https://lucide.dev/icons) in kebab-case |
 
 ### Usage
 
@@ -363,11 +451,11 @@ For expandable/collapsible FAQ-style content.
 
 ### Props
 
-| Component | Prop | Required | Description |
-|-----------|------|----------|-------------|
-| `Accordion` | `type` | Yes | Must be `"single"` |
-| `Accordion` | `collapsible` | Yes | Boolean, enables collapsing |
-| `AccordionItem` | `value` | Yes | Unique identifier string |
+| Component       | Prop          | Required | Description                 |
+| --------------- | ------------- | -------- | --------------------------- |
+| `Accordion`     | `type`        | Yes      | Must be `"single"`          |
+| `Accordion`     | `collapsible` | Yes      | Boolean, enables collapsing |
+| `AccordionItem` | `value`       | Yes      | Unique identifier string    |
 
 ### ✅ Good Practice
 - Each `AccordionItem` must have a unique `value`
@@ -423,11 +511,11 @@ bun add package-name
 
 ### Props
 
-| Component | Prop | Required | Description |
-|-----------|------|----------|-------------|
-| `Tabs` | `defaultValue` | Yes | Value of initially selected tab |
-| `TabsTrigger` | `value` | Yes | Unique identifier for tab |
-| `TabsContent` | `value` | Yes | Must match corresponding trigger |
+| Component     | Prop           | Required | Description                      |
+| ------------- | -------------- | -------- | -------------------------------- |
+| `Tabs`        | `defaultValue` | Yes      | Value of initially selected tab  |
+| `TabsTrigger` | `value`        | Yes      | Unique identifier for tab        |
+| `TabsContent` | `value`        | Yes      | Must match corresponding trigger |
 
 ### ⚠️ Important
 
@@ -505,10 +593,10 @@ Display directory structures visually.
 
 ### Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `tree` | Array | Yes | Nested array of files/folders |
-| `defaultOpen` | boolean | No | Whether folders start expanded |
+| Prop          | Type    | Required | Description                    |
+| ------------- | ------- | -------- | ------------------------------ |
+| `tree`        | Array   | Yes      | Nested array of files/folders  |
+| `defaultOpen` | boolean | No       | Whether folders start expanded |
 
 ### Structure
 
@@ -598,10 +686,10 @@ Render styled GitHub repository links with hover states.
 
 ### Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `owner` | string | Yes | GitHub username or organization |
-| `repo` | string | No | Repository name (if omitted, links to user/org profile) |
+| Prop    | Type   | Required | Description                                             |
+| ------- | ------ | -------- | ------------------------------------------------------- |
+| `owner` | string | Yes      | GitHub username or organization                         |
+| `repo`  | string | No       | Repository name (if omitted, links to user/org profile) |
 
 ### Usage
 
@@ -615,41 +703,46 @@ Render styled GitHub repository links with hover states.
 
 ---
 
-## EmbedBlog Component
+## EmbedResource Component
 
-Embed a link to another blog post with a hover preview card.
+Embed a link to another blog post or case study with a hover preview card.
 
 ### Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `slug` | string | Yes | Slug of the blog post (filename without `.mdx`) |
-| `placeholder` | string | No | Custom link text (defaults to blog title) |
+| Prop           | Type                  | Required | Description                                                   |
+| -------------- | --------------------- | -------- | ------------------------------------------------------------- |
+| `slug`         | string                | Yes      | Slug of the blog post or case study (filename without `.mdx`) |
+| `placeholder`  | string                | No       | Custom link text (defaults to resource title)                 |
+| `resourceType` | "blog" / "case-study" | Yes      | Type of resource to embed                                     |
 
 ### Usage
 
 ```mdx
-For more details, see <EmbedBlog slug="production-ready-rag-guide" />.
+For more details, see <EmbedResource resourceType="blog" slug="production-ready-rag-guide" />.
 
-Check out our <EmbedBlog slug="langchain-1" placeholder="LangChain tutorial" />.
+Check out our <EmbedResource resourceType="blog" slug="langchain-1" placeholder="LangChain tutorial" />.
+
+Related case study: <EmbedResource resourceType="case-study" slug="ransomware-attack-2024" />.
 ```
 
 ### ⚠️ Important
-- The `slug` must match an existing published blog post's filename (without `.mdx`)
-- If the blog doesn't exist, nothing renders
+- The `slug` must match an existing published blog post or case study's filename (without `.mdx`)
+- If the resource doesn't exist, nothing renders
+- Use `resourceType="blog"` for blog posts and `resourceType="case-study"` for case studies
 
 ---
 
 ## LLMOnly Component
 
-Content that is **hidden from users** but visible to LLM crawlers (rendered as `<div class="hidden llm-use-only" aria-hidden="true">`).
+Content that is **hidden from users** but visible to LLM crawlers (rendered as `<pre class="hidden llm-use-only" aria-hidden="true">`).
 
 ### Required Structured Data
 
-**Every blog post MUST include an `<LLMOnly>` block immediately after the frontmatter** with the following semantic metadata. These fields require human/author understanding and cannot be auto-generated:
+**Every blog post and case study MUST include an `<LLMOnly>` block immediately after the frontmatter** with the following semantic metadata. These fields require human/author understanding and cannot be auto-generated:
 
 ```mdx
-<LLMOnly>
+<LLMOnly
+  data={`
 type: tutorial | deep-dive | guide | reference | announcement
 difficulty: beginner | intermediate | advanced
 keyTakeaways:
@@ -658,30 +751,33 @@ keyTakeaways:
   - Third key learning outcome
 prerequisites: What knowledge is assumed (e.g., "Basic Python, familiarity with REST APIs")
 targetAudience: Who this is written for (e.g., "Backend engineers building AI features")
-</LLMOnly>
+`}
+/>
 ```
 
 ### Field Definitions
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `type` | Yes | Content format: `tutorial` (step-by-step), `deep-dive` (in-depth exploration), `guide` (how-to), `reference` (API/docs), `announcement` (news/updates) |
-| `difficulty` | Yes | Expertise level required to understand the content |
-| `keyTakeaways` | Yes | 3-5 bullet points summarizing what the reader will learn |
-| `prerequisites` | Yes | Prior knowledge assumed (or "None" for beginner content) |
-| `targetAudience` | Yes | Who will benefit most from this content |
+| Field            | Required | Description                                                                                                                                            |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`           | Yes      | Content format: `tutorial` (step-by-step), `deep-dive` (in-depth exploration), `guide` (how-to), `reference` (API/docs), `announcement` (news/updates) |
+| `difficulty`     | Yes      | Expertise level required to understand the content                                                                                                     |
+| `keyTakeaways`   | Yes      | 3-5 bullet points summarizing what the reader will learn                                                                                               |
+| `prerequisites`  | Yes      | Prior knowledge assumed (or "None" for beginner content)                                                                                               |
+| `targetAudience` | Yes      | Who will benefit most from this content                                                                                                                |
 
 ### ⚠️ Important
 
 - **Only include manual fields** listed above
 - Other metadata (technologies, code languages, reading time, links, etc.) will be **auto-generated by a build script**
 - Place `<LLMOnly>` block **immediately after frontmatter**, before the first heading
-- Use YAML-style key-value format (no `---` delimiters needed)
+- Use YAML-style key-value format inside the template string (no `---` delimiters needed)
+- The `data` prop must use a template string with backticks
 
 ### ✅ Good Practice
 
 ```mdx
-<LLMOnly>
+<LLMOnly
+  data={`
 type: deep-dive
 difficulty: advanced
 keyTakeaways:
@@ -690,19 +786,26 @@ keyTakeaways:
   - Apply ZKPs to real-world privacy problems
 prerequisites: Rust programming, basic cryptography concepts
 targetAudience: Cryptography engineers and security researchers
-</LLMOnly>
+`}
+/>
 ```
 
 ### ❌ Bad Practice
 
 ```mdx
-<LLMOnly>
+<LLMOnly>  <!-- Wrong: missing data prop -->
+type: blog
+</LLMOnly>
+
+<LLMOnly
+  data={`
 type: blog                    <!-- Wrong: not a valid type -->
 difficulty: medium            <!-- Wrong: use "intermediate" -->
 technologies: [Rust, ZK]      <!-- Wrong: auto-generated, don't include -->
 readingTime: 15 min           <!-- Wrong: auto-generated -->
 keyTakeaways: Learn ZK proofs <!-- Wrong: should be a list -->
-</LLMOnly>
+`}
+/>
 ```
 
 ---
@@ -728,10 +831,10 @@ Container that maintains a specific aspect ratio.
 
 ### Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `ratio` | number | Yes | Width/height ratio (e.g., `16/9`) |
-| `className` | string | No | Additional CSS classes |
+| Prop        | Type   | Required | Description                       |
+| ----------- | ------ | -------- | --------------------------------- |
+| `ratio`     | number | Yes      | Width/height ratio (e.g., `16/9`) |
+| `className` | string | No       | Additional CSS classes            |
 
 ### Usage
 
@@ -749,8 +852,8 @@ Standard button from the UI library.
 
 ### Props
 
-| Prop | Type | Values |
-|------|------|--------|
+| Prop      | Type   | Values                              |
+| --------- | ------ | ----------------------------------- |
 | `variant` | string | `"default"`, `"outline"`, `"ghost"` |
 
 ### Usage
@@ -925,37 +1028,37 @@ Content below
 
 ## Content Transforms Applied
 
-The following transformations are automatically applied during build:
+The following transformations are automatically applied during build for both blog posts and case studies:
 
 1. **Reading Time** - Calculated automatically
 2. **Heading Extraction** - Used for table of contents (h1-h3)
 3. **Slug Generation** - From filename
 4. **Title Processing** - Supports markdown in titles (bold/italic rendered as HTML)
-5. **Series Linking** - Auto-generates previous/next links for series
+5. **Series Linking** - Auto-generates previous/next links for blog series (case studies don't support series)
 6. **Image Classes** - `#dark-mode-only` and `#light-mode-only` URL fragments add appropriate CSS classes
 
 ---
 
 ## Quick Reference
 
-| Feature | Syntax/Component |
-|---------|-----------------|
-| Callout | `<Callout variant="info" title="Title" icon="info">Content</Callout>` |
-| Accordion | `<Accordion type="single" collapsible>...</Accordion>` |
-| Tabs | `<Tabs defaultValue="value"><TabsList>...</TabsList>...</Tabs>` |
-| Steps | `<Steps><Step>Title</Step>Content...</Steps>` |
-| FileTree | `<FileTree tree={[...]} defaultOpen />` |
-| Kbd | `<Kbd>Cmd + K</Kbd>` |
-| GithubLink | `<GithubLink owner="org" repo="name" />` |
-| EmbedBlog | `<EmbedBlog slug="blog-slug" />` |
-| LinkedCard | `<LinkedCard href="/path">Content</LinkedCard>` |
-| Button | `<Button variant="outline">Text</Button>` |
-| Math (inline) | `$E = mc^2$` |
-| Math (block) | `$$ equation $$` |
-| Mermaid | ` ```mermaid ... ``` ` |
-| Code highlight | `// [!code highlight]` |
-| Code diff | `// [!code ++]` / `// [!code --]` |
-| Code focus | `// [!code focus:N]` |
-| Code error | `// [!code error]` / `// [!code warning]` |
-| Dark image | `![alt](url#dark-mode-only)` |
-| Light image | `![alt](url#light-mode-only)` |
+| Feature        | Syntax/Component                                                      |
+| -------------- | --------------------------------------------------------------------- |
+| Callout        | `<Callout variant="info" title="Title" icon="info">Content</Callout>` |
+| Accordion      | `<Accordion type="single" collapsible>...</Accordion>`                |
+| Tabs           | `<Tabs defaultValue="value"><TabsList>...</TabsList>...</Tabs>`       |
+| Steps          | `<Steps><Step>Title</Step>Content...</Steps>`                         |
+| FileTree       | `<FileTree tree={[...]} defaultOpen />`                               |
+| Kbd            | `<Kbd>Cmd + K</Kbd>`                                                  |
+| GithubLink     | `<GithubLink owner="org" repo="name" />`                              |
+| EmbedResource  | `<EmbedResource resourceType="blog" slug="blog-slug" />`              |
+| LinkedCard     | `<LinkedCard href="/path">Content</LinkedCard>`                       |
+| Button         | `<Button variant="outline">Text</Button>`                             |
+| Math (inline)  | `$E = mc^2$`                                                          |
+| Math (block)   | `$$ equation $$`                                                      |
+| Mermaid        | ` ```mermaid ... ``` `                                                |
+| Code highlight | `// [!code highlight]`                                                |
+| Code diff      | `// [!code ++]` / `// [!code --]`                                     |
+| Code focus     | `// [!code focus:N]`                                                  |
+| Code error     | `// [!code error]` / `// [!code warning]`                             |
+| Dark image     | `![alt](url#dark-mode-only)`                                          |
+| Light image    | `![alt](url#light-mode-only)`                                         |

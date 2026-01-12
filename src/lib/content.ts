@@ -1,10 +1,12 @@
 import { compareDesc } from "date-fns";
 import {
   allBlogs,
+  allCaseStudies,
   allProducts,
   allServices,
   allTestimonials,
   type Blog,
+  type CaseStudy,
   type Product,
   type Service,
   type Testimonial,
@@ -24,6 +26,10 @@ function sortBlogsByDateAndPart(a: Blog, b: Blog): number {
 }
 
 export const allBlogsByDate = allBlogs.toSorted(sortBlogsByDateAndPart);
+
+export const allCaseStudiesByDate = allCaseStudies.toSorted((a, b) =>
+  compareDesc(a.publishedAt, b.publishedAt),
+);
 
 export function getSeriesParts(blog: Blog) {
   if (!blog.series) {
@@ -45,4 +51,4 @@ export const allFeaturedServices = allServices.filter((s) => s.featured);
 
 export { allProducts, allServices, allTestimonials };
 
-export type { Blog, Product, Service, Testimonial };
+export type { Blog, CaseStudy, Product, Service, Testimonial };

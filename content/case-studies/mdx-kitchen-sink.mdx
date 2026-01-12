@@ -1,13 +1,34 @@
 ---
 title: "**MDX** Kitchen Sink: Testing *Every* Component"
-summary: "A comprehensive test page showcasing every MDX component and feature available in the blog system."
+summary: "A comprehensive test page showcasing every MDX component and feature available in the case study system."
 publishedAt: 2025-08-01
+attackDate: 2024-01-15
 category: "Documentation"
 draft: true
-author:
-  name: "Test Author"
-  bio: "This is a custom author bio to test the author field functionality."
-  avatar: "/images/test-avatar.png"
+attackType:
+  - "Test"
+  - "Reference"
+severity: "Low"
+affectedOrganizations:
+  - "Test Organization"
+  - "Example Corp"
+affectedIndustries:
+  - "Technology"
+  - "Testing"
+threatActors:
+  - "Test Actor"
+impact: "This is a test case study for demonstrating MDX components and features."
+relatedCVEs:
+  - "CVE-2024-0001"
+  - "CVE-2024-0002"
+lessonsLearned:
+  - "MDX components render correctly in case studies"
+  - "All formatting options work as expected"
+  - "Case study-specific metadata displays properly"
+tags:
+  - "test"
+  - "reference"
+  - "mdx"
 ---
 
 <LLMOnly
@@ -15,19 +36,19 @@ author:
 type: reference
 difficulty: beginner
 keyTakeaways:
-  - Demonstrates all available MDX components in the blog system
+  - Demonstrates all available MDX components in the case study system
   - Serves as a visual reference for component rendering
   - Contains examples of typography, code blocks, diagrams, and custom components
 prerequisites: None
-targetAudience: Content authors and developers working with the blog system
+targetAudience: Content authors and developers working with the case study system
 `}
 />
 
-This blog post demonstrates every MDX component and feature available. Use it as a reference and to verify all components render correctly.
+This case study demonstrates every MDX component and feature available. Use it as a reference and to verify all components render correctly.
 
 ## LLMOnly Component
 
-The `<LLMOnly>` component contains metadata visible only to LLM crawlers, not users. It **must** appear immediately after frontmatter in every blog post.
+The `<LLMOnly>` component contains metadata visible only to LLM crawlers, not users. It **must** appear immediately after frontmatter in every case study.
 
 ```mdx
 <LLMOnly
@@ -633,9 +654,14 @@ And another.
 
 ---
 
-## Embed Blog
+## Embed Resource
 
 <EmbedResource resourceType="blog" slug="production-ready-rag-guide" />
+
+<EmbedResource resourceType="case-study" slug="mdx-kitchen-sink" />
+
+Note: The EmbedResource component can be used in case studies to reference related blog posts or case studies.
+
 
 ---
 
@@ -651,4 +677,9 @@ And another.
 
 ## Conclusion
 
-This kitchen sink demonstrates all available MDX components. If you can see this page rendered correctly, all components are working! :tada:
+This kitchen sink demonstrates all available MDX components for case studies. If you can see this page rendered correctly, all components are working! :tada:
+
+This test case study includes:
+- All standard MDX components and formatting
+- Case study-specific metadata (severity, attack types, etc.)
+- Examples of how to structure case study content

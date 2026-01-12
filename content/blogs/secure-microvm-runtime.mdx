@@ -22,7 +22,7 @@ targetAudience: Security engineers hardening AI agent execution environments
 `}
 />
 
-In <EmbedBlog slug="polymorphic-workload-orchestrator" />, we built a scalable control plane using Go and Redis. We successfully decoupled our application logic from the infrastructure using the `WorkloadRuntime` interface.
+In <EmbedResource resourceType="blog" slug="polymorphic-workload-orchestrator" />, we built a scalable control plane using Go and Redis. We successfully decoupled our application logic from the infrastructure using the `WorkloadRuntime` interface.
 
 However, we left off with a critical security gap: we were still running untrusted user code in standard Kubernetes Pods. In this post, we'll fix that by implementing a **Secure Runtime** using MicroVMs.
 
@@ -195,4 +195,4 @@ We now have a system that is:
 2.  **Scalable:** Managed via Redis queues.
 3.  **Secure:** Uses hardware virtualization for untrusted agents.
 
-In <EmbedBlog slug="secure-agent-networking" placeholder="Part 3" />, we'll look at **Networking**. How do we let these agents talk to the internet (or specific internal APIs) without letting them scan our internal VPC?
+In <EmbedResource resourceType="blog" slug="secure-agent-networking" placeholder="Part 3" />, we'll look at **Networking**. How do we let these agents talk to the internet (or specific internal APIs) without letting them scan our internal VPC?

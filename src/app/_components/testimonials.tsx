@@ -19,6 +19,10 @@ export function Testimonials() {
     return () => clearInterval(timer);
   }, [autoPlay]);
 
+  if (allTestimonials.length === 0) {
+    return null;
+  }
+
   const next = () => {
     setCurrent((prev) => (prev + 1) % allTestimonials.length);
     setAutoPlay(false);

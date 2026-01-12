@@ -275,6 +275,152 @@ const blogs = defineCollection({
   },
 });
 
+const caseStudies = defineCollection({
+  name: "caseStudies",
+  directory: "content/case-studies",
+  include: "**/*.mdx",
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    publishedAt: z.coerce.date(),
+    category: z.string(),
+    draft: z.boolean().default(false),
+    content: z.string(),
+    author: z
+      .object({
+        name: z.string(),
+        bio: z.string().optional(),
+        avatar: z.string().optional(),
+      })
+      .optional()
+      .default({
+        name: "AstraQ Team",
+        bio: "The AstraQ Team writes about technology, security, and innovation.",
+      }),
+    attackDate: z.coerce.date(),
+    attackPeriod: z.string().optional(),
+    affectedOrganizations: z.array(z.string()).optional(),
+    affectedIndustries: z.array(z.string()).optional(),
+    attackType: z.array(z.string()),
+    threatActors: z.array(z.string()).optional(),
+    severity: z.enum(["Low", "Medium", "High", "Critical"]).optional(),
+    impact: z.string().optional(),
+    cvssScore: z.number().min(0).max(10).optional(),
+    relatedCVEs: z.array(z.string()).optional(),
+    lessonsLearned: z.array(z.string()).optional(),
+    tags: z.array(z.string()).optional(),
+  }),
+  transform: async (document, context) => {
+    if (document.draft) {
+      return context.skip("case study is draft");
+    }
+
+    const headingNodes: Heading[] = [];
+    const time = readingTime(document.content).text;
+
+    const html = await compileMDX(context, document, {
+      remarkPlugins: [
+        remarkMath,
+        remarkGemoji,
+        [remarkGfm, { singleTilde: false }],
+        [
+          ({ headingNodesRef }: { headingNodesRef: Heading[] }) =>
+            (tree) => {
+              for (const node of tree.children) {
+                if (node.type === "heading" && node.depth <= 3) {
+                  headingNodesRef.push(node);
+                }
+              }
+            },
+          { headingNodesRef: headingNodes },
+        ],
+      ],
+      rehypePlugins: [
+        rehypeSlug,
+        [rehypeAutolinkHeadings, { behavior: "wrap" }],
+        rehypeKatex,
+        () => (tree) => {
+          visit(tree, "element", (node) => {
+            if (node.tagName === "img" && node.properties) {
+              const src = node.properties.src;
+              if (typeof src === "string") {
+                const existingClass = node.properties.className;
+                const classes = Array.isArray(existingClass)
+                  ? [...existingClass]
+                  : existingClass
+                    ? [existingClass]
+                    : [];
+
+                if (src.includes("#dark-mode-only"))
+                  classes.push("hidden", "dark:block");
+                else if (src.includes("#light-mode-only"))
+                  classes.push("block", "dark:hidden");
+
+                node.properties.className = classes;
+              }
+            }
+          });
+        },
+        [
+          rehypeShiki,
+          {
+            themes: { light: "vitesse-light", dark: "vitesse-black" },
+            transformers: [
+              transformerNotationDiff(),
+              transformerNotationHighlight(),
+              transformerNotationFocus(),
+              transformerNotationErrorLevel(),
+              {
+                pre(hast) {
+                  hast.properties["data-meta"] = this.options.meta?.__raw;
+                  hast.properties["data-code"] = this.source;
+                  hast.properties["data-language"] = this.options.lang;
+                },
+                code(hast) {
+                  hast.properties["data-line-numbers-max-digits"] =
+                    this.lines.length.toString().length;
+                },
+              } satisfies ShikiTransformer,
+            ],
+            inline: "tailing-curly-colon",
+          } satisfies RehypeShikiOptions,
+        ],
+      ],
+    });
+
+    const processedHeadings: Headings = await Promise.all(
+      headingNodes.map(async (node) => ({
+        depth: node.depth,
+        value: await headingToHtml(node),
+        slug: slugify(mdastToString(node)),
+      })),
+    );
+
+    const cachedHeadings = await context.cache(
+      { content: document.content, _meta: document._meta },
+      () => processedHeadings,
+      {
+        key: "__headings",
+      },
+    );
+
+    const slug = document._meta.fileName.replace(".mdx", "");
+    const { html: htmlTitle, plain: plainTitle } = await processTitle(
+      document.title,
+    );
+
+    return {
+      ...document,
+      title: plainTitle,
+      html,
+      htmlTitle,
+      headings: cachedHeadings,
+      slug,
+      readingTime: time,
+    };
+  },
+});
+
 const products = defineCollection({
   name: "products",
   directory: "content/products",
@@ -330,5 +476,5 @@ const testimonials = defineCollection({
 });
 
 export default defineConfig({
-  collections: [blogs, products, services, testimonials],
+  collections: [blogs, caseStudies, products, services, testimonials],
 });

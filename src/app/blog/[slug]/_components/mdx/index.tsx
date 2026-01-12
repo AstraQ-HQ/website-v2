@@ -23,7 +23,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { Callout } from "./callout";
 import { Codeblock } from "./codeblock";
-import { EmbedBlog } from "./embed-blog";
+import { EmbedResource } from "./embed-resource";
 import { FileTree } from "./file-tree";
 import { GithubLink } from "./github-link";
 import { Kbd } from "./kbd";
@@ -122,7 +122,7 @@ const components = {
   a: Link,
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <p
-      className={cn("leading-[1.65rem] [&:not(:first-child)]:mt-6", className)}
+      className={cn("leading-[1.65rem] not-first:mt-6", className)}
       {...props}
     />
   ),
@@ -190,7 +190,7 @@ const components = {
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <TableHead
       className={cn(
-        "px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
+        "px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right",
         className,
       )}
       {...props}
@@ -199,7 +199,7 @@ const components = {
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <TableCell
       className={cn(
-        "px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right",
+        "px-4 py-2 text-left [[align=center]]:text-center [[align=right]]:text-right",
         className,
       )}
       {...props}
@@ -293,7 +293,7 @@ const components = {
   ),
   Callout,
   AspectRatio,
-  EmbedBlog,
+  EmbedResource,
   Kbd,
   GithubLink,
   FileTree,
