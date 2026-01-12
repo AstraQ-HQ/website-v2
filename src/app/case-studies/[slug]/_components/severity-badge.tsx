@@ -9,16 +9,6 @@ interface SeverityBadgeProps {
 }
 
 export function SeverityBadge({ severity, className }: SeverityBadgeProps) {
-  const variantMap: Record<
-    Severity,
-    "default" | "secondary" | "destructive" | "outline"
-  > = {
-    Critical: "destructive",
-    High: "destructive",
-    Medium: "secondary",
-    Low: "default",
-  };
-
   const colorMap: Record<Severity, string> = {
     Critical: "bg-red-500/10 text-red-500 border-red-500/20",
     High: "bg-orange-500/10 text-orange-500 border-orange-500/20",
@@ -28,7 +18,7 @@ export function SeverityBadge({ severity, className }: SeverityBadgeProps) {
 
   return (
     <Badge
-      variant={variantMap[severity]}
+      variant="outline"
       className={cn("font-semibold", colorMap[severity], className)}
     >
       {severity}
