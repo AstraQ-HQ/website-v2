@@ -1,5 +1,5 @@
 import { CheckCircle2Icon } from "lucide-react";
-import { Callout } from "@/app/blog/[slug]/_components/mdx/callout";
+import { Callout } from "@/components/mdx/callout";
 
 interface LessonsLearnedProps {
   lessons: string[];

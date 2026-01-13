@@ -5,6 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Linkedin, XDark } from "@/components/icons";
+import { Mdx } from "@/components/mdx";
+import {
+  DesktopTableOfContents,
+  MobileTableOfContents,
+} from "@/components/toc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,20 +18,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { allBlogsByDate, getSeriesParts } from "@/lib/content";
-import { Mdx } from "./_components/mdx";
 import { SeriesList } from "./_components/series-list";
-import {
-  DesktopTableOfContents,
-  MobileTableOfContents,
-} from "./_components/toc";
 import "@/styles/mdx.css";
 import "@/styles/shiki.css";
 import "katex/dist/katex.min.css";
 import logo from "@/app/icon.svg";
 import { BlogBannerImage } from "@/components/blog-banner-image";
+import { ScrollProgress } from "@/components/scroll-progress";
 import { env } from "@/env";
 import { siteConfig } from "@/lib/constants";
-import { ScrollProgress } from "./_components/scroll-progress";
 
 export async function generateMetadata({
   params,

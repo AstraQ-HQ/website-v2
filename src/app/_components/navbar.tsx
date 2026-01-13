@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuIcon, XIcon } from "lucide-react";
+import { ChevronDownIcon, MenuIcon, XIcon } from "lucide-react";
 import type { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,11 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import logo from "@/app/icon.svg";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Sheet,
   SheetClose,
@@ -18,12 +23,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { siteConfig } from "@/lib/constants";
+import {
+  type NavItemType,
+  type NavItemWithDropdown,
+  siteConfig,
+} from "@/lib/constants";
 import { cn } from "@/lib/utils";
+
+function isNavItemWithDropdown(item: NavItemType): item is NavItemWithDropdown {
+  return "items" in item;
+}
 
 export function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const router = useRouter();
 
   const handleMobileLinkClick = (href: Route) => {
@@ -65,15 +79,59 @@ export function NavBar() {
           </Link>
 
           <div className="hidden md:flex gap-8">
-            {siteConfig.header.navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-foreground hover:text-accent-foreground transition-colors text-sm font-medium"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {siteConfig.header.navItems.map((item) => {
+              if (isNavItemWithDropdown(item)) {
+                return (
+                  // biome-ignore lint/a11y: Required
+                  <div
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={() => setOpenDropdown(item.label)}
+                    onMouseLeave={() => setOpenDropdown(null)}
+                  >
+                    <Popover
+                      open={openDropdown === item.label}
+                      onOpenChange={(open) =>
+                        setOpenDropdown(open ? item.label : null)
+                      }
+                    >
+                      <PopoverTrigger asChild>
+                        <button
+                          type="button"
+                          className="text-foreground hover:text-accent-foreground transition-colors text-sm font-medium flex items-center gap-1"
+                        >
+                          {item.label}
+                          <ChevronDownIcon size={16} />
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-48 p-2" align="start">
+                        <div className="flex flex-col gap-1">
+                          {item.items.map((subItem) => (
+                            <Link
+                              key={subItem.label}
+                              href={subItem.href as Route}
+                              className="px-3 py-2 rounded-sm text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                              onClick={() => setOpenDropdown(null)}
+                            >
+                              {subItem.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                );
+              }
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-foreground hover:text-accent-foreground transition-colors text-sm font-medium"
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
 
           <Button className="hidden md:block" asChild>
@@ -110,16 +168,43 @@ export function NavBar() {
                   </SheetDescription>
                 </SheetHeader>
                 <div className="flex flex-col gap-4 mt-8">
-                  {siteConfig.header.navItems.map((item) => (
-                    // biome-ignore lint/a11y: Required
-                    <div
-                      key={item.label}
-                      onClick={() => handleMobileLinkClick(item.href)}
-                      className="text-foreground hover:text-accent-foreground transition-colors text-lg font-medium cursor-pointer"
-                    >
-                      {item.label}
-                    </div>
-                  ))}
+                  {siteConfig.header.navItems.map((item) => {
+                    if (isNavItemWithDropdown(item)) {
+                      return (
+                        <div key={item.label} className="flex flex-col gap-2">
+                          <div className="text-foreground text-lg font-medium">
+                            {item.label}
+                          </div>
+                          <div className="flex flex-col gap-2 pl-4">
+                            {item.items.map((subItem) => (
+                              // biome-ignore lint/a11y: Required
+                              <div
+                                key={subItem.label}
+                                onClick={() =>
+                                  handleMobileLinkClick(subItem.href as Route)
+                                }
+                                className="text-foreground hover:text-accent-foreground transition-colors text-base cursor-pointer"
+                              >
+                                {subItem.label}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    }
+                    return (
+                      // biome-ignore lint/a11y: Required
+                      <div
+                        key={item.label}
+                        onClick={() =>
+                          handleMobileLinkClick(item.href as Route)
+                        }
+                        className="text-foreground hover:text-accent-foreground transition-colors text-lg font-medium cursor-pointer"
+                      >
+                        {item.label}
+                      </div>
+                    );
+                  })}
                 </div>
                 <SheetFooter className="p-0 mt-4">
                   <Button className="w-full" asChild>

@@ -2,11 +2,13 @@ import { compareDesc } from "date-fns";
 import {
   allBlogs,
   allCaseStudies,
+  allOpenSources,
   allProducts,
   allServices,
   allTestimonials,
   type Blog,
   type CaseStudy,
+  type OpenSource,
   type Product,
   type Service,
   type Testimonial,
@@ -49,6 +51,6 @@ export function getSeriesParts(blog: Blog) {
 export const allFeaturedProducts = allProducts.filter((p) => p.featured);
 export const allFeaturedServices = allServices.filter((s) => s.featured);
 
-export { allProducts, allServices, allTestimonials };
+export { allProducts, allServices, allTestimonials, allOpenSources };
 
-export type { Blog, CaseStudy, Product, Service, Testimonial };
+export type { Blog, CaseStudy, OpenSource, Product, Service, Testimonial };

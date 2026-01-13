@@ -1,19 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { ServiceCard } from "@/app/_components/service-card";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { siteConfig } from "@/lib/constants";
 import { allServices } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { ServiceCard } from "./_components/service-card";
 
 export default function ServicesPage() {
   const { ref, isVisible } = useIntersectionObserver();
 
   return (
     <>
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-secondary via-background to-background">
+      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-secondary via-background to-background">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="font-mono text-5xl sm:text-6xl text-primary mb-4">
             Our Services

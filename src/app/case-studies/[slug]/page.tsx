@@ -4,12 +4,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Mdx } from "@/app/blog/[slug]/_components/mdx";
+import { Linkedin, XDark } from "@/components/icons";
+import { Mdx } from "@/components/mdx";
 import {
   DesktopTableOfContents,
   MobileTableOfContents,
-} from "@/app/blog/[slug]/_components/toc";
-import { Linkedin, XDark } from "@/components/icons";
+} from "@/components/toc";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,9 +21,9 @@ import { allCaseStudiesByDate } from "@/lib/content";
 import "@/styles/mdx.css";
 import "@/styles/shiki.css";
 import "katex/dist/katex.min.css";
-import { ScrollProgress } from "@/app/blog/[slug]/_components/scroll-progress";
 import logo from "@/app/icon.svg";
 import { CaseStudyBannerImage } from "@/components/case-study-banner-image";
+import { ScrollProgress } from "@/components/scroll-progress";
 import { env } from "@/env";
 import { siteConfig } from "@/lib/constants";
 import { AttackTypeBadges } from "./_components/attack-type-badges";
@@ -167,7 +167,6 @@ export default async function Page({
             </div>
           </div>
 
-          {/* Metadata Section */}
           <div className="mb-12 p-6 border border-border rounded-lg bg-card">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {caseStudy.severity && (

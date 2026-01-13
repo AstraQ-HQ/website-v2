@@ -1,0 +1,30 @@
+name: "Brahmastra OSINT Tool"
+description: "A comprehensive Open Source Intelligence (OSINT) tool designed to assist researchers, investigators, and cybersecurity professionals in gathering information from various public sources. It aggregates a wide range of utilities into a single, easy-to-use interface."
+repository: "https://github.com/astraqcd/brahmastra"
+website: "https://brahmastra.astraqcyberdefence.com"
+language: "TypeScript"
+license: "MIT"
+stars: 0
+tags:
+  - "osint"
+  - "intelligence"
+  - "cybersecurity"
+  - "investigation"
+  - "open-source"
+  - "research"
+features:
+  - "AI Tools integration (e.g., Dork GPT)"
+  - "Advanced search engines"
+  - "Reverse image search and analysis"
+  - "Email breach checks and verification"
+  - "Geo-spatial mapping and satellite imagery"
+  - "Aviation tracking and flight registries"
+  - "Social media search operators"
+  - "Maritime vessel tracking"
+techStack:
+  - "Next.js"
+  - "TypeScript"
+  - "Tailwind CSS"
+  - "Radix UI"
+  - "Lucide React"
+

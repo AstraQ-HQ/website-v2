@@ -23,10 +23,17 @@ export const contactFormSchema = z.object({
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
-type NavItem = {
+export type NavItem = {
   label: string;
   href: Route;
 };
+
+export type NavItemWithDropdown = {
+  label: string;
+  items: NavItem[];
+};
+
+export type NavItemType = NavItem | NavItemWithDropdown;
 
 const calLink = "https://cal.com/astraqcd" as Route;
 
@@ -37,11 +44,17 @@ export const siteConfig = {
     navItems: [
       { label: "Products", href: "/products" },
       { label: "Services", href: "/services" },
-      { label: "Blog", href: "/blog" },
-      { label: "Case Studies", href: "/case-studies" },
+      {
+        label: "Resources",
+        items: [
+          { label: "Blog", href: "/blog" as Route },
+          { label: "Case Studies", href: "/case-studies" as Route },
+          { label: "Open Source", href: "/open-source" as Route },
+        ],
+      },
       { label: "About", href: "/#why-astraq" },
       { label: "Contact", href: "/#contact" },
-    ] satisfies NavItem[],
+    ] satisfies NavItemType[],
     cta: {
       text: "Book Demo",
       href: calLink,
@@ -173,7 +186,7 @@ export const siteConfig = {
     resources: [
       { label: "Blog", href: "/blog" },
       { label: "Case Studies", href: "/case-studies" },
-      { label: "Open Source", href: "https://github.com/Astraq-HQ" },
+      { label: "Open Source", href: "/open-source" },
     ] as NavItem[],
     legal: [
       { label: "Privacy Policy", href: "/privacy" },

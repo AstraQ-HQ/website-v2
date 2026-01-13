@@ -475,6 +475,39 @@ const testimonials = defineCollection({
   }),
 });
 
+const openSource = defineCollection({
+  name: "openSource",
+  directory: "content/open-source",
+  include: "**/*.yml",
+  parser: "yaml",
+  schema: z.object({
+    name: z.string(),
+    description: z.string(),
+    repository: z.string(),
+    website: z.string().optional(),
+    language: z.string(),
+    license: z.string(),
+    stars: z.number().optional(),
+    tags: z.array(z.string()),
+    features: z.array(z.string()),
+    techStack: z.array(z.string()),
+    logo: z.string().optional(),
+  }),
+  transform: async (document) => {
+    return {
+      ...document,
+      slug: slugify(document.name),
+    };
+  },
+});
+
 export default defineConfig({
-  collections: [blogs, caseStudies, products, services, testimonials],
+  collections: [
+    blogs,
+    caseStudies,
+    products,
+    services,
+    testimonials,
+    openSource,
+  ],
 });
