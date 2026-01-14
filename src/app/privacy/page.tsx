@@ -2,13 +2,13 @@ export default function PrivacyPage() {
   return (
     <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <h1 className="font-mono text-5xl text-primary mb-2">Privacy Policy</h1>
+        <h1 className="font-mono text-5xl text-foreground mb-2">Privacy Policy</h1>
         <p className="text-muted-foreground mb-8">
           Last updated: January 1, 2025
         </p>
 
         <div className="prose prose-sm max-w-none">
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             1. Introduction
           </h2>
           <p className="text-muted-foreground mb-4">
@@ -18,7 +18,7 @@ export default function PrivacyPage() {
             Service and the choices you have associated with that data.
           </p>
 
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             2. Data Collection
           </h2>
           <p className="text-muted-foreground mb-4">
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
             you create an account, make a purchase, or contact us for support.
           </p>
 
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             3. Use of Data
           </h2>
           <p className="text-muted-foreground mb-4">
@@ -35,7 +35,7 @@ export default function PrivacyPage() {
             and allowing you to participate in interactive features.
           </p>
 
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             4. Security of Data
           </h2>
           <p className="text-muted-foreground mb-4">
@@ -43,7 +43,7 @@ export default function PrivacyPage() {
             method of transmission over the Internet is 100% secure.
           </p>
 
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             5. Contact Us
           </h2>
           <p className="text-muted-foreground">

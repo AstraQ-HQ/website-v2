@@ -77,7 +77,7 @@ export default async function OpenSourceProjectPage({ params }: PageProps) {
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <h1 className="font-mono text-4xl sm:text-5xl lg:text-6xl text-primary mb-4 leading-tight">
+              <h1 className="font-mono text-4xl sm:text-5xl lg:text-6xl text-foreground mb-4 leading-tight">
                 {project.name}
               </h1>
               <p className="text-lg sm:text-xl text-muted-foreground mb-6 leading-relaxed">

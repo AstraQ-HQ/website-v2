@@ -17,7 +17,7 @@ export function WhyAstraQ() {
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="font-mono text-4xl sm:text-5xl text-primary mb-4">
+          <h2 className="font-mono text-4xl sm:text-5xl text-foreground mb-4">
             {title}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -47,7 +47,7 @@ export function WhyAstraQ() {
                     strokeWidth={1}
                   />
                 </div>
-                <p className="font-mono text-4xl text-primary mb-2">
+                <p className="font-mono text-4xl text-foreground mb-2">
                   {stat.value}
                 </p>
                 <p className="text-muted-foreground">{stat.label}</p>
@@ -70,7 +70,7 @@ export function WhyAstraQ() {
                 transition: `opacity 700ms ${(index + 3) * 150}ms, transform 700ms ${(index + 3) * 150}ms, box-shadow 300ms, border-color 300ms`,
               }}
             >
-              <h3 className="font-mono text-xl text-primary mb-2">
+              <h3 className="font-mono text-xl text-foreground mb-2">
                 {item.title}
               </h3>
               <p className="text-muted-foreground">{item.description}</p>

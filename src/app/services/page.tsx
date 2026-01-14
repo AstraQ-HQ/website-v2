@@ -15,7 +15,7 @@ export default function ServicesPage() {
     <>
       <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-secondary via-background to-background">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-mono text-5xl sm:text-6xl text-primary mb-4">
+          <h1 className="font-mono text-5xl sm:text-6xl text-foreground mb-4">
             Our Services
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -45,7 +45,7 @@ export default function ServicesPage() {
           </div>
 
           <div className="mt-16 text-center p-12 bg-secondary rounded-lg border border-border">
-            <h2 className="font-mono text-3xl text-primary mb-4">
+            <h2 className="font-mono text-3xl text-foreground mb-4">
               Get Expert Support
             </h2>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">

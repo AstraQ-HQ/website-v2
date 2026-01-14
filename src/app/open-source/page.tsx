@@ -26,7 +26,7 @@ export default function OpenSourcePage() {
     <>
       <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-secondary via-background to-background">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-mono text-5xl sm:text-6xl text-primary mb-4">
+          <h1 className="font-mono text-5xl sm:text-6xl text-foreground mb-4">
             Open Source
           </h1>
           <p className="text-lg text-muted-foreground">

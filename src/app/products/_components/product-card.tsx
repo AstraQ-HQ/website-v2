@@ -20,7 +20,7 @@ export function ProductCard({ product }: ProductCardProps) {
           className="object-contain"
         />
         <div>
-          <h3 className="font-mono text-2xl text-primary mb-1">
+          <h3 className="font-mono text-2xl text-foreground mb-1">
             {product.name}
           </h3>
           <p className="text-sm text-accent-foreground font-semibold mb-3">

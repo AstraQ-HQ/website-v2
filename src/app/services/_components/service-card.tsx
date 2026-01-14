@@ -17,7 +17,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           strokeWidth={1}
         />
       </div>
-      <h3 className="font-mono text-lg text-primary mb-2">{service.name}</h3>
+      <h3 className="font-mono text-lg text-foreground mb-2">{service.name}</h3>
       <p className="text-sm text-muted-foreground">{service.description}</p>
     </div>
   );

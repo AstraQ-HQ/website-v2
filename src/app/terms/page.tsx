@@ -2,7 +2,7 @@ export default function TermsPage() {
   return (
     <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <h1 className="font-mono text-5xl text-primary mb-2">
+        <h1 className="font-mono text-5xl text-foreground mb-2">
           Terms of Service
         </h1>
         <p className="text-muted-foreground mb-8">
@@ -10,7 +10,7 @@ export default function TermsPage() {
         </p>
 
         <div className="prose prose-sm max-w-none">
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             1. Agreement to Terms
           </h2>
           <p className="text-muted-foreground mb-4">
@@ -19,7 +19,7 @@ export default function TermsPage() {
             provision of this agreement.
           </p>
 
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             2. Use License
           </h2>
           <p className="text-muted-foreground mb-4">
@@ -28,7 +28,7 @@ export default function TermsPage() {
             transitory viewing only.
           </p>
 
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             3. Disclaimer
           </h2>
           <p className="text-muted-foreground mb-4">
@@ -38,7 +38,7 @@ export default function TermsPage() {
             limitation, implied warranties or conditions of merchantability.
           </p>
 
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             4. Limitations
           </h2>
           <p className="text-muted-foreground mb-4">
@@ -48,7 +48,7 @@ export default function TermsPage() {
             to use the materials.
           </p>
 
-          <h2 className="font-mono text-2xl text-primary mt-8 mb-4">
+          <h2 className="font-mono text-2xl text-foreground mt-8 mb-4">
             5. Modifications
           </h2>
           <p className="text-muted-foreground">

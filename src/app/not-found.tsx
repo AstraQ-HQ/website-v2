@@ -5,7 +5,7 @@ import { GoBackButton } from "./_components/go-back-button";
 
 export default function NotFound() {
   return (
-    <section className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-gradient-to-b from-secondary via-background to-background">
+    <section className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-linear-to-b from-secondary via-background to-background">
       <div className="absolute inset-0 opacity-3">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-accent blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-primary blur-3xl" />
@@ -13,11 +13,11 @@ export default function NotFound() {
 
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 text-center">
         <div className="flex flex-col items-center max-w-2xl mx-auto">
-          <h1 className="font-mono text-[8rem] sm:text-[12rem] md:text-[16rem] font-bold text-primary leading-none select-none">
+          <h1 className="font-mono text-[8rem] sm:text-[12rem] md:text-[16rem] font-bold text-foreground leading-none select-none">
             404
           </h1>
 
-          <h2 className="font-mono text-2xl sm:text-3xl md:text-4xl text-primary mb-4">
+          <h2 className="font-mono text-2xl sm:text-3xl md:text-4xl text-foreground mb-4">
             Page Not Found
           </h2>
 

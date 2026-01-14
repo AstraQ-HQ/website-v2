@@ -27,7 +27,7 @@ export function OpenSourceCard({ project }: OpenSourceCardProps) {
           />
         )}
         <div className="flex-1">
-          <h3 className="font-mono text-2xl text-primary mb-1">
+          <h3 className="font-mono text-2xl text-foreground mb-1">
             {project.name}
           </h3>
           <div className="flex items-center gap-2 flex-wrap mb-2">

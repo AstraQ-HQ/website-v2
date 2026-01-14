@@ -168,7 +168,7 @@ export default function CaseStudiesPage() {
     <>
       <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-secondary via-background to-background">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-mono text-5xl sm:text-6xl text-primary mb-4">
+          <h1 className="font-mono text-5xl sm:text-6xl text-foreground mb-4">
             Case Studies
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -390,7 +390,7 @@ export default function CaseStudiesPage() {
                       )}
                   </div>
                   <h2
-                    className="font-mono text-3xl text-primary mb-3 group-hover:text-accent-foreground transition-colors"
+                    className="font-mono text-3xl text-foreground mb-3 group-hover:text-accent-foreground transition-colors"
                     // biome-ignore lint/security/noDangerouslySetInnerHtml: This is trusted content from our CMS
                     dangerouslySetInnerHTML={{
                       __html: featuredCaseStudy.htmlTitle,
@@ -470,7 +470,7 @@ export default function CaseStudiesPage() {
                     </div>
                   )}
                   <h3
-                    className="font-mono text-lg text-primary mb-2 group-hover:text-accent-foreground transition-colors"
+                    className="font-mono text-lg text-foreground mb-2 group-hover:text-accent-foreground transition-colors"
                     // biome-ignore lint/security/noDangerouslySetInnerHtml: This is trusted content from our CMS
                     dangerouslySetInnerHTML={{ __html: caseStudy.htmlTitle }}
                   />

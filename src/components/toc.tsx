@@ -115,7 +115,7 @@ export function DesktopTableOfContents({ headings }: TableOfContentsProps) {
                   className={cn(
                     "flex items-center truncate py-1 text-lg transition-colors hover:text-primary",
                     activeId === heading.slug
-                      ? "text-primary font-semibold"
+                      ? "text-foreground font-semibold"
                       : "text-muted-foreground",
                   )}
                   href={`#${heading.slug}`}

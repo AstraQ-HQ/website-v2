@@ -21,7 +21,7 @@ export function HeroSection() {
       />
       <div className="relative max-w-6xl mx-auto z-10 w-full px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 text-primary leading-tight">
+          <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 text-foreground leading-tight">
             {title}
           </h1>
 

@@ -18,7 +18,7 @@ export function LessonsLearned({ lessons, className }: LessonsLearnedProps) {
           {lessons.map((lesson) => (
             <li key={lesson} className="flex items-start gap-2">
               <CheckCircle2Icon
-                className="size-5 text-primary mt-0.5 shrink-0"
+                className="size-5 text-foreground mt-0.5 shrink-0"
                 strokeWidth={1.5}
               />
               <span className="text-sm">{lesson}</span>

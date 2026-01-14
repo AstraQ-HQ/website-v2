@@ -21,7 +21,7 @@ export function RelatedCVEs({ cves, className }: RelatedCVEsProps) {
             href={`https://cve.mitre.org/cgi-bin/cvename.cgi?name=${cve}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm text-primary hover:text-accent-foreground underline-offset-4 hover:underline"
+            className="inline-flex items-center gap-1 text-sm text-foreground hover:text-accent-foreground underline-offset-4 hover:underline"
           >
             {cve}
             <ExternalLinkIcon className="size-3" strokeWidth={1.5} />

@@ -38,7 +38,7 @@ export function Testimonials() {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-6xl mx-auto">
-        <h2 className="font-mono text-4xl sm:text-5xl text-primary mb-16 text-center">
+        <h2 className="font-mono text-4xl sm:text-5xl text-foreground mb-16 text-center">
           {siteConfig.pages.home.testimonials.title}
         </h2>
 
@@ -48,7 +48,7 @@ export function Testimonials() {
               className="w-8 h-8 text-accent-foreground mb-4 opacity-50"
               strokeWidth={1}
             />
-            <blockquote className="text-xl md:text-2xl font-mono mb-6 text-primary leading-relaxed">
+            <blockquote className="text-xl md:text-2xl font-mono mb-6 text-foreground leading-relaxed">
               "{allTestimonials[current].quote}"
             </blockquote>
             <div className="flex items-center gap-4">
