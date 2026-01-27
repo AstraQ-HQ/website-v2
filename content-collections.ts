@@ -249,15 +249,15 @@ const blogs = defineCollection({
         part: document.series.part,
         previous: previousDoc
           ? {
-              slug: prevSlug,
-              title: prevTitle,
-            }
+            slug: prevSlug,
+            title: prevTitle,
+          }
           : null,
         next: nextDoc
           ? {
-              slug: nextSlug,
-              title: nextTitle,
-            }
+            slug: nextSlug,
+            title: nextTitle,
+          }
           : null,
       };
     }
@@ -475,6 +475,20 @@ const testimonials = defineCollection({
   }),
 });
 
+const achievements = defineCollection({
+  name: "achievements",
+  directory: "content/achievements",
+  include: "**/*.yml",
+  parser: "yaml",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    blogSlug: z.string().optional(),
+    icon: z.string().optional(),
+  }),
+});
+
 const openSource = defineCollection({
   name: "openSource",
   directory: "content/open-source",
@@ -508,6 +522,7 @@ export default defineConfig({
     products,
     services,
     testimonials,
+    achievements,
     openSource,
   ],
 });
